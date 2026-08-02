@@ -14,9 +14,56 @@ datasource db {
 
 model User {
   id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  password  String
+  name      String   @db.VarChar(255)
+  email     String   @unique @db.VarChar(255)
+  password  String   @db.VarChar(255)
+  image     String?  @db.VarChar(255)
+  publicId  String   @unique @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  knowledgeItems KnowledgeItem[]
+  collections    Collection[]
+}
+
+model KnowledgeItem {
+  id        String   @id @default(cuid())
+  title     String   @db.VarChar(255)
+  content   String   @db.Text
+  source    String   @db.VarChar(255)
+  sourceId  String   @db.VarChar(255)
+  url       String   @db.VarChar(255)
+  summary   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId            String
+  user              User               @relation(fields: [userId], references: [id])
+  knowledgeItemTags KnowledgeItemTag[]
+
+  @@index([userId])
+}
+
+model Tag {
+  id                String             @id @default(cuid())
+  name              String             @unique @db.VarChar(100)
+  knowledgeItemTags KnowledgeItemTag[]
+}
+
+model KnowledgeItemTag {
+  knowledgeItemId String
+  tagId           String
+
+  knowledgeItem KnowledgeItem @relation(fields: [knowledgeItemId], references: [id])
+  tag           Tag           @relation(fields: [tagId], references: [id])
+
+  @@id([knowledgeItemId, tagId])
+}
+
+model Collection {
+  id     String @id @default(cuid())
+  name   String @db.VarChar(255)
+  color  String @db.VarChar(7)
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 }
