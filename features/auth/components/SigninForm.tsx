@@ -2,24 +2,25 @@
 
 import Link from "next/link";
 import { useState, ChangeEvent } from "react";
+import useSocialAuth from "../hooks/use-social-auth";
 import useEmailAuth from "../hooks/use-email-auth";
 
 const initialFormData = {
-  name: "",
   email: "",
   password: "",
 };
 
-export default function SignupForm() {
+export default function SigninForm() {
   const [formData, setFormData] = useState(initialFormData);
 
+  const { handleSocialAuth, isSocialAuthLoading } = useSocialAuth();
   const {
-    isLoading: isSigningUp,
+    isLoading: isSigningIn,
     fieldErrors,
     serverError,
     handleSubmit,
   } = useEmailAuth({
-    mode: "signup",
+    mode: "signin",
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,42 +39,46 @@ export default function SignupForm() {
         onSubmit={(e) => handleSubmit(e, formData)}
         noValidate
       >
-        <h1>Sign Up</h1>
+        <h1>Login to you account</h1>
         {serverError && <p className="text-red-500">{serverError}</p>}
-        <input
-          type="text"
-          placeholder="Name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        {fieldErrors.name && <p className="text-red-500">{fieldErrors.name}</p>}
+
+        <button
+          type="button"
+          onClick={() => handleSocialAuth("google")}
+          disabled={isSocialAuthLoading}
+        >
+          {isSocialAuthLoading ? "Signing In..." : "Sign In with Google"}
+        </button>
+
         <input
           type="email"
           placeholder="Email"
           name="email"
           value={formData.email}
           onChange={handleChange}
+          disabled={isSigningIn}
         />
         {fieldErrors.email && (
           <p className="text-red-500">{fieldErrors.email}</p>
         )}
+
         <input
           type="password"
           placeholder="Password"
           name="password"
           value={formData.password}
           onChange={handleChange}
+          disabled={isSigningIn}
         />
         {fieldErrors.password && (
           <p className="text-red-500">{fieldErrors.password}</p>
         )}
 
         <button type="submit">
-          {isSigningUp ? "Signing up..." : "Sign up"}
+          {isSigningIn ? "Signing In..." : "Sign In"}
         </button>
 
-        <Link href="/signin">Sign in</Link>
+        <Link href="/signup">Create account</Link>
       </form>
     </div>
   );
