@@ -40,7 +40,6 @@ export default function SigninForm() {
         noValidate
       >
         <h1>Login to you account</h1>
-        {serverError && <p className="text-red-500">{serverError}</p>}
 
         <button
           type="button"
@@ -50,6 +49,7 @@ export default function SigninForm() {
           {isSocialAuthLoading ? "Signing In..." : "Sign In with Google"}
         </button>
 
+        {serverError && <p className="text-red-500">{serverError}</p>}
         <input
           type="email"
           placeholder="Email"

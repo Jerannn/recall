@@ -55,9 +55,9 @@ export const ModelName = {
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
-  KnowledgeItem: 'KnowledgeItem',
+  LibraryItem: 'LibraryItem',
   Tag: 'Tag',
-  KnowledgeItemTag: 'KnowledgeItemTag',
+  LibraryItemTag: 'LibraryItemTag',
   Collection: 'Collection'
 } as const
 
@@ -136,7 +136,7 @@ export const VerificationScalarFieldEnum = {
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
 
 
-export const KnowledgeItemScalarFieldEnum = {
+export const LibraryItemScalarFieldEnum = {
   id: 'id',
   title: 'title',
   content: 'content',
@@ -149,7 +149,7 @@ export const KnowledgeItemScalarFieldEnum = {
   userId: 'userId'
 } as const
 
-export type KnowledgeItemScalarFieldEnum = (typeof KnowledgeItemScalarFieldEnum)[keyof typeof KnowledgeItemScalarFieldEnum]
+export type LibraryItemScalarFieldEnum = (typeof LibraryItemScalarFieldEnum)[keyof typeof LibraryItemScalarFieldEnum]
 
 
 export const TagScalarFieldEnum = {
@@ -160,12 +160,12 @@ export const TagScalarFieldEnum = {
 export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
 
 
-export const KnowledgeItemTagScalarFieldEnum = {
-  knowledgeItemId: 'knowledgeItemId',
+export const LibraryItemTagScalarFieldEnum = {
+  libraryItemId: 'libraryItemId',
   tagId: 'tagId'
 } as const
 
-export type KnowledgeItemTagScalarFieldEnum = (typeof KnowledgeItemTagScalarFieldEnum)[keyof typeof KnowledgeItemTagScalarFieldEnum]
+export type LibraryItemTagScalarFieldEnum = (typeof LibraryItemTagScalarFieldEnum)[keyof typeof LibraryItemTagScalarFieldEnum]
 
 
 export const CollectionScalarFieldEnum = {

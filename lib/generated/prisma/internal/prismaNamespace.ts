@@ -401,9 +401,9 @@ export const ModelName = {
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
-  KnowledgeItem: 'KnowledgeItem',
+  LibraryItem: 'LibraryItem',
   Tag: 'Tag',
-  KnowledgeItemTag: 'KnowledgeItemTag',
+  LibraryItemTag: 'LibraryItemTag',
   Collection: 'Collection'
 } as const
 
@@ -420,7 +420,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "knowledgeItem" | "tag" | "knowledgeItemTag" | "collection"
+    modelProps: "user" | "session" | "account" | "verification" | "libraryItem" | "tag" | "libraryItemTag" | "collection"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -720,77 +720,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    KnowledgeItem: {
-      payload: Prisma.$KnowledgeItemPayload<ExtArgs>
-      fields: Prisma.KnowledgeItemFieldRefs
+    LibraryItem: {
+      payload: Prisma.$LibraryItemPayload<ExtArgs>
+      fields: Prisma.LibraryItemFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.KnowledgeItemFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemPayload> | null
+          args: Prisma.LibraryItemFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.KnowledgeItemFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemPayload>
+          args: Prisma.LibraryItemFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemPayload>
         }
         findFirst: {
-          args: Prisma.KnowledgeItemFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemPayload> | null
+          args: Prisma.LibraryItemFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.KnowledgeItemFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemPayload>
+          args: Prisma.LibraryItemFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemPayload>
         }
         findMany: {
-          args: Prisma.KnowledgeItemFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemPayload>[]
+          args: Prisma.LibraryItemFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemPayload>[]
         }
         create: {
-          args: Prisma.KnowledgeItemCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemPayload>
+          args: Prisma.LibraryItemCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemPayload>
         }
         createMany: {
-          args: Prisma.KnowledgeItemCreateManyArgs<ExtArgs>
+          args: Prisma.LibraryItemCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.KnowledgeItemCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemPayload>[]
+          args: Prisma.LibraryItemCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemPayload>[]
         }
         delete: {
-          args: Prisma.KnowledgeItemDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemPayload>
+          args: Prisma.LibraryItemDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemPayload>
         }
         update: {
-          args: Prisma.KnowledgeItemUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemPayload>
+          args: Prisma.LibraryItemUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemPayload>
         }
         deleteMany: {
-          args: Prisma.KnowledgeItemDeleteManyArgs<ExtArgs>
+          args: Prisma.LibraryItemDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.KnowledgeItemUpdateManyArgs<ExtArgs>
+          args: Prisma.LibraryItemUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.KnowledgeItemUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemPayload>[]
+          args: Prisma.LibraryItemUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemPayload>[]
         }
         upsert: {
-          args: Prisma.KnowledgeItemUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemPayload>
+          args: Prisma.LibraryItemUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemPayload>
         }
         aggregate: {
-          args: Prisma.KnowledgeItemAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateKnowledgeItem>
+          args: Prisma.LibraryItemAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLibraryItem>
         }
         groupBy: {
-          args: Prisma.KnowledgeItemGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.KnowledgeItemGroupByOutputType>[]
+          args: Prisma.LibraryItemGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LibraryItemGroupByOutputType>[]
         }
         count: {
-          args: Prisma.KnowledgeItemCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.KnowledgeItemCountAggregateOutputType> | number
+          args: Prisma.LibraryItemCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LibraryItemCountAggregateOutputType> | number
         }
       }
     }
@@ -868,77 +868,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    KnowledgeItemTag: {
-      payload: Prisma.$KnowledgeItemTagPayload<ExtArgs>
-      fields: Prisma.KnowledgeItemTagFieldRefs
+    LibraryItemTag: {
+      payload: Prisma.$LibraryItemTagPayload<ExtArgs>
+      fields: Prisma.LibraryItemTagFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.KnowledgeItemTagFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemTagPayload> | null
+          args: Prisma.LibraryItemTagFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemTagPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.KnowledgeItemTagFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemTagPayload>
+          args: Prisma.LibraryItemTagFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemTagPayload>
         }
         findFirst: {
-          args: Prisma.KnowledgeItemTagFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemTagPayload> | null
+          args: Prisma.LibraryItemTagFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemTagPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.KnowledgeItemTagFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemTagPayload>
+          args: Prisma.LibraryItemTagFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemTagPayload>
         }
         findMany: {
-          args: Prisma.KnowledgeItemTagFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemTagPayload>[]
+          args: Prisma.LibraryItemTagFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemTagPayload>[]
         }
         create: {
-          args: Prisma.KnowledgeItemTagCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemTagPayload>
+          args: Prisma.LibraryItemTagCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemTagPayload>
         }
         createMany: {
-          args: Prisma.KnowledgeItemTagCreateManyArgs<ExtArgs>
+          args: Prisma.LibraryItemTagCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.KnowledgeItemTagCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemTagPayload>[]
+          args: Prisma.LibraryItemTagCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemTagPayload>[]
         }
         delete: {
-          args: Prisma.KnowledgeItemTagDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemTagPayload>
+          args: Prisma.LibraryItemTagDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemTagPayload>
         }
         update: {
-          args: Prisma.KnowledgeItemTagUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemTagPayload>
+          args: Prisma.LibraryItemTagUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemTagPayload>
         }
         deleteMany: {
-          args: Prisma.KnowledgeItemTagDeleteManyArgs<ExtArgs>
+          args: Prisma.LibraryItemTagDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.KnowledgeItemTagUpdateManyArgs<ExtArgs>
+          args: Prisma.LibraryItemTagUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.KnowledgeItemTagUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemTagPayload>[]
+          args: Prisma.LibraryItemTagUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemTagPayload>[]
         }
         upsert: {
-          args: Prisma.KnowledgeItemTagUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$KnowledgeItemTagPayload>
+          args: Prisma.LibraryItemTagUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryItemTagPayload>
         }
         aggregate: {
-          args: Prisma.KnowledgeItemTagAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateKnowledgeItemTag>
+          args: Prisma.LibraryItemTagAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLibraryItemTag>
         }
         groupBy: {
-          args: Prisma.KnowledgeItemTagGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.KnowledgeItemTagGroupByOutputType>[]
+          args: Prisma.LibraryItemTagGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LibraryItemTagGroupByOutputType>[]
         }
         count: {
-          args: Prisma.KnowledgeItemTagCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.KnowledgeItemTagCountAggregateOutputType> | number
+          args: Prisma.LibraryItemTagCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LibraryItemTagCountAggregateOutputType> | number
         }
       }
     }
@@ -1114,7 +1114,7 @@ export const VerificationScalarFieldEnum = {
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
 
 
-export const KnowledgeItemScalarFieldEnum = {
+export const LibraryItemScalarFieldEnum = {
   id: 'id',
   title: 'title',
   content: 'content',
@@ -1127,7 +1127,7 @@ export const KnowledgeItemScalarFieldEnum = {
   userId: 'userId'
 } as const
 
-export type KnowledgeItemScalarFieldEnum = (typeof KnowledgeItemScalarFieldEnum)[keyof typeof KnowledgeItemScalarFieldEnum]
+export type LibraryItemScalarFieldEnum = (typeof LibraryItemScalarFieldEnum)[keyof typeof LibraryItemScalarFieldEnum]
 
 
 export const TagScalarFieldEnum = {
@@ -1138,12 +1138,12 @@ export const TagScalarFieldEnum = {
 export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]
 
 
-export const KnowledgeItemTagScalarFieldEnum = {
-  knowledgeItemId: 'knowledgeItemId',
+export const LibraryItemTagScalarFieldEnum = {
+  libraryItemId: 'libraryItemId',
   tagId: 'tagId'
 } as const
 
-export type KnowledgeItemTagScalarFieldEnum = (typeof KnowledgeItemTagScalarFieldEnum)[keyof typeof KnowledgeItemTagScalarFieldEnum]
+export type LibraryItemTagScalarFieldEnum = (typeof LibraryItemTagScalarFieldEnum)[keyof typeof LibraryItemTagScalarFieldEnum]
 
 
 export const CollectionScalarFieldEnum = {
@@ -1389,9 +1389,9 @@ export type GlobalOmitConfig = {
   session?: Prisma.SessionOmit
   account?: Prisma.AccountOmit
   verification?: Prisma.VerificationOmit
-  knowledgeItem?: Prisma.KnowledgeItemOmit
+  libraryItem?: Prisma.LibraryItemOmit
   tag?: Prisma.TagOmit
-  knowledgeItemTag?: Prisma.KnowledgeItemTagOmit
+  libraryItemTag?: Prisma.LibraryItemTagOmit
   collection?: Prisma.CollectionOmit
 }
 

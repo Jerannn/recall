@@ -1,13 +1,14 @@
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { SocialProvider } from "../types";
 
 export default function useSocialAuth() {
   const router = useRouter();
 
   const [isSocialAuthLoading, setIsSocialAuthLoading] = useState(false);
 
-  const handleSocialAuth = async (provider: "google" | "github") => {
+  const handleSocialAuth = async (provider: SocialProvider) => {
     await authClient.signIn.social(
       {
         provider: provider,

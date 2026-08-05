@@ -158,13 +158,13 @@ export type TagWhereInput = {
   NOT?: Prisma.TagWhereInput | Prisma.TagWhereInput[]
   id?: Prisma.StringFilter<"Tag"> | string
   name?: Prisma.StringFilter<"Tag"> | string
-  knowledgeItemTags?: Prisma.KnowledgeItemTagListRelationFilter
+  libraryItemTags?: Prisma.LibraryItemTagListRelationFilter
 }
 
 export type TagOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  knowledgeItemTags?: Prisma.KnowledgeItemTagOrderByRelationAggregateInput
+  libraryItemTags?: Prisma.LibraryItemTagOrderByRelationAggregateInput
 }
 
 export type TagWhereUniqueInput = Prisma.AtLeast<{
@@ -173,7 +173,7 @@ export type TagWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.TagWhereInput | Prisma.TagWhereInput[]
   OR?: Prisma.TagWhereInput[]
   NOT?: Prisma.TagWhereInput | Prisma.TagWhereInput[]
-  knowledgeItemTags?: Prisma.KnowledgeItemTagListRelationFilter
+  libraryItemTags?: Prisma.LibraryItemTagListRelationFilter
 }, "id" | "name">
 
 export type TagOrderByWithAggregationInput = {
@@ -195,25 +195,25 @@ export type TagScalarWhereWithAggregatesInput = {
 export type TagCreateInput = {
   id?: string
   name: string
-  knowledgeItemTags?: Prisma.KnowledgeItemTagCreateNestedManyWithoutTagInput
+  libraryItemTags?: Prisma.LibraryItemTagCreateNestedManyWithoutTagInput
 }
 
 export type TagUncheckedCreateInput = {
   id?: string
   name: string
-  knowledgeItemTags?: Prisma.KnowledgeItemTagUncheckedCreateNestedManyWithoutTagInput
+  libraryItemTags?: Prisma.LibraryItemTagUncheckedCreateNestedManyWithoutTagInput
 }
 
 export type TagUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  knowledgeItemTags?: Prisma.KnowledgeItemTagUpdateManyWithoutTagNestedInput
+  libraryItemTags?: Prisma.LibraryItemTagUpdateManyWithoutTagNestedInput
 }
 
 export type TagUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  knowledgeItemTags?: Prisma.KnowledgeItemTagUncheckedUpdateManyWithoutTagNestedInput
+  libraryItemTags?: Prisma.LibraryItemTagUncheckedUpdateManyWithoutTagNestedInput
 }
 
 export type TagCreateManyInput = {
@@ -251,52 +251,52 @@ export type TagScalarRelationFilter = {
   isNot?: Prisma.TagWhereInput
 }
 
-export type TagCreateNestedOneWithoutKnowledgeItemTagsInput = {
-  create?: Prisma.XOR<Prisma.TagCreateWithoutKnowledgeItemTagsInput, Prisma.TagUncheckedCreateWithoutKnowledgeItemTagsInput>
-  connectOrCreate?: Prisma.TagCreateOrConnectWithoutKnowledgeItemTagsInput
+export type TagCreateNestedOneWithoutLibraryItemTagsInput = {
+  create?: Prisma.XOR<Prisma.TagCreateWithoutLibraryItemTagsInput, Prisma.TagUncheckedCreateWithoutLibraryItemTagsInput>
+  connectOrCreate?: Prisma.TagCreateOrConnectWithoutLibraryItemTagsInput
   connect?: Prisma.TagWhereUniqueInput
 }
 
-export type TagUpdateOneRequiredWithoutKnowledgeItemTagsNestedInput = {
-  create?: Prisma.XOR<Prisma.TagCreateWithoutKnowledgeItemTagsInput, Prisma.TagUncheckedCreateWithoutKnowledgeItemTagsInput>
-  connectOrCreate?: Prisma.TagCreateOrConnectWithoutKnowledgeItemTagsInput
-  upsert?: Prisma.TagUpsertWithoutKnowledgeItemTagsInput
+export type TagUpdateOneRequiredWithoutLibraryItemTagsNestedInput = {
+  create?: Prisma.XOR<Prisma.TagCreateWithoutLibraryItemTagsInput, Prisma.TagUncheckedCreateWithoutLibraryItemTagsInput>
+  connectOrCreate?: Prisma.TagCreateOrConnectWithoutLibraryItemTagsInput
+  upsert?: Prisma.TagUpsertWithoutLibraryItemTagsInput
   connect?: Prisma.TagWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TagUpdateToOneWithWhereWithoutKnowledgeItemTagsInput, Prisma.TagUpdateWithoutKnowledgeItemTagsInput>, Prisma.TagUncheckedUpdateWithoutKnowledgeItemTagsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TagUpdateToOneWithWhereWithoutLibraryItemTagsInput, Prisma.TagUpdateWithoutLibraryItemTagsInput>, Prisma.TagUncheckedUpdateWithoutLibraryItemTagsInput>
 }
 
-export type TagCreateWithoutKnowledgeItemTagsInput = {
+export type TagCreateWithoutLibraryItemTagsInput = {
   id?: string
   name: string
 }
 
-export type TagUncheckedCreateWithoutKnowledgeItemTagsInput = {
+export type TagUncheckedCreateWithoutLibraryItemTagsInput = {
   id?: string
   name: string
 }
 
-export type TagCreateOrConnectWithoutKnowledgeItemTagsInput = {
+export type TagCreateOrConnectWithoutLibraryItemTagsInput = {
   where: Prisma.TagWhereUniqueInput
-  create: Prisma.XOR<Prisma.TagCreateWithoutKnowledgeItemTagsInput, Prisma.TagUncheckedCreateWithoutKnowledgeItemTagsInput>
+  create: Prisma.XOR<Prisma.TagCreateWithoutLibraryItemTagsInput, Prisma.TagUncheckedCreateWithoutLibraryItemTagsInput>
 }
 
-export type TagUpsertWithoutKnowledgeItemTagsInput = {
-  update: Prisma.XOR<Prisma.TagUpdateWithoutKnowledgeItemTagsInput, Prisma.TagUncheckedUpdateWithoutKnowledgeItemTagsInput>
-  create: Prisma.XOR<Prisma.TagCreateWithoutKnowledgeItemTagsInput, Prisma.TagUncheckedCreateWithoutKnowledgeItemTagsInput>
+export type TagUpsertWithoutLibraryItemTagsInput = {
+  update: Prisma.XOR<Prisma.TagUpdateWithoutLibraryItemTagsInput, Prisma.TagUncheckedUpdateWithoutLibraryItemTagsInput>
+  create: Prisma.XOR<Prisma.TagCreateWithoutLibraryItemTagsInput, Prisma.TagUncheckedCreateWithoutLibraryItemTagsInput>
   where?: Prisma.TagWhereInput
 }
 
-export type TagUpdateToOneWithWhereWithoutKnowledgeItemTagsInput = {
+export type TagUpdateToOneWithWhereWithoutLibraryItemTagsInput = {
   where?: Prisma.TagWhereInput
-  data: Prisma.XOR<Prisma.TagUpdateWithoutKnowledgeItemTagsInput, Prisma.TagUncheckedUpdateWithoutKnowledgeItemTagsInput>
+  data: Prisma.XOR<Prisma.TagUpdateWithoutLibraryItemTagsInput, Prisma.TagUncheckedUpdateWithoutLibraryItemTagsInput>
 }
 
-export type TagUpdateWithoutKnowledgeItemTagsInput = {
+export type TagUpdateWithoutLibraryItemTagsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
-export type TagUncheckedUpdateWithoutKnowledgeItemTagsInput = {
+export type TagUncheckedUpdateWithoutLibraryItemTagsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -307,11 +307,11 @@ export type TagUncheckedUpdateWithoutKnowledgeItemTagsInput = {
  */
 
 export type TagCountOutputType = {
-  knowledgeItemTags: number
+  libraryItemTags: number
 }
 
 export type TagCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  knowledgeItemTags?: boolean | TagCountOutputTypeCountKnowledgeItemTagsArgs
+  libraryItemTags?: boolean | TagCountOutputTypeCountLibraryItemTagsArgs
 }
 
 /**
@@ -327,15 +327,15 @@ export type TagCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensio
 /**
  * TagCountOutputType without action
  */
-export type TagCountOutputTypeCountKnowledgeItemTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.KnowledgeItemTagWhereInput
+export type TagCountOutputTypeCountLibraryItemTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LibraryItemTagWhereInput
 }
 
 
 export type TagSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  knowledgeItemTags?: boolean | Prisma.Tag$knowledgeItemTagsArgs<ExtArgs>
+  libraryItemTags?: boolean | Prisma.Tag$libraryItemTagsArgs<ExtArgs>
   _count?: boolean | Prisma.TagCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tag"]>
 
@@ -356,7 +356,7 @@ export type TagSelectScalar = {
 
 export type TagOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["tag"]>
 export type TagInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  knowledgeItemTags?: boolean | Prisma.Tag$knowledgeItemTagsArgs<ExtArgs>
+  libraryItemTags?: boolean | Prisma.Tag$libraryItemTagsArgs<ExtArgs>
   _count?: boolean | Prisma.TagCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TagIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -365,7 +365,7 @@ export type TagIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type $TagPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Tag"
   objects: {
-    knowledgeItemTags: Prisma.$KnowledgeItemTagPayload<ExtArgs>[]
+    libraryItemTags: Prisma.$LibraryItemTagPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -764,7 +764,7 @@ readonly fields: TagFieldRefs;
  */
 export interface Prisma__TagClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  knowledgeItemTags<T extends Prisma.Tag$knowledgeItemTagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tag$knowledgeItemTagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KnowledgeItemTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  libraryItemTags<T extends Prisma.Tag$libraryItemTagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tag$libraryItemTagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LibraryItemTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1189,27 +1189,27 @@ export type TagDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 }
 
 /**
- * Tag.knowledgeItemTags
+ * Tag.libraryItemTags
  */
-export type Tag$knowledgeItemTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Tag$libraryItemTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the KnowledgeItemTag
+   * Select specific fields to fetch from the LibraryItemTag
    */
-  select?: Prisma.KnowledgeItemTagSelect<ExtArgs> | null
+  select?: Prisma.LibraryItemTagSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the KnowledgeItemTag
+   * Omit specific fields from the LibraryItemTag
    */
-  omit?: Prisma.KnowledgeItemTagOmit<ExtArgs> | null
+  omit?: Prisma.LibraryItemTagOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.KnowledgeItemTagInclude<ExtArgs> | null
-  where?: Prisma.KnowledgeItemTagWhereInput
-  orderBy?: Prisma.KnowledgeItemTagOrderByWithRelationInput | Prisma.KnowledgeItemTagOrderByWithRelationInput[]
-  cursor?: Prisma.KnowledgeItemTagWhereUniqueInput
+  include?: Prisma.LibraryItemTagInclude<ExtArgs> | null
+  where?: Prisma.LibraryItemTagWhereInput
+  orderBy?: Prisma.LibraryItemTagOrderByWithRelationInput | Prisma.LibraryItemTagOrderByWithRelationInput[]
+  cursor?: Prisma.LibraryItemTagWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.KnowledgeItemTagScalarFieldEnum | Prisma.KnowledgeItemTagScalarFieldEnum[]
+  distinct?: Prisma.LibraryItemTagScalarFieldEnum | Prisma.LibraryItemTagScalarFieldEnum[]
 }
 
 /**

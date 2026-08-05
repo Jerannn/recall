@@ -1,3 +1,4 @@
+import Sidebar from "@/components/layout/Sidebar";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -14,8 +15,8 @@ export default async function layout({
   }
 
   return (
-    <div>
-      <aside>ASIDE</aside>
+    <div className="h-screen grid grid-cols-[240px_1fr]">
+      <Sidebar />
       {children}
     </div>
   );
