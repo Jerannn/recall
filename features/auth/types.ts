@@ -1,3 +1,5 @@
+export type SocialProvider = "google" | "github";
+
 export type SignupInput = {
   name: string;
   email: string;

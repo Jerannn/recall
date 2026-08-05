@@ -206,7 +206,7 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
-  knowledgeItems?: Prisma.KnowledgeItemListRelationFilter
+  libraryItems?: Prisma.LibraryItemListRelationFilter
   collections?: Prisma.CollectionListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
@@ -221,7 +221,7 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
-  knowledgeItems?: Prisma.KnowledgeItemOrderByRelationAggregateInput
+  libraryItems?: Prisma.LibraryItemOrderByRelationAggregateInput
   collections?: Prisma.CollectionOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
@@ -239,7 +239,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
-  knowledgeItems?: Prisma.KnowledgeItemListRelationFilter
+  libraryItems?: Prisma.LibraryItemListRelationFilter
   collections?: Prisma.CollectionListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
@@ -282,7 +282,7 @@ export type UserCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   emailVerified?: boolean
-  knowledgeItems?: Prisma.KnowledgeItemCreateNestedManyWithoutUserInput
+  libraryItems?: Prisma.LibraryItemCreateNestedManyWithoutUserInput
   collections?: Prisma.CollectionCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
@@ -297,7 +297,7 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   emailVerified?: boolean
-  knowledgeItems?: Prisma.KnowledgeItemUncheckedCreateNestedManyWithoutUserInput
+  libraryItems?: Prisma.LibraryItemUncheckedCreateNestedManyWithoutUserInput
   collections?: Prisma.CollectionUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
@@ -312,7 +312,7 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  knowledgeItems?: Prisma.KnowledgeItemUpdateManyWithoutUserNestedInput
+  libraryItems?: Prisma.LibraryItemUpdateManyWithoutUserNestedInput
   collections?: Prisma.CollectionUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
@@ -327,7 +327,7 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  knowledgeItems?: Prisma.KnowledgeItemUncheckedUpdateManyWithoutUserNestedInput
+  libraryItems?: Prisma.LibraryItemUncheckedUpdateManyWithoutUserNestedInput
   collections?: Prisma.CollectionUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
@@ -448,18 +448,18 @@ export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAccountsInput, Prisma.UserUpdateWithoutAccountsInput>, Prisma.UserUncheckedUpdateWithoutAccountsInput>
 }
 
-export type UserCreateNestedOneWithoutKnowledgeItemsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutKnowledgeItemsInput, Prisma.UserUncheckedCreateWithoutKnowledgeItemsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutKnowledgeItemsInput
+export type UserCreateNestedOneWithoutLibraryItemsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLibraryItemsInput, Prisma.UserUncheckedCreateWithoutLibraryItemsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLibraryItemsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutKnowledgeItemsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutKnowledgeItemsInput, Prisma.UserUncheckedCreateWithoutKnowledgeItemsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutKnowledgeItemsInput
-  upsert?: Prisma.UserUpsertWithoutKnowledgeItemsInput
+export type UserUpdateOneRequiredWithoutLibraryItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLibraryItemsInput, Prisma.UserUncheckedCreateWithoutLibraryItemsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLibraryItemsInput
+  upsert?: Prisma.UserUpsertWithoutLibraryItemsInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutKnowledgeItemsInput, Prisma.UserUpdateWithoutKnowledgeItemsInput>, Prisma.UserUncheckedUpdateWithoutKnowledgeItemsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLibraryItemsInput, Prisma.UserUpdateWithoutLibraryItemsInput>, Prisma.UserUncheckedUpdateWithoutLibraryItemsInput>
 }
 
 export type UserCreateNestedOneWithoutCollectionsInput = {
@@ -485,7 +485,7 @@ export type UserCreateWithoutSessionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   emailVerified?: boolean
-  knowledgeItems?: Prisma.KnowledgeItemCreateNestedManyWithoutUserInput
+  libraryItems?: Prisma.LibraryItemCreateNestedManyWithoutUserInput
   collections?: Prisma.CollectionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
@@ -499,7 +499,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   emailVerified?: boolean
-  knowledgeItems?: Prisma.KnowledgeItemUncheckedCreateNestedManyWithoutUserInput
+  libraryItems?: Prisma.LibraryItemUncheckedCreateNestedManyWithoutUserInput
   collections?: Prisma.CollectionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
@@ -529,7 +529,7 @@ export type UserUpdateWithoutSessionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  knowledgeItems?: Prisma.KnowledgeItemUpdateManyWithoutUserNestedInput
+  libraryItems?: Prisma.LibraryItemUpdateManyWithoutUserNestedInput
   collections?: Prisma.CollectionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
@@ -543,7 +543,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  knowledgeItems?: Prisma.KnowledgeItemUncheckedUpdateManyWithoutUserNestedInput
+  libraryItems?: Prisma.LibraryItemUncheckedUpdateManyWithoutUserNestedInput
   collections?: Prisma.CollectionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -557,7 +557,7 @@ export type UserCreateWithoutAccountsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   emailVerified?: boolean
-  knowledgeItems?: Prisma.KnowledgeItemCreateNestedManyWithoutUserInput
+  libraryItems?: Prisma.LibraryItemCreateNestedManyWithoutUserInput
   collections?: Prisma.CollectionCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
@@ -571,7 +571,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   emailVerified?: boolean
-  knowledgeItems?: Prisma.KnowledgeItemUncheckedCreateNestedManyWithoutUserInput
+  libraryItems?: Prisma.LibraryItemUncheckedCreateNestedManyWithoutUserInput
   collections?: Prisma.CollectionUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
@@ -601,7 +601,7 @@ export type UserUpdateWithoutAccountsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  knowledgeItems?: Prisma.KnowledgeItemUpdateManyWithoutUserNestedInput
+  libraryItems?: Prisma.LibraryItemUpdateManyWithoutUserNestedInput
   collections?: Prisma.CollectionUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
@@ -615,12 +615,12 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  knowledgeItems?: Prisma.KnowledgeItemUncheckedUpdateManyWithoutUserNestedInput
+  libraryItems?: Prisma.LibraryItemUncheckedUpdateManyWithoutUserNestedInput
   collections?: Prisma.CollectionUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
 }
 
-export type UserCreateWithoutKnowledgeItemsInput = {
+export type UserCreateWithoutLibraryItemsInput = {
   id?: string
   name: string
   email: string
@@ -634,7 +634,7 @@ export type UserCreateWithoutKnowledgeItemsInput = {
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutKnowledgeItemsInput = {
+export type UserUncheckedCreateWithoutLibraryItemsInput = {
   id?: string
   name: string
   email: string
@@ -648,23 +648,23 @@ export type UserUncheckedCreateWithoutKnowledgeItemsInput = {
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type UserCreateOrConnectWithoutKnowledgeItemsInput = {
+export type UserCreateOrConnectWithoutLibraryItemsInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutKnowledgeItemsInput, Prisma.UserUncheckedCreateWithoutKnowledgeItemsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLibraryItemsInput, Prisma.UserUncheckedCreateWithoutLibraryItemsInput>
 }
 
-export type UserUpsertWithoutKnowledgeItemsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutKnowledgeItemsInput, Prisma.UserUncheckedUpdateWithoutKnowledgeItemsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutKnowledgeItemsInput, Prisma.UserUncheckedCreateWithoutKnowledgeItemsInput>
+export type UserUpsertWithoutLibraryItemsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLibraryItemsInput, Prisma.UserUncheckedUpdateWithoutLibraryItemsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLibraryItemsInput, Prisma.UserUncheckedCreateWithoutLibraryItemsInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutKnowledgeItemsInput = {
+export type UserUpdateToOneWithWhereWithoutLibraryItemsInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutKnowledgeItemsInput, Prisma.UserUncheckedUpdateWithoutKnowledgeItemsInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLibraryItemsInput, Prisma.UserUncheckedUpdateWithoutLibraryItemsInput>
 }
 
-export type UserUpdateWithoutKnowledgeItemsInput = {
+export type UserUpdateWithoutLibraryItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
@@ -678,7 +678,7 @@ export type UserUpdateWithoutKnowledgeItemsInput = {
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
 
-export type UserUncheckedUpdateWithoutKnowledgeItemsInput = {
+export type UserUncheckedUpdateWithoutLibraryItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
@@ -701,7 +701,7 @@ export type UserCreateWithoutCollectionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   emailVerified?: boolean
-  knowledgeItems?: Prisma.KnowledgeItemCreateNestedManyWithoutUserInput
+  libraryItems?: Prisma.LibraryItemCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
@@ -715,7 +715,7 @@ export type UserUncheckedCreateWithoutCollectionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   emailVerified?: boolean
-  knowledgeItems?: Prisma.KnowledgeItemUncheckedCreateNestedManyWithoutUserInput
+  libraryItems?: Prisma.LibraryItemUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
@@ -745,7 +745,7 @@ export type UserUpdateWithoutCollectionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  knowledgeItems?: Prisma.KnowledgeItemUpdateManyWithoutUserNestedInput
+  libraryItems?: Prisma.LibraryItemUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
@@ -759,7 +759,7 @@ export type UserUncheckedUpdateWithoutCollectionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  knowledgeItems?: Prisma.KnowledgeItemUncheckedUpdateManyWithoutUserNestedInput
+  libraryItems?: Prisma.LibraryItemUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -770,14 +770,14 @@ export type UserUncheckedUpdateWithoutCollectionsInput = {
  */
 
 export type UserCountOutputType = {
-  knowledgeItems: number
+  libraryItems: number
   collections: number
   sessions: number
   accounts: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  knowledgeItems?: boolean | UserCountOutputTypeCountKnowledgeItemsArgs
+  libraryItems?: boolean | UserCountOutputTypeCountLibraryItemsArgs
   collections?: boolean | UserCountOutputTypeCountCollectionsArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
@@ -796,8 +796,8 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountKnowledgeItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.KnowledgeItemWhereInput
+export type UserCountOutputTypeCountLibraryItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LibraryItemWhereInput
 }
 
 /**
@@ -831,7 +831,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   emailVerified?: boolean
-  knowledgeItems?: boolean | Prisma.User$knowledgeItemsArgs<ExtArgs>
+  libraryItems?: boolean | Prisma.User$libraryItemsArgs<ExtArgs>
   collections?: boolean | Prisma.User$collectionsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -873,7 +873,7 @@ export type UserSelectScalar = {
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "image" | "publicId" | "createdAt" | "updatedAt" | "emailVerified", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  knowledgeItems?: boolean | Prisma.User$knowledgeItemsArgs<ExtArgs>
+  libraryItems?: boolean | Prisma.User$libraryItemsArgs<ExtArgs>
   collections?: boolean | Prisma.User$collectionsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
@@ -885,7 +885,7 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    knowledgeItems: Prisma.$KnowledgeItemPayload<ExtArgs>[]
+    libraryItems: Prisma.$LibraryItemPayload<ExtArgs>[]
     collections: Prisma.$CollectionPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     accounts: Prisma.$AccountPayload<ExtArgs>[]
@@ -1293,7 +1293,7 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  knowledgeItems<T extends Prisma.User$knowledgeItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$knowledgeItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$KnowledgeItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  libraryItems<T extends Prisma.User$libraryItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$libraryItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LibraryItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   collections<T extends Prisma.User$collectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$collectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1727,27 +1727,27 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.knowledgeItems
+ * User.libraryItems
  */
-export type User$knowledgeItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$libraryItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the KnowledgeItem
+   * Select specific fields to fetch from the LibraryItem
    */
-  select?: Prisma.KnowledgeItemSelect<ExtArgs> | null
+  select?: Prisma.LibraryItemSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the KnowledgeItem
+   * Omit specific fields from the LibraryItem
    */
-  omit?: Prisma.KnowledgeItemOmit<ExtArgs> | null
+  omit?: Prisma.LibraryItemOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.KnowledgeItemInclude<ExtArgs> | null
-  where?: Prisma.KnowledgeItemWhereInput
-  orderBy?: Prisma.KnowledgeItemOrderByWithRelationInput | Prisma.KnowledgeItemOrderByWithRelationInput[]
-  cursor?: Prisma.KnowledgeItemWhereUniqueInput
+  include?: Prisma.LibraryItemInclude<ExtArgs> | null
+  where?: Prisma.LibraryItemWhereInput
+  orderBy?: Prisma.LibraryItemOrderByWithRelationInput | Prisma.LibraryItemOrderByWithRelationInput[]
+  cursor?: Prisma.LibraryItemWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.KnowledgeItemScalarFieldEnum | Prisma.KnowledgeItemScalarFieldEnum[]
+  distinct?: Prisma.LibraryItemScalarFieldEnum | Prisma.LibraryItemScalarFieldEnum[]
 }
 
 /**

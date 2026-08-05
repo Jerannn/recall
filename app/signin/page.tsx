@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/layout/Navbar";
 import SigninForm from "@/features/auth/components/SigninForm";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";

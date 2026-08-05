@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, ChangeEvent } from "react";
 import useEmailAuth from "../hooks/use-email-auth";
+import useSocialAuth from "../hooks/use-social-auth";
 
 const initialFormData = {
   name: "",
@@ -13,6 +14,7 @@ const initialFormData = {
 export default function SignupForm() {
   const [formData, setFormData] = useState(initialFormData);
 
+  const { handleSocialAuth, isSocialAuthLoading } = useSocialAuth();
   const {
     isLoading: isSigningUp,
     fieldErrors,
@@ -39,6 +41,14 @@ export default function SignupForm() {
         noValidate
       >
         <h1>Sign Up</h1>
+        <button
+          type="button"
+          onClick={() => handleSocialAuth("google")}
+          disabled={isSocialAuthLoading}
+        >
+          {isSocialAuthLoading ? "Signing In..." : "Sign In with Google"}
+        </button>
+
         {serverError && <p className="text-red-500">{serverError}</p>}
         <input
           type="text"

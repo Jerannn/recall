@@ -62,20 +62,20 @@ export type Account = Prisma.AccountModel
  */
 export type Verification = Prisma.VerificationModel
 /**
- * Model KnowledgeItem
+ * Model LibraryItem
  * 
  */
-export type KnowledgeItem = Prisma.KnowledgeItemModel
+export type LibraryItem = Prisma.LibraryItemModel
 /**
  * Model Tag
  * 
  */
 export type Tag = Prisma.TagModel
 /**
- * Model KnowledgeItemTag
+ * Model LibraryItemTag
  * 
  */
-export type KnowledgeItemTag = Prisma.KnowledgeItemTagModel
+export type LibraryItemTag = Prisma.LibraryItemTagModel
 /**
  * Model Collection
  * 
