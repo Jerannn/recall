@@ -84,7 +84,7 @@ model LibraryItem {
   content   String   @db.Text
   source    String   @db.VarChar(255)
   sourceId  String   @db.VarChar(255)
-  url       String   @db.VarChar(255)
+  url       String?  @db.VarChar(255)
   summary   String   @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
