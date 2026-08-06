@@ -1,4 +1,5 @@
 import Header from "@/components/layout/Header";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function LibraryPage() {
@@ -7,9 +8,9 @@ export default function LibraryPage() {
       <Header
         title="Library"
         actions={
-          <button>
+          <Button>
             <Link href="/library/new">Add new library</Link>
-          </button>
+          </Button>
         }
       />
       Library Page
