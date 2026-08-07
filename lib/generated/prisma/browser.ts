@@ -43,15 +43,20 @@ export type Verification = Prisma.VerificationModel
  */
 export type LibraryItem = Prisma.LibraryItemModel
 /**
- * Model Tag
- * 
- */
-export type Tag = Prisma.TagModel
-/**
  * Model LibraryItemTag
  * 
  */
 export type LibraryItemTag = Prisma.LibraryItemTagModel
+/**
+ * Model LibraryCollection
+ * 
+ */
+export type LibraryCollection = Prisma.LibraryCollectionModel
+/**
+ * Model Tag
+ * 
+ */
+export type Tag = Prisma.TagModel
 /**
  * Model Collection
  * 

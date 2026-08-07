@@ -175,6 +175,7 @@ export type CollectionWhereInput = {
   color?: Prisma.StringFilter<"Collection"> | string
   userId?: Prisma.StringFilter<"Collection"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  libraryCollections?: Prisma.LibraryCollectionListRelationFilter
 }
 
 export type CollectionOrderByWithRelationInput = {
@@ -183,6 +184,7 @@ export type CollectionOrderByWithRelationInput = {
   color?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  libraryCollections?: Prisma.LibraryCollectionOrderByRelationAggregateInput
 }
 
 export type CollectionWhereUniqueInput = Prisma.AtLeast<{
@@ -194,6 +196,7 @@ export type CollectionWhereUniqueInput = Prisma.AtLeast<{
   color?: Prisma.StringFilter<"Collection"> | string
   userId?: Prisma.StringFilter<"Collection"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  libraryCollections?: Prisma.LibraryCollectionListRelationFilter
 }, "id">
 
 export type CollectionOrderByWithAggregationInput = {
@@ -221,6 +224,7 @@ export type CollectionCreateInput = {
   name: string
   color: string
   user: Prisma.UserCreateNestedOneWithoutCollectionsInput
+  libraryCollections?: Prisma.LibraryCollectionCreateNestedManyWithoutCollectionInput
 }
 
 export type CollectionUncheckedCreateInput = {
@@ -228,6 +232,7 @@ export type CollectionUncheckedCreateInput = {
   name: string
   color: string
   userId: string
+  libraryCollections?: Prisma.LibraryCollectionUncheckedCreateNestedManyWithoutCollectionInput
 }
 
 export type CollectionUpdateInput = {
@@ -235,6 +240,7 @@ export type CollectionUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneRequiredWithoutCollectionsNestedInput
+  libraryCollections?: Prisma.LibraryCollectionUpdateManyWithoutCollectionNestedInput
 }
 
 export type CollectionUncheckedUpdateInput = {
@@ -242,6 +248,7 @@ export type CollectionUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  libraryCollections?: Prisma.LibraryCollectionUncheckedUpdateManyWithoutCollectionNestedInput
 }
 
 export type CollectionCreateManyInput = {
@@ -272,6 +279,11 @@ export type CollectionListRelationFilter = {
 
 export type CollectionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type CollectionScalarRelationFilter = {
+  is?: Prisma.CollectionWhereInput
+  isNot?: Prisma.CollectionWhereInput
 }
 
 export type CollectionCountOrderByAggregateInput = {
@@ -337,16 +349,32 @@ export type CollectionUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.CollectionScalarWhereInput | Prisma.CollectionScalarWhereInput[]
 }
 
+export type CollectionCreateNestedOneWithoutLibraryCollectionsInput = {
+  create?: Prisma.XOR<Prisma.CollectionCreateWithoutLibraryCollectionsInput, Prisma.CollectionUncheckedCreateWithoutLibraryCollectionsInput>
+  connectOrCreate?: Prisma.CollectionCreateOrConnectWithoutLibraryCollectionsInput
+  connect?: Prisma.CollectionWhereUniqueInput
+}
+
+export type CollectionUpdateOneRequiredWithoutLibraryCollectionsNestedInput = {
+  create?: Prisma.XOR<Prisma.CollectionCreateWithoutLibraryCollectionsInput, Prisma.CollectionUncheckedCreateWithoutLibraryCollectionsInput>
+  connectOrCreate?: Prisma.CollectionCreateOrConnectWithoutLibraryCollectionsInput
+  upsert?: Prisma.CollectionUpsertWithoutLibraryCollectionsInput
+  connect?: Prisma.CollectionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CollectionUpdateToOneWithWhereWithoutLibraryCollectionsInput, Prisma.CollectionUpdateWithoutLibraryCollectionsInput>, Prisma.CollectionUncheckedUpdateWithoutLibraryCollectionsInput>
+}
+
 export type CollectionCreateWithoutUserInput = {
   id?: string
   name: string
   color: string
+  libraryCollections?: Prisma.LibraryCollectionCreateNestedManyWithoutCollectionInput
 }
 
 export type CollectionUncheckedCreateWithoutUserInput = {
   id?: string
   name: string
   color: string
+  libraryCollections?: Prisma.LibraryCollectionUncheckedCreateNestedManyWithoutCollectionInput
 }
 
 export type CollectionCreateOrConnectWithoutUserInput = {
@@ -385,6 +413,50 @@ export type CollectionScalarWhereInput = {
   userId?: Prisma.StringFilter<"Collection"> | string
 }
 
+export type CollectionCreateWithoutLibraryCollectionsInput = {
+  id?: string
+  name: string
+  color: string
+  user: Prisma.UserCreateNestedOneWithoutCollectionsInput
+}
+
+export type CollectionUncheckedCreateWithoutLibraryCollectionsInput = {
+  id?: string
+  name: string
+  color: string
+  userId: string
+}
+
+export type CollectionCreateOrConnectWithoutLibraryCollectionsInput = {
+  where: Prisma.CollectionWhereUniqueInput
+  create: Prisma.XOR<Prisma.CollectionCreateWithoutLibraryCollectionsInput, Prisma.CollectionUncheckedCreateWithoutLibraryCollectionsInput>
+}
+
+export type CollectionUpsertWithoutLibraryCollectionsInput = {
+  update: Prisma.XOR<Prisma.CollectionUpdateWithoutLibraryCollectionsInput, Prisma.CollectionUncheckedUpdateWithoutLibraryCollectionsInput>
+  create: Prisma.XOR<Prisma.CollectionCreateWithoutLibraryCollectionsInput, Prisma.CollectionUncheckedCreateWithoutLibraryCollectionsInput>
+  where?: Prisma.CollectionWhereInput
+}
+
+export type CollectionUpdateToOneWithWhereWithoutLibraryCollectionsInput = {
+  where?: Prisma.CollectionWhereInput
+  data: Prisma.XOR<Prisma.CollectionUpdateWithoutLibraryCollectionsInput, Prisma.CollectionUncheckedUpdateWithoutLibraryCollectionsInput>
+}
+
+export type CollectionUpdateWithoutLibraryCollectionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  user?: Prisma.UserUpdateOneRequiredWithoutCollectionsNestedInput
+}
+
+export type CollectionUncheckedUpdateWithoutLibraryCollectionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
 export type CollectionCreateManyUserInput = {
   id?: string
   name: string
@@ -395,12 +467,14 @@ export type CollectionUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
+  libraryCollections?: Prisma.LibraryCollectionUpdateManyWithoutCollectionNestedInput
 }
 
 export type CollectionUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
+  libraryCollections?: Prisma.LibraryCollectionUncheckedUpdateManyWithoutCollectionNestedInput
 }
 
 export type CollectionUncheckedUpdateManyWithoutUserInput = {
@@ -410,6 +484,35 @@ export type CollectionUncheckedUpdateManyWithoutUserInput = {
 }
 
 
+/**
+ * Count Type CollectionCountOutputType
+ */
+
+export type CollectionCountOutputType = {
+  libraryCollections: number
+}
+
+export type CollectionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  libraryCollections?: boolean | CollectionCountOutputTypeCountLibraryCollectionsArgs
+}
+
+/**
+ * CollectionCountOutputType without action
+ */
+export type CollectionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CollectionCountOutputType
+   */
+  select?: Prisma.CollectionCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * CollectionCountOutputType without action
+ */
+export type CollectionCountOutputTypeCountLibraryCollectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LibraryCollectionWhereInput
+}
+
 
 export type CollectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -417,6 +520,8 @@ export type CollectionSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   color?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  libraryCollections?: boolean | Prisma.Collection$libraryCollectionsArgs<ExtArgs>
+  _count?: boolean | Prisma.CollectionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["collection"]>
 
 export type CollectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -445,6 +550,8 @@ export type CollectionSelectScalar = {
 export type CollectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "color" | "userId", ExtArgs["result"]["collection"]>
 export type CollectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  libraryCollections?: boolean | Prisma.Collection$libraryCollectionsArgs<ExtArgs>
+  _count?: boolean | Prisma.CollectionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CollectionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -457,6 +564,7 @@ export type $CollectionPayload<ExtArgs extends runtime.Types.Extensions.Internal
   name: "Collection"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    libraryCollections: Prisma.$LibraryCollectionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -858,6 +966,7 @@ readonly fields: CollectionFieldRefs;
 export interface Prisma__CollectionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  libraryCollections<T extends Prisma.Collection$libraryCollectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Collection$libraryCollectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LibraryCollectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1289,6 +1398,30 @@ export type CollectionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many Collections to delete.
    */
   limit?: number
+}
+
+/**
+ * Collection.libraryCollections
+ */
+export type Collection$libraryCollectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the LibraryCollection
+   */
+  select?: Prisma.LibraryCollectionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the LibraryCollection
+   */
+  omit?: Prisma.LibraryCollectionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LibraryCollectionInclude<ExtArgs> | null
+  where?: Prisma.LibraryCollectionWhereInput
+  orderBy?: Prisma.LibraryCollectionOrderByWithRelationInput | Prisma.LibraryCollectionOrderByWithRelationInput[]
+  cursor?: Prisma.LibraryCollectionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LibraryCollectionScalarFieldEnum | Prisma.LibraryCollectionScalarFieldEnum[]
 }
 
 /**

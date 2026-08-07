@@ -1,29 +1,34 @@
 "use server";
 
+import { prisma } from "@/lib/db";
+import { getSession } from "@/lib/get-session";
 import { librarySchema } from "./schema";
-
-type LibraryFormState = {
-  success: boolean;
-  message?: string;
-  errors?: Record<string, string>;
-};
+import { LibraryFormState } from "./types";
 
 export const createLibrary = async (
   prevState: LibraryFormState,
   formData: FormData,
 ): Promise<LibraryFormState> => {
-  const data = Object.fromEntries(formData.entries());
+  const session = await getSession();
 
-  const fields = {
-    title: data.title as string,
-    content: data.content as string,
-    source: data.source as string,
-    tags: data.tags as string,
-    collection: data.collection as string,
-    url: data.url as string,
+  if (!session) {
+    return {
+      success: false,
+      message:
+        "Unauthorized: You don't have permission to perform this action!",
+    };
+  }
+
+  const rawFields = {
+    title: formData.get("title") as string,
+    content: formData.get("content") as string,
+    source: formData.get("source") as string,
+    tags: formData.getAll("tags") as string[],
+    collection: formData.get("collection") as string,
+    url: formData.get("url") as string,
   };
-
-  const result = librarySchema.safeParse(fields);
+  console.log(rawFields);
+  const result = librarySchema.safeParse(rawFields);
 
   if (!result.success) {
     const errors: Record<string, string> = {};
@@ -34,20 +39,30 @@ export const createLibrary = async (
 
     return {
       success: false,
-      message: "Validation errors",
+      message: "Please correct the validation errors below.",
       errors: errors,
     };
   }
 
   try {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    const data = await prisma.libraryItem.create({
+      data: {
+        title: rawFields.title,
+        content: rawFields.content,
+        source: rawFields.source,
+        url: rawFields.url,
+        userId: session.user.id,
+      },
+    });
+
+    console.log(data);
 
     return {
       success: true,
-      message: "Library is created successfully!",
+      message: "Library item created successfully!",
     };
   } catch (error: unknown) {
-    console.log(error);
+    console.error("Failed to create library item:", error);
     return {
       success: false,
       message: "Something went wrong. Please try again.",
