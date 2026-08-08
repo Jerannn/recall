@@ -1,9 +1,10 @@
 import Header from "@/components/layout/Header";
 import { Button } from "@/components/ui/button";
-import LibraryForm from "@/features/library/components/LibraryForm";
+import LibraryFormContainer from "@/features/library/components/LibraryFormContainer";
 import Link from "next/link";
+import { Suspense } from "react";
 
-export default function NewLibraryPage() {
+export default async function NewLibraryPage() {
   return (
     <div>
       <Header
@@ -14,8 +15,9 @@ export default function NewLibraryPage() {
           </Button>
         }
       />
-
-      <LibraryForm />
+      <Suspense fallback={<p>Loading...</p>}>
+        <LibraryFormContainer />
+      </Suspense>
     </div>
   );
 }

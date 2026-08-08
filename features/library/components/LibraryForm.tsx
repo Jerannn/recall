@@ -19,16 +19,6 @@ import { X } from "lucide-react";
 import { ChangeEvent, useActionState, useState } from "react";
 import { CollectionOption, LibraryFormState, TagOption } from "../types";
 
-const DEFAULT_TAGS: TagOption[] = [
-  { id: "dfq233fasdgas", name: "#auth" },
-  { id: "h60asdf60adfa9", name: "#react" },
-];
-
-const DEFAULT_COLLECTIONS: CollectionOption[] = [
-  { id: "collection-1", name: "Manual Note" },
-  { id: "collection-2", name: "GitHub Issue" },
-];
-
 const INITIAL_FIELDS = {
   title: "",
   content: "",
@@ -49,10 +39,7 @@ interface LibraryFormProps {
   collections?: CollectionOption[];
 }
 
-export default function LibraryForm({
-  tags = DEFAULT_TAGS,
-  collections = DEFAULT_COLLECTIONS,
-}: LibraryFormProps) {
+export default function LibraryForm({ tags, collections }: LibraryFormProps) {
   const [fields, setFields] = useState(INITIAL_FIELDS);
   const [state, formAction, pending] = useActionState(
     createLibrary,
@@ -93,15 +80,6 @@ export default function LibraryForm({
 
   return (
     <form action={formAction}>
-      {state.message && !state.success && (
-        <div
-          className="rounded-md border border-destructive/30 bg-destructive/15 p-3 text-sm text-destructive"
-          role="alert"
-        >
-          {state.message}
-        </div>
-      )}
-
       {/* Hidden input elements to serialize selected tags array into FormData */}
       {fields.tags.map((tagId) => (
         <input key={tagId} type="hidden" name="tags" value={tagId} />
@@ -159,7 +137,7 @@ export default function LibraryForm({
             disabled={pending}
           >
             <NativeSelectOption value="">Select tags</NativeSelectOption>
-            {tags.map((item) => (
+            {tags?.map((item) => (
               <NativeSelectOption key={item.id} value={item.id}>
                 {item.name}
               </NativeSelectOption>
@@ -170,7 +148,7 @@ export default function LibraryForm({
           {fields.tags.length > 0 && (
             <div className="flex flex-wrap items-center gap-2 pt-2">
               {fields.tags.map((tagId) => {
-                const tag = tags.find((t) => t.id === tagId);
+                const tag = tags?.find((t) => t.id === tagId);
                 return (
                   <Badge
                     key={tagId}
@@ -203,7 +181,7 @@ export default function LibraryForm({
             name="collection"
           >
             <NativeSelectOption value="">Select collection</NativeSelectOption>
-            {collections.map((item) => (
+            {collections?.map((item) => (
               <NativeSelectOption key={item.id} value={item.id}>
                 {item.name}
               </NativeSelectOption>
