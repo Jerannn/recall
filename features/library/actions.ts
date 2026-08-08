@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/get-session";
+import { redirect } from "next/navigation";
 import { librarySchema } from "./schema";
 import { LibraryFormState } from "./types";
 
@@ -27,7 +28,7 @@ export const createLibrary = async (
     collection: formData.get("collection") as string,
     url: formData.get("url") as string,
   };
-  console.log(rawFields);
+
   const result = librarySchema.safeParse(rawFields);
 
   if (!result.success) {
@@ -44,8 +45,8 @@ export const createLibrary = async (
     };
   }
 
-  try {
-    const data = await prisma.libraryItem.create({
+  const libraryItem = await prisma.$transaction(async (tx) => {
+    const data = await tx.libraryItem.create({
       data: {
         title: rawFields.title,
         content: rawFields.content,
@@ -55,17 +56,30 @@ export const createLibrary = async (
       },
     });
 
-    console.log(data);
+    await tx.libraryCollection.create({
+      data: {
+        libraryItemId: data.id,
+        collectionId: rawFields.collection,
+      },
+    });
 
-    return {
-      success: true,
-      message: "Library item created successfully!",
-    };
-  } catch (error: unknown) {
-    console.error("Failed to create library item:", error);
+    await Promise.all(
+      rawFields.tags.map((tag) =>
+        tx.libraryItemTag.create({
+          data: { libraryItemId: data.id, tagId: tag },
+        }),
+      ),
+    );
+
+    return data;
+  });
+
+  if (!libraryItem) {
     return {
       success: false,
-      message: "Something went wrong. Please try again.",
+      message: "Unable to create the library item. Please try again.",
     };
   }
+
+  redirect(`/library/${libraryItem.id}`);
 };

@@ -24,7 +24,7 @@ export default function Header({ title, actions }: HeaderProps) {
   return (
     <div className="flex w-full items-center justify-between border-b p-4">
       <h1 className="capitalize">{title}</h1>
-      <div className="space-x-3">
+      <div className="flex items-center space-x-3">
         {actions}
         <button onClick={handleSignOut} className="cursor-pointer">
           Sign out

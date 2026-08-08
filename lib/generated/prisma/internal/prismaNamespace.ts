@@ -1223,7 +1223,8 @@ export type LibraryCollectionScalarFieldEnum = (typeof LibraryCollectionScalarFi
 
 export const TagScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  userId: 'userId'
 } as const
 
 export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagScalarFieldEnum]

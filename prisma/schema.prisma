@@ -21,11 +21,12 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  libraryItems  LibraryItem[]
-  collections   Collection[]
   emailVerified Boolean       @default(false)
   sessions      Session[]
   accounts      Account[]
+  libraryItems  LibraryItem[]
+  collections   Collection[]
+  tags          Tag[]
 
   @@map("user")
 }
@@ -121,8 +122,11 @@ model LibraryCollection {
 }
 
 model Tag {
-  id              String           @id @default(cuid())
-  name            String           @unique @db.VarChar(100)
+  id     String @id @default(cuid())
+  name   String @unique @db.VarChar(100)
+  userId String
+
+  user            User             @relation(fields: [userId], references: [id])
   libraryItemTags LibraryItemTag[]
 
   @@map("tag")
