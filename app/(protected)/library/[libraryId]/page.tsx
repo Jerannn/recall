@@ -11,7 +11,6 @@ interface LibraryDetailPageProps {
 export default async function LibraryDetailPage({
   params,
 }: LibraryDetailPageProps) {
-  const { libraryId } = await params;
   return (
     <div>
       <Header
@@ -29,8 +28,10 @@ export default async function LibraryDetailPage({
       />
 
       <Link href="/library">Back to library</Link>
+
+      {/* TODO: apply a real loading UI Spinner or Skeleton */}
       <Suspense fallback={<p>Loading...</p>}>
-        <LibraryDetails id={libraryId} />
+        <LibraryDetails params={params} />
       </Suspense>
     </div>
   );

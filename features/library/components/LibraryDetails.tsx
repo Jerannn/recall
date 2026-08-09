@@ -5,11 +5,12 @@ import { getSession } from "@/lib/get-session";
 import ReactMarkdown from "react-markdown";
 
 interface LibraryDetailsProps {
-  id: string;
+  params: Promise<{ libraryId: string }>;
 }
 
-export default async function LibraryDetails({ id }: LibraryDetailsProps) {
+export default async function LibraryDetails({ params }: LibraryDetailsProps) {
   const session = await getSession();
+  const { libraryId: id } = await params;
   const libraryItems = await prisma.libraryItem.findMany({
     where: {
       id,
@@ -21,6 +22,7 @@ export default async function LibraryDetails({ id }: LibraryDetailsProps) {
     },
   });
 
+  // TODO: Apply a empty message UI
   if (libraryItems.length === 0) return null;
 
   return (
