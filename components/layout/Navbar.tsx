@@ -1,26 +1,32 @@
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { getSession } from "@/lib/get-session";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default async function Navbar() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-
   return (
-    <header className="flex items-center justify-between p-4 border-b">
+    <header className="flex items-center justify-between border-b p-4">
       <div>logo</div>
       <div className="flex gap-4">
-        {!session ? (
-          <button>
-            <Link href="/signin">Sign In</Link>
-          </button>
-        ) : (
-          <button>
-            <Link href="/dashboard">Dashboard</Link>
-          </button>
-        )}
+        <Suspense fallback={<p>Loading...</p>}>
+          <NavButtons />
+        </Suspense>
       </div>
     </header>
+  );
+}
+
+async function NavButtons() {
+  const session = await getSession();
+
+  if (!session) {
+    <button>
+      <Link href="/signin">Sign In</Link>
+    </button>;
+  }
+
+  return (
+    <button>
+      <Link href="/dashboard">Dashboard</Link>
+    </button>
   );
 }
