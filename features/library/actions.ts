@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/get-session";
+import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { librarySchema } from "./schema";
 import { LibraryFormState } from "./types";
@@ -80,6 +81,6 @@ export const createLibrary = async (
       message: "Unable to create the library item. Please try again.",
     };
   }
-
+  updateTag(`library-${session.user.id}`);
   redirect(`/library/${libraryItem.id}`);
 };
