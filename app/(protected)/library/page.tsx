@@ -14,9 +14,9 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
       <Header
         title="Library"
         actions={
-          <Button>
-            <Link href="/library/new">Add new library</Link>
-          </Button>
+          <Link href="/library/new">
+            <Button>Add new library</Button>
+          </Link>
         }
       />
       {/* TODO: add a filter here */}

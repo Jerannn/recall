@@ -23,13 +23,12 @@ export const getLibraryItems = async (
 ) => {
   "use cache";
 
-  cacheTag(`user-library-${userId}`);
+  cacheTag(`library-${userId}`);
   cacheLife("hours");
-  const where = {
-    userId,
-  };
 
-  const [libraryItems, totalCount] = await Promise.all([
+  const where = { userId };
+
+  const [items, totalCount] = await Promise.all([
     prisma.libraryItem.findMany({
       where,
       select: {
@@ -45,17 +44,18 @@ export const getLibraryItems = async (
           },
         },
       },
-      orderBy: {
-        createdAt: "desc",
-      },
+      orderBy: { createdAt: "desc" },
       skip: (page - 1) * pageSize,
       take: pageSize,
     }),
 
-    prisma.libraryItem.count({
-      where,
-    }),
+    prisma.libraryItem.count({ where }),
   ]);
+
+  const libraryItems = items.map((item) => ({
+    ...item,
+    updatedAt: item.updatedAt.toLocaleDateString(),
+  }));
 
   return { libraryItems, totalCount };
 };
@@ -66,6 +66,9 @@ export default async function LibraryList({ searchParams }: LibraryListProps) {
   const pageSize = Number(queryParams.pageSize || "3");
 
   const session = await getSession();
+  if (!session?.user?.id) {
+    return <p>Please sign in to view your library.</p>;
+  }
 
   const { libraryItems, totalCount } = await getLibraryItems(
     session?.user.id,
@@ -96,7 +99,7 @@ export default async function LibraryList({ searchParams }: LibraryListProps) {
                     <Badge key={tag.id}>{tag.name}</Badge>
                   ))}
                 </TableCell>
-                <TableCell>{item.updatedAt.toLocaleDateString()}</TableCell>
+                <TableCell>{item.updatedAt}</TableCell>
                 <TableCell className="text-right">Navigate</TableCell>
               </TableRow>
             );
@@ -111,6 +114,7 @@ export default async function LibraryList({ searchParams }: LibraryListProps) {
         pageSizeSelectOptions={{
           pageSizeOptions: [5, 10, 20, 50],
         }}
+        navigationMode="router"
       />
     </div>
   );
