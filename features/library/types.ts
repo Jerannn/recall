@@ -17,3 +17,11 @@ export type CollectionOption = {
   id: string;
   name: string;
 };
+
+export type LibraryQueryParams = {
+  page: string | undefined;
+  pageSize: string;
+  source: string;
+  tag: string;
+  search: string;
+};

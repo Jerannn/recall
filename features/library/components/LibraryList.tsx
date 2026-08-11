@@ -8,72 +8,25 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/get-session";
-import { cacheLife, cacheTag } from "next/cache";
+import { getLibraryItems } from "../queries";
+import { LibraryQueryParams } from "../types";
 
 interface LibraryListProps {
-  searchParams: Promise<{ page: string | undefined; pageSize: string }>;
+  searchParams: Promise<LibraryQueryParams>;
 }
-
-export const getLibraryItems = async (
-  userId: string | undefined,
-  page: number,
-  pageSize: number,
-) => {
-  "use cache";
-
-  cacheTag(`library-${userId}`);
-  cacheLife("hours");
-
-  const where = { userId };
-
-  const [items, totalCount] = await Promise.all([
-    prisma.libraryItem.findMany({
-      where,
-      select: {
-        id: true,
-        title: true,
-        source: true,
-        createdAt: true,
-        updatedAt: true,
-        userId: true,
-        libraryItemTags: {
-          select: {
-            tag: true,
-          },
-        },
-      },
-      orderBy: { createdAt: "desc" },
-      skip: (page - 1) * pageSize,
-      take: pageSize,
-    }),
-
-    prisma.libraryItem.count({ where }),
-  ]);
-
-  const libraryItems = items.map((item) => ({
-    ...item,
-    updatedAt: item.updatedAt.toLocaleDateString(),
-  }));
-
-  return { libraryItems, totalCount };
-};
 
 export default async function LibraryList({ searchParams }: LibraryListProps) {
   const queryParams = await searchParams;
-  const page = Number(queryParams.page || "1");
-  const pageSize = Number(queryParams.pageSize || "3");
 
   const session = await getSession();
   if (!session?.user?.id) {
     return <p>Please sign in to view your library.</p>;
   }
 
-  const { libraryItems, totalCount } = await getLibraryItems(
+  const { libraryItems, totalCount, page, pageSize } = await getLibraryItems(
     session?.user.id,
-    page,
-    pageSize,
+    queryParams,
   );
 
   return (
@@ -89,6 +42,11 @@ export default async function LibraryList({ searchParams }: LibraryListProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
+          {!libraryItems.length && (
+            <TableRow>
+              <TableCell>No data found</TableCell>
+            </TableRow>
+          )}
           {libraryItems.map((item) => {
             return (
               <TableRow key={item.id}>

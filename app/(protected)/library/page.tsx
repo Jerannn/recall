@@ -1,11 +1,13 @@
 import Header from "@/components/layout/Header";
 import { Button } from "@/components/ui/button";
-import LibraryList from "@/features/library/components/LibraryList";
+import LibraryFilterContainer from "@/features/library/components/LibraryFilterContainer";
+import LibraryListContainer from "@/features/library/components/LibraryListContainer";
+import { LibraryQueryParams } from "@/features/library/types";
 import Link from "next/link";
 import { Suspense } from "react";
 
 interface LibraryPageProps {
-  searchParams: Promise<{ page: string | undefined; pageSize: string }>;
+  searchParams: Promise<LibraryQueryParams>;
 }
 
 export default async function LibraryPage({ searchParams }: LibraryPageProps) {
@@ -19,11 +21,15 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
           </Link>
         }
       />
-      {/* TODO: add a filter here */}
 
       {/* TODO: add a loading or spinner UI */}
       <Suspense fallback={<p>Loading...</p>}>
-        <LibraryList searchParams={searchParams} />
+        <LibraryFilterContainer />
+      </Suspense>
+
+      {/* TODO: add a loading or spinner UI */}
+      <Suspense fallback={<p>Loading...</p>}>
+        <LibraryListContainer searchParams={searchParams} />
       </Suspense>
     </div>
   );
