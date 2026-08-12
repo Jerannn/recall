@@ -9,25 +9,6 @@ import useDebounce from "@/hooks/use-debounce";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 
-const dates = [
-  {
-    id: "cmsmzspnn0004356tc2gtcspn",
-    name: "Today",
-  },
-  {
-    id: "cmsmzss450006356tai5unjcw",
-    name: "Last 7 days",
-  },
-  {
-    id: "cmsmzsvnp0007356twnu0cd7m",
-    name: "Last 30 days",
-  },
-  {
-    id: "cmsmzsxva0008356t2p07mwti",
-    name: "Last 3 months",
-  },
-];
-
 interface LibraryFilterProps {
   sourceList?: { source: string }[];
   tagList?: { name: string }[];
@@ -83,6 +64,7 @@ export default function LibraryFilter({
         onChange={(e) => setQuerySearch(e.target.value)}
       />
 
+      {/* TODO: the source need to have its own table and once the user is creating a library item it check if it is already exist, if not create if yes then skip */}
       <NativeSelect onChange={handleFilter} name="source">
         <NativeSelectOption value="all">All Sources</NativeSelectOption>
         {sourceList?.map((item) => (
@@ -96,15 +78,6 @@ export default function LibraryFilter({
         <NativeSelectOption value="all">All Tags</NativeSelectOption>
         {tagList?.map((item) => (
           <NativeSelectOption key={item.name} value={item.name}>
-            {item.name}
-          </NativeSelectOption>
-        ))}
-      </NativeSelect>
-
-      <NativeSelect name="date">
-        <NativeSelectOption value="all">Any date</NativeSelectOption>
-        {dates?.map((item) => (
-          <NativeSelectOption key={item.id} value={item.id}>
             {item.name}
           </NativeSelectOption>
         ))}

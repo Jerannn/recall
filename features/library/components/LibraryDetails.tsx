@@ -29,7 +29,7 @@ export default async function LibraryDetails({ params }: LibraryDetailsProps) {
     <div>
       <Card>
         <CardHeader>
-          <CardTitle>{libraryItems[0].title}</CardTitle>
+          <CardTitle className="text-xl">{libraryItems[0].title}</CardTitle>
           <div className="flex items-center gap-2">
             {libraryItems[0].libraryItemTags.map((item) => (
               <Badge variant="secondary" key={item.tag.id}>
@@ -38,7 +38,7 @@ export default async function LibraryDetails({ params }: LibraryDetailsProps) {
             ))}
           </div>
         </CardHeader>
-        <CardContent className="prose max-w-none dark:prose-invert">
+        <CardContent className="prose max-w-none dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-h1:text-base prose-p:text-sm prose-p:leading-7 prose-a:font-medium prose-code:rounded prose-code:px-1 prose-code:py-0.5 prose-pre:rounded-lg prose-ul:text-sm">
           <ReactMarkdown>{libraryItems[0].content}</ReactMarkdown>
         </CardContent>
       </Card>

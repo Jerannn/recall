@@ -74,6 +74,49 @@ export const getLibraryItems = async (
   return { libraryItems, totalCount, page, pageSize };
 };
 
+export const getLibraryItem = async (
+  userId: string | undefined,
+  libraryId: string,
+) => {
+  cacheTag(`library-detail-${userId}-${libraryId}`);
+  cacheLife("hours");
+
+  const where: Prisma.LibraryItemWhereInput = { userId, id: libraryId };
+
+  const [items] = await Promise.all([
+    prisma.libraryItem.findMany({
+      where,
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        source: true,
+        url: true,
+        libraryItemTags: {
+          select: {
+            tagId: true,
+          },
+        },
+        libraryCollections: {
+          select: {
+            collectionId: true,
+          },
+        },
+      },
+    }),
+  ]);
+
+  const libraryItems = items.map(
+    ({ libraryItemTags, libraryCollections, ...items }) => ({
+      ...items,
+      collection: libraryCollections[0].collectionId,
+      tags: libraryItemTags.map((itemTag) => itemTag.tagId),
+    }),
+  );
+
+  return { libraryItems };
+};
+
 export const getFilterOptions = async (userId: string | undefined) => {
   cacheTag(`library-filter-${userId}`);
   cacheLife("hours");
@@ -99,4 +142,22 @@ export const getFilterOptions = async (userId: string | undefined) => {
   ]);
 
   return { sourceList, tagList };
+};
+
+export const getLibraryFormOptions = async (userId: string | undefined) => {
+  cacheTag(`library-form-options-${userId}`);
+  cacheLife("hours");
+
+  const where = { userId };
+
+  const [collections, tags] = await Promise.all([
+    prisma.collection.findMany({
+      where,
+    }),
+    prisma.tag.findMany({
+      where,
+    }),
+  ]);
+
+  return { collections, tags };
 };
