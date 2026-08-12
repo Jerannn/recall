@@ -1,14 +1,18 @@
 import Header from "@/components/layout/Header";
 import { Button } from "@/components/ui/button";
-import LibraryCreateFrom from "@/features/library/components/LibraryCreateFrom";
+import LibraryEditForm from "@/features/library/components/LibraryEditForm";
 import Link from "next/link";
 import { Suspense } from "react";
 
-export default async function NewLibraryPage() {
+interface EditLibraryPageProps {
+  params: Promise<{ libraryId: string }>;
+}
+
+export default function EditLibraryPage({ params }: EditLibraryPageProps) {
   return (
     <div>
       <Header
-        title="Create new library"
+        title="Edit library"
         actions={
           <Button variant="outline">
             <Link href="/library">Cancel</Link>
@@ -16,7 +20,7 @@ export default async function NewLibraryPage() {
         }
       />
       <Suspense fallback={<p>Loading...</p>}>
-        <LibraryCreateFrom />
+        <LibraryEditForm params={params} />
       </Suspense>
     </div>
   );

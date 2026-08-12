@@ -25,3 +25,13 @@ export type LibraryQueryParams = {
   tag: string;
   search: string;
 };
+
+export type InitialStateForm = {
+  readonly id?: string;
+  title: string;
+  content: string;
+  source: string;
+  tags: string[];
+  collection: string;
+  url: string | null;
+};

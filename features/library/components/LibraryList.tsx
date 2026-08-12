@@ -1,5 +1,6 @@
 import { PaginationControls } from "@/components/PaginationControls";
 import { Badge } from "@/components/ui/badge";
+
 import {
   Table,
   TableBody,
@@ -11,6 +12,7 @@ import {
 import { getSession } from "@/lib/get-session";
 import { getLibraryItems } from "../queries";
 import { LibraryQueryParams } from "../types";
+import LibraryItemActions from "./LibraryItemActions";
 
 interface LibraryListProps {
   searchParams: Promise<LibraryQueryParams>;
@@ -58,7 +60,9 @@ export default async function LibraryList({ searchParams }: LibraryListProps) {
                   ))}
                 </TableCell>
                 <TableCell>{item.updatedAt}</TableCell>
-                <TableCell className="text-right">Navigate</TableCell>
+                <TableCell className="text-right">
+                  <LibraryItemActions id={item.id} />
+                </TableCell>
               </TableRow>
             );
           })}

@@ -14,69 +14,42 @@ import {
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import { Textarea } from "@/components/ui/textarea";
-import { createLibrary } from "@/features/library/actions";
 import { X } from "lucide-react";
-import { ChangeEvent, useActionState, useState } from "react";
-import { CollectionOption, LibraryFormState, TagOption } from "../types";
-
-const INITIAL_FIELDS = {
-  title: "",
-  content: "",
-  source: "",
-  tags: [] as string[],
-  collection: "",
-  url: "",
-};
-
-const INITIAL_STATE: LibraryFormState = {
-  success: false,
-  message: "",
-  errors: {},
-};
+import { useEffect } from "react";
+import useLibraryForm from "../hooks/use-library-form";
+import { CollectionOption, InitialStateForm, TagOption } from "../types";
 
 interface LibraryFormProps {
   tags?: TagOption[];
   collections?: CollectionOption[];
+  mode: "create" | "update";
+  initialState?: InitialStateForm;
 }
 
-export default function LibraryForm({ tags, collections }: LibraryFormProps) {
-  const [fields, setFields] = useState(INITIAL_FIELDS);
-  const [state, formAction, pending] = useActionState(
-    createLibrary,
-    INITIAL_STATE,
-  );
+export default function LibraryForm({
+  tags,
+  collections,
+  mode,
+  initialState,
+}: LibraryFormProps) {
+  const {
+    fields,
+    setFields,
+    libraryAction,
+    handleChange,
+    handleTagsChange,
+    handleRemoveTag,
+  } = useLibraryForm({
+    mode,
+    initialState,
+  });
+  const [state, formAction, pending] = libraryAction;
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
-  ) => {
-    const { name, value } = e.target;
-    setFields((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleTagsChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedTagId = e.target.value;
-
-    if (!selectedTagId) return;
-
-    setFields((prev) => ({
-      ...prev,
-      tags: prev.tags.includes(selectedTagId)
-        ? prev.tags
-        : [...prev.tags, selectedTagId],
-    }));
-  };
-
-  const handleRemoveTag = (id: string) => {
-    setFields((prevFields) => {
-      return {
-        ...prevFields,
-        tags: prevFields.tags.filter((t) => t !== id),
-      };
-    });
-  };
+  useEffect(() => {
+    if (initialState) {
+      setFields(initialState);
+    }
+  }, [setFields, initialState]);
 
   return (
     <form action={formAction}>
@@ -94,6 +67,7 @@ export default function LibraryForm({ tags, collections }: LibraryFormProps) {
             name="title"
             value={fields.title}
             onChange={handleChange}
+            disabled={pending}
           />
           {state.errors?.title && (
             <FieldError>{state.errors?.title}</FieldError>
@@ -108,6 +82,7 @@ export default function LibraryForm({ tags, collections }: LibraryFormProps) {
             rows={5}
             value={fields.content}
             onChange={handleChange}
+            disabled={pending}
           />
           {state.errors?.content && (
             <FieldError>{state.errors?.content}</FieldError>
@@ -122,6 +97,7 @@ export default function LibraryForm({ tags, collections }: LibraryFormProps) {
             name="source"
             value={fields.source}
             onChange={handleChange}
+            disabled={pending}
           />
           {state.errors?.source && (
             <FieldError>{state.errors?.source}</FieldError>
@@ -179,6 +155,7 @@ export default function LibraryForm({ tags, collections }: LibraryFormProps) {
             value={fields.collection}
             onChange={handleChange}
             name="collection"
+            disabled={pending}
           >
             <NativeSelectOption value="">Select collection</NativeSelectOption>
             {collections?.map((item) => (
@@ -198,12 +175,15 @@ export default function LibraryForm({ tags, collections }: LibraryFormProps) {
             type="text"
             id="url"
             name="url"
-            value={fields.url}
+            value={fields.url || ""}
             onChange={handleChange}
+            disabled={pending}
           />
         </Field>
 
-        <Button type="submit">{pending ? "Creating..." : "Create"}</Button>
+        <Button type="submit" disabled={pending}>
+          {pending ? (mode === "create" ? "Creating..." : "Updating...") : mode}
+        </Button>
       </FieldGroup>
     </form>
   );
