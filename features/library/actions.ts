@@ -179,3 +179,37 @@ export const updateLibrary = async (
   updateTag(`library-detail-${session.user.id}-${libraryItemId}`);
   redirect(`/library/${libraryItem.id}`);
 };
+
+export const deleteLibrary = async (
+  libraryId: string,
+  isControlled: boolean,
+) => {
+  const session = await getSession();
+
+  if (!session) {
+    return {
+      success: false,
+      message:
+        "Unauthorized: You don't have permission to perform this action!",
+    };
+  }
+
+  try {
+    await prisma.libraryItem.delete({
+      where: {
+        id: libraryId,
+        userId: session.user.id,
+      },
+    });
+  } catch {
+    return {
+      success: false,
+      message: "Unable to delete the library item. Please try again.",
+    };
+  }
+
+  updateTag(`library-${session.user.id}`);
+  if (!isControlled) {
+    redirect(`/library`);
+  }
+};
