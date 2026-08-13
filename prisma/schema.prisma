@@ -103,7 +103,7 @@ model LibraryItemTag {
   libraryItemId String
   tagId         String
 
-  libraryItem LibraryItem @relation(fields: [libraryItemId], references: [id])
+  libraryItem LibraryItem @relation(fields: [libraryItemId], references: [id], onDelete: Cascade)
   tag         Tag         @relation(fields: [tagId], references: [id])
 
   @@id([libraryItemId, tagId])
@@ -114,7 +114,7 @@ model LibraryCollection {
   libraryItemId String
   collectionId  String
 
-  libraryItem LibraryItem @relation(fields: [libraryItemId], references: [id])
+  libraryItem LibraryItem @relation(fields: [libraryItemId], references: [id], onDelete: Cascade)
   collection  Collection  @relation(fields: [collectionId], references: [id])
 
   @@id([libraryItemId, collectionId])

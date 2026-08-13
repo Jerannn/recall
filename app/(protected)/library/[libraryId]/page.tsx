@@ -1,5 +1,5 @@
 import Header from "@/components/layout/Header";
-import { Button } from "@/components/ui/button";
+import LibraryDetailActions from "@/features/library/components/LibraryDetailActions";
 import LibraryDetails from "@/features/library/components/LibraryDetails";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -14,16 +14,11 @@ export default async function LibraryDetailPage({
   return (
     <div>
       <Header
-        title="Create new library"
+        title="Details"
         actions={
-          <div className="space-x-3">
-            <Button variant="outline">
-              <Link href="#">Edit</Link>
-            </Button>
-            <Button variant="destructive">
-              <Link href="#">Delete</Link>
-            </Button>
-          </div>
+          <Suspense fallback={<p>Loading...</p>}>
+            <LibraryDetailActions params={params} />
+          </Suspense>
         }
       />
 
