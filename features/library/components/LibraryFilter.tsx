@@ -59,7 +59,7 @@ export default function LibraryFilter({
     <div className="flex items-center gap-3">
       <Input
         type="text"
-        placeholder="Find what you're looking for with keyword title, source, tags"
+        placeholder="Find what you're looking for with keyword title"
         value={querySearch}
         onChange={(e) => setQuerySearch(e.target.value)}
       />
