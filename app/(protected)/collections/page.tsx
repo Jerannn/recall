@@ -1,14 +1,8 @@
 import Header from "@/components/layout/Header";
 import { Button } from "@/components/ui/button";
-import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemDescription,
-  ItemMedia,
-  ItemTitle,
-} from "@/components/ui/item";
+import CollectionList from "@/features/collection/components/CollectionList";
 import Link from "next/link";
+import { Suspense } from "react";
 
 const collections = [
   {
@@ -101,35 +95,10 @@ export default function CollectionsPage() {
         }
       />
 
-      <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-        {collections.map((item) => (
-          <Item key={item.id} variant="outline">
-            <ItemMedia
-              variant="icon"
-              className="size-4 rounded-xs"
-              style={{ backgroundColor: `${item.color}33` }}
-            >
-              <div
-                className="size-2 rounded-full"
-                style={{ backgroundColor: item.color }}
-              ></div>
-            </ItemMedia>
-            <ItemContent>
-              <ItemTitle>{item.name}</ItemTitle>
-              <ItemDescription>{item.description}</ItemDescription>
-            </ItemContent>
-            <ItemActions>
-              <Button
-                size="icon"
-                variant="outline"
-                className="text-muted-foreground"
-              >
-                12
-              </Button>
-            </ItemActions>
-          </Item>
-        ))}
-      </div>
+      {/* TODO: add a loading or spinner UI */}
+      <Suspense fallback={<p>Loading...</p>}>
+        <CollectionList />
+      </Suspense>
     </div>
   );
 }
