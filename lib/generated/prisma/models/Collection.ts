@@ -27,6 +27,7 @@ export type AggregateCollection = {
 export type CollectionMinAggregateOutputType = {
   id: string | null
   name: string | null
+  description: string | null
   color: string | null
   userId: string | null
 }
@@ -34,6 +35,7 @@ export type CollectionMinAggregateOutputType = {
 export type CollectionMaxAggregateOutputType = {
   id: string | null
   name: string | null
+  description: string | null
   color: string | null
   userId: string | null
 }
@@ -41,6 +43,7 @@ export type CollectionMaxAggregateOutputType = {
 export type CollectionCountAggregateOutputType = {
   id: number
   name: number
+  description: number
   color: number
   userId: number
   _all: number
@@ -50,6 +53,7 @@ export type CollectionCountAggregateOutputType = {
 export type CollectionMinAggregateInputType = {
   id?: true
   name?: true
+  description?: true
   color?: true
   userId?: true
 }
@@ -57,6 +61,7 @@ export type CollectionMinAggregateInputType = {
 export type CollectionMaxAggregateInputType = {
   id?: true
   name?: true
+  description?: true
   color?: true
   userId?: true
 }
@@ -64,6 +69,7 @@ export type CollectionMaxAggregateInputType = {
 export type CollectionCountAggregateInputType = {
   id?: true
   name?: true
+  description?: true
   color?: true
   userId?: true
   _all?: true
@@ -144,6 +150,7 @@ export type CollectionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type CollectionGroupByOutputType = {
   id: string
   name: string
+  description: string
   color: string
   userId: string
   _count: CollectionCountAggregateOutputType | null
@@ -172,6 +179,7 @@ export type CollectionWhereInput = {
   NOT?: Prisma.CollectionWhereInput | Prisma.CollectionWhereInput[]
   id?: Prisma.StringFilter<"Collection"> | string
   name?: Prisma.StringFilter<"Collection"> | string
+  description?: Prisma.StringFilter<"Collection"> | string
   color?: Prisma.StringFilter<"Collection"> | string
   userId?: Prisma.StringFilter<"Collection"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -181,6 +189,7 @@ export type CollectionWhereInput = {
 export type CollectionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   color?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -193,6 +202,7 @@ export type CollectionWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.CollectionWhereInput[]
   NOT?: Prisma.CollectionWhereInput | Prisma.CollectionWhereInput[]
   name?: Prisma.StringFilter<"Collection"> | string
+  description?: Prisma.StringFilter<"Collection"> | string
   color?: Prisma.StringFilter<"Collection"> | string
   userId?: Prisma.StringFilter<"Collection"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -202,6 +212,7 @@ export type CollectionWhereUniqueInput = Prisma.AtLeast<{
 export type CollectionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   color?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   _count?: Prisma.CollectionCountOrderByAggregateInput
@@ -215,6 +226,7 @@ export type CollectionScalarWhereWithAggregatesInput = {
   NOT?: Prisma.CollectionScalarWhereWithAggregatesInput | Prisma.CollectionScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Collection"> | string
   name?: Prisma.StringWithAggregatesFilter<"Collection"> | string
+  description?: Prisma.StringWithAggregatesFilter<"Collection"> | string
   color?: Prisma.StringWithAggregatesFilter<"Collection"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Collection"> | string
 }
@@ -222,6 +234,7 @@ export type CollectionScalarWhereWithAggregatesInput = {
 export type CollectionCreateInput = {
   id?: string
   name: string
+  description: string
   color: string
   user: Prisma.UserCreateNestedOneWithoutCollectionsInput
   libraryCollections?: Prisma.LibraryCollectionCreateNestedManyWithoutCollectionInput
@@ -230,6 +243,7 @@ export type CollectionCreateInput = {
 export type CollectionUncheckedCreateInput = {
   id?: string
   name: string
+  description: string
   color: string
   userId: string
   libraryCollections?: Prisma.LibraryCollectionUncheckedCreateNestedManyWithoutCollectionInput
@@ -238,6 +252,7 @@ export type CollectionUncheckedCreateInput = {
 export type CollectionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneRequiredWithoutCollectionsNestedInput
   libraryCollections?: Prisma.LibraryCollectionUpdateManyWithoutCollectionNestedInput
@@ -246,6 +261,7 @@ export type CollectionUpdateInput = {
 export type CollectionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   libraryCollections?: Prisma.LibraryCollectionUncheckedUpdateManyWithoutCollectionNestedInput
@@ -254,6 +270,7 @@ export type CollectionUncheckedUpdateInput = {
 export type CollectionCreateManyInput = {
   id?: string
   name: string
+  description: string
   color: string
   userId: string
 }
@@ -261,12 +278,14 @@ export type CollectionCreateManyInput = {
 export type CollectionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type CollectionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -289,6 +308,7 @@ export type CollectionScalarRelationFilter = {
 export type CollectionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   color?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
@@ -296,6 +316,7 @@ export type CollectionCountOrderByAggregateInput = {
 export type CollectionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   color?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
@@ -303,6 +324,7 @@ export type CollectionMaxOrderByAggregateInput = {
 export type CollectionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   color?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
@@ -366,6 +388,7 @@ export type CollectionUpdateOneRequiredWithoutLibraryCollectionsNestedInput = {
 export type CollectionCreateWithoutUserInput = {
   id?: string
   name: string
+  description: string
   color: string
   libraryCollections?: Prisma.LibraryCollectionCreateNestedManyWithoutCollectionInput
 }
@@ -373,6 +396,7 @@ export type CollectionCreateWithoutUserInput = {
 export type CollectionUncheckedCreateWithoutUserInput = {
   id?: string
   name: string
+  description: string
   color: string
   libraryCollections?: Prisma.LibraryCollectionUncheckedCreateNestedManyWithoutCollectionInput
 }
@@ -409,6 +433,7 @@ export type CollectionScalarWhereInput = {
   NOT?: Prisma.CollectionScalarWhereInput | Prisma.CollectionScalarWhereInput[]
   id?: Prisma.StringFilter<"Collection"> | string
   name?: Prisma.StringFilter<"Collection"> | string
+  description?: Prisma.StringFilter<"Collection"> | string
   color?: Prisma.StringFilter<"Collection"> | string
   userId?: Prisma.StringFilter<"Collection"> | string
 }
@@ -416,6 +441,7 @@ export type CollectionScalarWhereInput = {
 export type CollectionCreateWithoutLibraryCollectionsInput = {
   id?: string
   name: string
+  description: string
   color: string
   user: Prisma.UserCreateNestedOneWithoutCollectionsInput
 }
@@ -423,6 +449,7 @@ export type CollectionCreateWithoutLibraryCollectionsInput = {
 export type CollectionUncheckedCreateWithoutLibraryCollectionsInput = {
   id?: string
   name: string
+  description: string
   color: string
   userId: string
 }
@@ -446,6 +473,7 @@ export type CollectionUpdateToOneWithWhereWithoutLibraryCollectionsInput = {
 export type CollectionUpdateWithoutLibraryCollectionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
   user?: Prisma.UserUpdateOneRequiredWithoutCollectionsNestedInput
 }
@@ -453,6 +481,7 @@ export type CollectionUpdateWithoutLibraryCollectionsInput = {
 export type CollectionUncheckedUpdateWithoutLibraryCollectionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -460,12 +489,14 @@ export type CollectionUncheckedUpdateWithoutLibraryCollectionsInput = {
 export type CollectionCreateManyUserInput = {
   id?: string
   name: string
+  description: string
   color: string
 }
 
 export type CollectionUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
   libraryCollections?: Prisma.LibraryCollectionUpdateManyWithoutCollectionNestedInput
 }
@@ -473,6 +504,7 @@ export type CollectionUpdateWithoutUserInput = {
 export type CollectionUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
   libraryCollections?: Prisma.LibraryCollectionUncheckedUpdateManyWithoutCollectionNestedInput
 }
@@ -480,6 +512,7 @@ export type CollectionUncheckedUpdateWithoutUserInput = {
 export type CollectionUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -517,6 +550,7 @@ export type CollectionCountOutputTypeCountLibraryCollectionsArgs<ExtArgs extends
 export type CollectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  description?: boolean
   color?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -527,6 +561,7 @@ export type CollectionSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type CollectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  description?: boolean
   color?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -535,6 +570,7 @@ export type CollectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
 export type CollectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  description?: boolean
   color?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -543,11 +579,12 @@ export type CollectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
 export type CollectionSelectScalar = {
   id?: boolean
   name?: boolean
+  description?: boolean
   color?: boolean
   userId?: boolean
 }
 
-export type CollectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "color" | "userId", ExtArgs["result"]["collection"]>
+export type CollectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "color" | "userId", ExtArgs["result"]["collection"]>
 export type CollectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   libraryCollections?: boolean | Prisma.Collection$libraryCollectionsArgs<ExtArgs>
@@ -569,6 +606,7 @@ export type $CollectionPayload<ExtArgs extends runtime.Types.Extensions.Internal
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
+    description: string
     color: string
     userId: string
   }, ExtArgs["result"]["collection"]>
@@ -998,6 +1036,7 @@ export interface Prisma__CollectionClient<T, Null = never, ExtArgs extends runti
 export interface CollectionFieldRefs {
   readonly id: Prisma.FieldRef<"Collection", 'String'>
   readonly name: Prisma.FieldRef<"Collection", 'String'>
+  readonly description: Prisma.FieldRef<"Collection", 'String'>
   readonly color: Prisma.FieldRef<"Collection", 'String'>
   readonly userId: Prisma.FieldRef<"Collection", 'String'>
 }

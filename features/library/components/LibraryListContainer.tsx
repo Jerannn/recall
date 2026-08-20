@@ -12,6 +12,7 @@ export default async function LibraryListContainer({
   const query = await searchParams;
   const key = JSON.stringify(query);
 
+  // TODO: add a loading or spinner UI
   return (
     <Suspense fallback={<p>Loading...</p>} key={key}>
       <LibraryList searchParams={searchParams} />

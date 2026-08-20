@@ -1233,6 +1233,7 @@ export type TagScalarFieldEnum = (typeof TagScalarFieldEnum)[keyof typeof TagSca
 export const CollectionScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  description: 'description',
   color: 'color',
   userId: 'userId'
 } as const
