@@ -1,6 +1,7 @@
 import { getSession } from "@/lib/get-session";
 import Link from "next/link";
 import { Suspense } from "react";
+import { Button } from "../ui/button";
 
 export default async function Navbar() {
   return (
@@ -19,14 +20,16 @@ async function NavButtons() {
   const session = await getSession();
 
   if (!session) {
-    <button>
-      <Link href="/signin">Sign In</Link>
-    </button>;
+    return (
+      <Button>
+        <Link href="/signin">Sign In</Link>
+      </Button>
+    );
   }
 
   return (
-    <button>
+    <Button>
       <Link href="/dashboard">Dashboard</Link>
-    </button>
+    </Button>
   );
 }

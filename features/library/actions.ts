@@ -49,10 +49,10 @@ export const createLibrary = async (
   const libraryItem = await prisma.$transaction(async (tx) => {
     const data = await tx.libraryItem.create({
       data: {
-        title: rawFields.title,
-        content: rawFields.content,
-        source: rawFields.source,
-        url: rawFields.url,
+        title: result.data.title,
+        content: result.data.content,
+        source: result.data.source,
+        url: result.data.url,
         userId: session.user.id,
       },
     });
@@ -60,12 +60,12 @@ export const createLibrary = async (
     await tx.libraryCollection.create({
       data: {
         libraryItemId: data.id,
-        collectionId: rawFields.collection,
+        collectionId: result.data.collection,
       },
     });
 
     await tx.libraryItemTag.createMany({
-      data: rawFields.tags.map((tagId) => ({
+      data: result.data.tags.map((tagId) => ({
         libraryItemId: data.id,
         tagId,
       })),
@@ -81,6 +81,7 @@ export const createLibrary = async (
     };
   }
   updateTag(`library-${session.user.id}`);
+  updateTag(`collections-${session.user.id}`);
   redirect(`/library/${libraryItem.id}`);
 };
 
@@ -131,28 +132,28 @@ export const updateLibrary = async (
         userId: session?.user.id,
       },
       data: {
-        title: rawFields.title,
-        content: rawFields.content,
-        source: rawFields.source,
-        url: rawFields.url,
+        title: result.data.title,
+        content: result.data.content,
+        source: result.data.source,
+        url: result.data.url,
         userId: session.user.id,
       },
     });
 
-    if (rawFields.tags.length > 0) {
+    if (result.data.tags.length > 0) {
       await tx.libraryItemTag.deleteMany({
         where: { libraryItemId },
       });
 
       await tx.libraryItemTag.createMany({
-        data: rawFields.tags.map((tagId) => ({
+        data: result.data.tags.map((tagId) => ({
           libraryItemId: data.id,
           tagId,
         })),
       });
     }
 
-    if (rawFields.collection) {
+    if (result.data.collection) {
       await tx.libraryCollection.deleteMany({
         where: { libraryItemId },
       });
@@ -160,7 +161,7 @@ export const updateLibrary = async (
       await tx.libraryCollection.create({
         data: {
           libraryItemId,
-          collectionId: rawFields.collection,
+          collectionId: result.data.collection,
         },
       });
     }
@@ -177,6 +178,7 @@ export const updateLibrary = async (
 
   updateTag(`library-${session.user.id}`);
   updateTag(`library-detail-${session.user.id}-${libraryItemId}`);
+  updateTag(`collections-${session.user.id}`);
   redirect(`/library/${libraryItem.id}`);
 };
 
@@ -209,6 +211,7 @@ export const deleteLibrary = async (
   }
 
   updateTag(`library-${session.user.id}`);
+  updateTag(`collections-${session.user.id}`);
   if (!isControlled) {
     redirect(`/library`);
   }

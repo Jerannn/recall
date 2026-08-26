@@ -133,10 +133,10 @@ model Tag {
 }
 
 model Collection {
-  id          String @id @default(cuid())
-  name        String @db.VarChar(100)
-  description String @db.VarChar(255)
-  color       String @db.VarChar(7)
+  id          String  @id @default(cuid())
+  name        String  @db.VarChar(100)
+  description String  @db.VarChar(255)
+  color       String? @default("#000") @db.VarChar(7)
   userId      String
 
   user               User                @relation(fields: [userId], references: [id])
