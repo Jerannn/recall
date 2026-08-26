@@ -1,7 +1,6 @@
 import Header from "@/components/layout/Header";
-import { Button } from "@/components/ui/button";
+import CollectionForm from "@/features/collection/components/CollectionForm";
 import CollectionList from "@/features/collection/components/CollectionList";
-import Link from "next/link";
 import { Suspense } from "react";
 
 const collections = [
@@ -86,14 +85,7 @@ const collections = [
 export default function CollectionsPage() {
   return (
     <div>
-      <Header
-        title="Collections"
-        actions={
-          <Link href="/collections">
-            <Button>Add new collection</Button>
-          </Link>
-        }
-      />
+      <Header title="Collections" actions={<CollectionForm />} />
 
       {/* TODO: add a loading or spinner UI */}
       <Suspense fallback={<p>Loading...</p>}>
