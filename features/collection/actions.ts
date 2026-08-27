@@ -66,3 +66,32 @@ export const createCollection = async (
     message: "Collection successfully created!",
   };
 };
+
+export const deleteCollection = async (collectionId: string) => {
+  const session = await getSession();
+
+  if (!session) {
+    return {
+      success: false,
+      message:
+        "Unauthorized: You don't have permission to perform this action!",
+    };
+  }
+
+  try {
+    await prisma.collection.delete({
+      where: {
+        id: collectionId,
+        userId: session.user.id,
+      },
+    });
+  } catch {
+    return {
+      success: false,
+      message: "Unable to delete the collection item. Please try again.",
+    };
+  }
+
+  updateTag(`collections-${session.user.id}`);
+  updateTag(`library-form-options-${session.user.id}`);
+};
