@@ -10,13 +10,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Button, buttonVariants } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 import {
   Item,
   ItemActions,
@@ -25,7 +19,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
-import { EllipsisVertical, FilePenLine, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { deleteCollection } from "../actions";
@@ -89,37 +83,10 @@ export default function CollectionItem({ collection }: CollectionItemProps) {
       </ItemActions>
 
       <ItemActions>
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            render={
-              <button
-                type="button"
-                className={buttonVariants({
-                  variant: "outline",
-                  size: "icon-xs",
-                })}
-              >
-                <EllipsisVertical className="h-4 w-4" />
-              </button>
-            }
-          />
-
-          <DropdownMenuContent>
-            <DropdownMenuItem>
-              <FilePenLine />
-              Edit
-            </DropdownMenuItem>
-
-            {/* NOTE: You can't delete the collection if it has an items belongs to it */}
-            <DropdownMenuItem
-              variant="destructive"
-              onClick={() => setOpen(true)}
-            >
-              <Trash2 />
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {/* NOTE: You can't delete the collection if it has an items belongs to it */}
+        <Button variant="outline" size="icon-xs" onClick={() => setOpen(true)}>
+          <Trash2 />
+        </Button>
 
         {/* TODO: separate it to its own component */}
         {collection.items > 0 ? (
