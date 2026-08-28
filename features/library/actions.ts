@@ -82,6 +82,7 @@ export const createLibrary = async (
   }
   updateTag(`library-${session.user.id}`);
   updateTag(`collections-${session.user.id}`);
+  updateTag(`tags-${session.user.id}`);
   redirect(`/library/${libraryItem.id}`);
 };
 
@@ -179,6 +180,7 @@ export const updateLibrary = async (
   updateTag(`library-${session.user.id}`);
   updateTag(`library-detail-${session.user.id}-${libraryItemId}`);
   updateTag(`collections-${session.user.id}`);
+  updateTag(`tags-${session.user.id}`);
   redirect(`/library/${libraryItem.id}`);
 };
 
@@ -212,6 +214,7 @@ export const deleteLibrary = async (
 
   updateTag(`library-${session.user.id}`);
   updateTag(`collections-${session.user.id}`);
+  updateTag(`tags-${session.user.id}`);
   if (!isControlled) {
     redirect(`/library`);
   }
