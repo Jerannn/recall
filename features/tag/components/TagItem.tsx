@@ -61,7 +61,12 @@ export default function TagItem({ tag }: TagItemProps) {
         <TagIcon />
       </ItemMedia>
       <ItemContent>
-        <ItemTitle>{tag.name}</ItemTitle>
+        <ItemTitle
+          onClick={() => router.push(`/library?tag=${tag.name}`)}
+          className="cursor-pointer hover:text-muted-foreground"
+        >
+          {tag.name}
+        </ItemTitle>
       </ItemContent>
 
       <ItemActions>

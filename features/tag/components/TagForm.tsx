@@ -38,7 +38,7 @@ export default function TagForm() {
   }, [state]);
 
   return (
-    <form action={formAction}>
+    <form action={formAction} className="max-w-md">
       <Field>
         <InputGroup>
           <InputGroupInput
@@ -52,7 +52,7 @@ export default function TagForm() {
           <InputGroupAddon align="inline-end">
             {pending ? (
               <>
-                <InputGroupText>Saving...</InputGroupText>
+                <InputGroupText>Creating...</InputGroupText>
                 <Spinner />
               </>
             ) : (
