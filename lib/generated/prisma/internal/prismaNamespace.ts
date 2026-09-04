@@ -403,7 +403,6 @@ export const ModelName = {
   Verification: 'Verification',
   LibraryItem: 'LibraryItem',
   LibraryItemTag: 'LibraryItemTag',
-  LibraryCollection: 'LibraryCollection',
   Tag: 'Tag',
   Collection: 'Collection'
 } as const
@@ -421,7 +420,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "libraryItem" | "libraryItemTag" | "libraryCollection" | "tag" | "collection"
+    modelProps: "user" | "session" | "account" | "verification" | "libraryItem" | "libraryItemTag" | "tag" | "collection"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -869,80 +868,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    LibraryCollection: {
-      payload: Prisma.$LibraryCollectionPayload<ExtArgs>
-      fields: Prisma.LibraryCollectionFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.LibraryCollectionFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryCollectionPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.LibraryCollectionFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryCollectionPayload>
-        }
-        findFirst: {
-          args: Prisma.LibraryCollectionFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryCollectionPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.LibraryCollectionFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryCollectionPayload>
-        }
-        findMany: {
-          args: Prisma.LibraryCollectionFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryCollectionPayload>[]
-        }
-        create: {
-          args: Prisma.LibraryCollectionCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryCollectionPayload>
-        }
-        createMany: {
-          args: Prisma.LibraryCollectionCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.LibraryCollectionCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryCollectionPayload>[]
-        }
-        delete: {
-          args: Prisma.LibraryCollectionDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryCollectionPayload>
-        }
-        update: {
-          args: Prisma.LibraryCollectionUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryCollectionPayload>
-        }
-        deleteMany: {
-          args: Prisma.LibraryCollectionDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.LibraryCollectionUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.LibraryCollectionUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryCollectionPayload>[]
-        }
-        upsert: {
-          args: Prisma.LibraryCollectionUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LibraryCollectionPayload>
-        }
-        aggregate: {
-          args: Prisma.LibraryCollectionAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateLibraryCollection>
-        }
-        groupBy: {
-          args: Prisma.LibraryCollectionGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.LibraryCollectionGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.LibraryCollectionCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.LibraryCollectionCountAggregateOutputType> | number
-        }
-      }
-    }
     Tag: {
       payload: Prisma.$TagPayload<ExtArgs>
       fields: Prisma.TagFieldRefs
@@ -1199,7 +1124,8 @@ export const LibraryItemScalarFieldEnum = {
   summary: 'summary',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  userId: 'userId'
+  userId: 'userId',
+  collectionId: 'collectionId'
 } as const
 
 export type LibraryItemScalarFieldEnum = (typeof LibraryItemScalarFieldEnum)[keyof typeof LibraryItemScalarFieldEnum]
@@ -1211,14 +1137,6 @@ export const LibraryItemTagScalarFieldEnum = {
 } as const
 
 export type LibraryItemTagScalarFieldEnum = (typeof LibraryItemTagScalarFieldEnum)[keyof typeof LibraryItemTagScalarFieldEnum]
-
-
-export const LibraryCollectionScalarFieldEnum = {
-  libraryItemId: 'libraryItemId',
-  collectionId: 'collectionId'
-} as const
-
-export type LibraryCollectionScalarFieldEnum = (typeof LibraryCollectionScalarFieldEnum)[keyof typeof LibraryCollectionScalarFieldEnum]
 
 
 export const TagScalarFieldEnum = {
@@ -1476,7 +1394,6 @@ export type GlobalOmitConfig = {
   verification?: Prisma.VerificationOmit
   libraryItem?: Prisma.LibraryItemOmit
   libraryItemTag?: Prisma.LibraryItemTagOmit
-  libraryCollection?: Prisma.LibraryCollectionOmit
   tag?: Prisma.TagOmit
   collection?: Prisma.CollectionOmit
 }

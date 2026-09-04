@@ -13,7 +13,7 @@ export const getCollections = async (userId: string): Promise<Collection[]> => {
     include: {
       _count: {
         select: {
-          libraryCollections: true,
+          libraryItems: true,
         },
       },
     },
@@ -21,7 +21,7 @@ export const getCollections = async (userId: string): Promise<Collection[]> => {
 
   const collections = result.map(({ _count, ...collection }) => ({
     ...collection,
-    items: _count.libraryCollections,
+    items: _count.libraryItems,
   }));
 
   return collections;

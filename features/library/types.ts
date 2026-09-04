@@ -32,6 +32,6 @@ export type InitialStateForm = {
   content: string;
   source: string;
   tags: string[];
-  collection: string;
+  collectionId: string;
   url: string | null;
 };

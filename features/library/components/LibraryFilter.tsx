@@ -59,10 +59,8 @@ export default function LibraryFilter({
     }
 
     params.set("page", "1");
-
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
-  console.log(queryTag);
 
   return (
     <div className="flex items-center gap-3">

@@ -54,15 +54,16 @@ export const createLibrary = async (
         source: result.data.source,
         url: result.data.url,
         userId: session.user.id,
-      },
-    });
-
-    await tx.libraryCollection.create({
-      data: {
-        libraryItemId: data.id,
         collectionId: result.data.collection,
       },
     });
+
+    // await tx.libraryCollection.create({
+    //   data: {
+    //     libraryItemId: data.id,
+    //     collectionId: result.data.collection,
+    //   },
+    // });
 
     await tx.libraryItemTag.createMany({
       data: result.data.tags.map((tagId) => ({
@@ -154,18 +155,18 @@ export const updateLibrary = async (
       });
     }
 
-    if (result.data.collection) {
-      await tx.libraryCollection.deleteMany({
-        where: { libraryItemId },
-      });
+    // if (result.data.collection) {
+    //   await tx.libraryCollection.deleteMany({
+    //     where: { libraryItemId },
+    //   });
 
-      await tx.libraryCollection.create({
-        data: {
-          libraryItemId,
-          collectionId: result.data.collection,
-        },
-      });
-    }
+    //   await tx.libraryCollection.create({
+    //     data: {
+    //       libraryItemId,
+    //       collectionId: result.data.collection,
+    //     },
+    //   });
+    // }
 
     return data;
   });
