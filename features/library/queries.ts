@@ -13,7 +13,7 @@ export const getLibraryItems = async (
   cacheLife("hours");
 
   const page = Number(queryParams.page || "1");
-  const pageSize = Number(queryParams.pageSize || "3");
+  const pageSize = Number(queryParams.pageSize || "5");
   const source = queryParams.source || "all";
   const tag = queryParams.tag || "all";
   const search = queryParams.search || "";
@@ -92,27 +92,20 @@ export const getLibraryItem = async (
         content: true,
         source: true,
         url: true,
+        collectionId: true,
         libraryItemTags: {
           select: {
             tagId: true,
-          },
-        },
-        libraryCollections: {
-          select: {
-            collectionId: true,
           },
         },
       },
     }),
   ]);
 
-  const libraryItems = items.map(
-    ({ libraryItemTags, libraryCollections, ...items }) => ({
-      ...items,
-      collection: libraryCollections[0].collectionId,
-      tags: libraryItemTags.map((itemTag) => itemTag.tagId),
-    }),
-  );
+  const libraryItems = items.map(({ libraryItemTags, ...items }) => ({
+    ...items,
+    tags: libraryItemTags.map((itemTag) => itemTag.tagId),
+  }));
 
   return { libraryItems };
 };

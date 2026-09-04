@@ -57,7 +57,6 @@ export const ModelName = {
   Verification: 'Verification',
   LibraryItem: 'LibraryItem',
   LibraryItemTag: 'LibraryItemTag',
-  LibraryCollection: 'LibraryCollection',
   Tag: 'Tag',
   Collection: 'Collection'
 } as const
@@ -147,7 +146,8 @@ export const LibraryItemScalarFieldEnum = {
   summary: 'summary',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  userId: 'userId'
+  userId: 'userId',
+  collectionId: 'collectionId'
 } as const
 
 export type LibraryItemScalarFieldEnum = (typeof LibraryItemScalarFieldEnum)[keyof typeof LibraryItemScalarFieldEnum]
@@ -159,14 +159,6 @@ export const LibraryItemTagScalarFieldEnum = {
 } as const
 
 export type LibraryItemTagScalarFieldEnum = (typeof LibraryItemTagScalarFieldEnum)[keyof typeof LibraryItemTagScalarFieldEnum]
-
-
-export const LibraryCollectionScalarFieldEnum = {
-  libraryItemId: 'libraryItemId',
-  collectionId: 'collectionId'
-} as const
-
-export type LibraryCollectionScalarFieldEnum = (typeof LibraryCollectionScalarFieldEnum)[keyof typeof LibraryCollectionScalarFieldEnum]
 
 
 export const TagScalarFieldEnum = {

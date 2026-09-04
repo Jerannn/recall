@@ -72,11 +72,6 @@ export type LibraryItem = Prisma.LibraryItemModel
  */
 export type LibraryItemTag = Prisma.LibraryItemTagModel
 /**
- * Model LibraryCollection
- * 
- */
-export type LibraryCollection = Prisma.LibraryCollectionModel
-/**
  * Model Tag
  * 
  */

@@ -4,7 +4,7 @@ import { collectionSchema } from "./schema";
 type CollectionBase = {
   name: string;
   description: string;
-  color: string;
+  color: string | null;
 };
 
 export type CollectionInput = z.infer<typeof collectionSchema>;

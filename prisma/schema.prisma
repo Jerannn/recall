@@ -90,10 +90,11 @@ model LibraryItem {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  userId             String
-  user               User                @relation(fields: [userId], references: [id])
-  libraryItemTags    LibraryItemTag[]
-  libraryCollections LibraryCollection[]
+  userId          String
+  user            User             @relation(fields: [userId], references: [id])
+  libraryItemTags LibraryItemTag[]
+  collectionId    String
+  collection      Collection?      @relation(fields: [collectionId], references: [id])
 
   @@index([userId])
   @@map("library_item")
@@ -110,20 +111,20 @@ model LibraryItemTag {
   @@map("library_item_tag")
 }
 
-model LibraryCollection {
-  libraryItemId String
-  collectionId  String
+// model LibraryCollection {
+//   libraryItemId String
+//   collectionId  String
 
-  libraryItem LibraryItem @relation(fields: [libraryItemId], references: [id], onDelete: Cascade)
-  collection  Collection  @relation(fields: [collectionId], references: [id])
+//   libraryItem LibraryItem @relation(fields: [libraryItemId], references: [id], onDelete: Cascade)
+//   collection  Collection  @relation(fields: [collectionId], references: [id])
 
-  @@id([libraryItemId, collectionId])
-  @@map("library_collection")
-}
+//   @@id([libraryItemId, collectionId])
+//   @@map("library_collection")
+// }
 
 model Tag {
   id     String @id @default(cuid())
-  name   String @unique @db.VarChar(100)
+  name   String @db.VarChar(100)
   userId String
 
   user            User             @relation(fields: [userId], references: [id])
@@ -139,8 +140,8 @@ model Collection {
   color       String? @default("#000") @db.VarChar(7)
   userId      String
 
-  user               User                @relation(fields: [userId], references: [id])
-  libraryCollections LibraryCollection[]
+  user         User          @relation(fields: [userId], references: [id])
+  libraryItems LibraryItem[]
 
   @@map("collection")
 }

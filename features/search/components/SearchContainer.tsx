@@ -17,7 +17,10 @@ export default async function SearchContainer({
     <div>
       <SearchForm />
 
-      <Suspense key={suspenseKey} fallback={<div>Searching library...</div>}>
+      <Suspense
+        key={suspenseKey}
+        fallback={<p>Searching inside of your library...</p>}
+      >
         <SearchList searchParams={searchParams} />
       </Suspense>
     </div>

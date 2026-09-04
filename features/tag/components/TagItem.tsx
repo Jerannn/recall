@@ -19,7 +19,7 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import { Tag as TagIcon, Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { deleteTag } from "../actions";
 import { Tag } from "../types";
@@ -33,6 +33,7 @@ export default function TagItem({ tag }: TagItemProps) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState("");
 
+  const searchParams = useSearchParams();
   const router = useRouter();
 
   const onDelete = async () => {
@@ -55,6 +56,15 @@ export default function TagItem({ tag }: TagItemProps) {
     }
   };
 
+  const onNavigateWithTag = () => {
+    const params = new URLSearchParams(searchParams);
+    params.set("tag", tag.name);
+    params.set("page", "1");
+    router.replace(`/library?${params.toString()}`, {
+      scroll: false,
+    });
+  };
+
   return (
     <Item key={tag.id} variant="outline">
       <ItemMedia variant="icon">
@@ -62,7 +72,7 @@ export default function TagItem({ tag }: TagItemProps) {
       </ItemMedia>
       <ItemContent>
         <ItemTitle
-          onClick={() => router.push(`/library?tag=${tag.name}`)}
+          onClick={onNavigateWithTag}
           className="cursor-pointer hover:text-muted-foreground"
         >
           {tag.name}

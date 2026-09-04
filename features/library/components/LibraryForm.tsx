@@ -152,7 +152,7 @@ export default function LibraryForm({
         <Field>
           <FieldLabel htmlFor="collection">Collection</FieldLabel>
           <NativeSelect
-            value={fields.collection}
+            value={fields.collectionId}
             onChange={handleChange}
             name="collection"
             disabled={pending}
