@@ -18,7 +18,7 @@ export default async function LibraryDetails({ params }: LibraryDetailsProps) {
     },
     include: {
       libraryItemTags: { include: { tag: true } },
-      libraryCollections: true,
+      collection: true,
     },
   });
 
@@ -38,7 +38,7 @@ export default async function LibraryDetails({ params }: LibraryDetailsProps) {
             ))}
           </div>
         </CardHeader>
-        <CardContent className="prose max-w-none dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-h1:text-base prose-p:text-sm prose-p:leading-7 prose-a:font-medium prose-code:rounded prose-code:px-1 prose-code:py-0.5 prose-pre:rounded-lg prose-ul:text-sm">
+        <CardContent className="prose max-w-none dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-h1:text-base prose-p:text-sm prose-p:leading-7 prose-a:font-medium prose-code:rounded prose-code:px-1 prose-code:py-0.5 prose-code:wrap-break-word prose-code:whitespace-pre-wrap prose-pre:max-w-full prose-pre:overflow-x-auto prose-pre:rounded-lg prose-pre:wrap-break-word prose-pre:whitespace-pre-wrap prose-ul:text-sm">
           <ReactMarkdown>{libraryItems[0].content}</ReactMarkdown>
         </CardContent>
       </Card>
