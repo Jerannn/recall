@@ -7,6 +7,25 @@ import { redirect } from "next/navigation";
 import { librarySchema } from "./schema";
 import { LibraryFormState } from "./types";
 
+import { extractUrlContent } from "@/lib/ingestion/extractor";
+
+export const fetchUrlContentAction = async (url: string) => {
+  const session = await getSession();
+  if (!session) {
+    return {
+      success: false,
+      error: "Unauthorized: You must be logged in to fetch content.",
+    };
+  }
+  if (!url || !url.trim()) {
+    return {
+      success: false,
+      error: "Please enter a valid URL.",
+    };
+  }
+  return await extractUrlContent(url);
+};
+
 export const createLibrary = async (
   prevState: LibraryFormState,
   formData: FormData,
@@ -26,7 +45,7 @@ export const createLibrary = async (
     content: formData.get("content") as string,
     source: formData.get("source") as string,
     tags: formData.getAll("tags") as string[],
-    collection: formData.get("collection") as string,
+    collectionId: formData.get("collectionId") as string,
     url: formData.get("url") as string,
   };
 
@@ -54,16 +73,9 @@ export const createLibrary = async (
         source: result.data.source,
         url: result.data.url,
         userId: session.user.id,
-        collectionId: result.data.collection,
+        collectionId: result.data.collectionId,
       },
     });
-
-    // await tx.libraryCollection.create({
-    //   data: {
-    //     libraryItemId: data.id,
-    //     collectionId: result.data.collection,
-    //   },
-    // });
 
     await tx.libraryItemTag.createMany({
       data: result.data.tags.map((tagId) => ({
@@ -107,7 +119,7 @@ export const updateLibrary = async (
     content: formData.get("content") as string,
     source: formData.get("source") as string,
     tags: formData.getAll("tags") as string[],
-    collection: formData.get("collection") as string,
+    collectionId: formData.get("collectionId") as string,
     url: formData.get("url") as string,
   };
 
@@ -139,6 +151,7 @@ export const updateLibrary = async (
         source: result.data.source,
         url: result.data.url,
         userId: session.user.id,
+        collectionId: result.data.collectionId,
       },
     });
 
@@ -154,19 +167,6 @@ export const updateLibrary = async (
         })),
       });
     }
-
-    // if (result.data.collection) {
-    //   await tx.libraryCollection.deleteMany({
-    //     where: { libraryItemId },
-    //   });
-
-    //   await tx.libraryCollection.create({
-    //     data: {
-    //       libraryItemId,
-    //       collectionId: result.data.collection,
-    //     },
-    //   });
-    // }
 
     return data;
   });

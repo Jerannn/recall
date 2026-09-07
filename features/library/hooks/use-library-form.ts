@@ -1,5 +1,9 @@
 import { ChangeEvent, useActionState, useMemo, useState } from "react";
-import { createLibrary, updateLibrary } from "../actions";
+import {
+  createLibrary,
+  fetchUrlContentAction,
+  updateLibrary,
+} from "../actions";
 import { InitialStateForm, LibraryFormState } from "../types";
 
 const INITIAL_FIELDS: InitialStateForm = {
@@ -7,7 +11,7 @@ const INITIAL_FIELDS: InitialStateForm = {
   content: "",
   source: "",
   tags: [] as string[],
-  collection: "",
+  collectionId: "",
   url: "",
 };
 
@@ -27,6 +31,8 @@ export default function useLibraryForm({
   initialState,
 }: LibraryFormProps) {
   const [fields, setFields] = useState(initialState ?? INITIAL_FIELDS);
+  const [isExtracting, setIsExtracting] = useState(false);
+  const [extractError, setExtractError] = useState<string | null>(null);
 
   const libraryItemId = initialState?.id;
   const actionFn = useMemo(() => {
@@ -74,6 +80,27 @@ export default function useLibraryForm({
     });
   };
 
+  const handleAutoFillFromUrl = async () => {
+    if (!fields.url) {
+      setExtractError("Please enter a URL first.");
+      return;
+    }
+    setIsExtracting(true);
+    setExtractError(null);
+    const result = await fetchUrlContentAction(fields.url);
+    if (result.success && "data" in result) {
+      setFields((prev) => ({
+        ...prev,
+        title: result.data.title || prev.title,
+        content: result.data.content || prev.content,
+        source: result.data.source || prev.source,
+      }));
+    } else if (!result.success) {
+      setExtractError(result.error);
+    }
+    setIsExtracting(false);
+  };
+
   return {
     fields,
     setFields,
@@ -81,5 +108,8 @@ export default function useLibraryForm({
     handleChange,
     handleTagsChange,
     handleRemoveTag,
+    handleAutoFillFromUrl,
+    isExtracting,
+    extractError,
   };
 }

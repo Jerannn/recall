@@ -14,7 +14,7 @@ import {
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import { Textarea } from "@/components/ui/textarea";
-import { X } from "lucide-react";
+import { Loader2, Sparkles, X } from "lucide-react";
 import { useEffect } from "react";
 import useLibraryForm from "../hooks/use-library-form";
 import { CollectionOption, InitialStateForm, TagOption } from "../types";
@@ -39,6 +39,9 @@ export default function LibraryForm({
     handleChange,
     handleTagsChange,
     handleRemoveTag,
+    handleAutoFillFromUrl,
+    isExtracting,
+    extractError,
   } = useLibraryForm({
     mode,
     initialState,
@@ -50,7 +53,7 @@ export default function LibraryForm({
       setFields(initialState);
     }
   }, [setFields, initialState]);
-
+  console.log(collections);
   return (
     <form action={formAction}>
       {/* Hidden input elements to serialize selected tags array into FormData */}
@@ -59,6 +62,41 @@ export default function LibraryForm({
       ))}
 
       <FieldGroup>
+        <Field>
+          <FieldLabel htmlFor="url">URL (Auto-Extract)</FieldLabel>
+          <div className="flex items-center gap-2">
+            <Input
+              type="url"
+              id="url"
+              name="url"
+              placeholder="https://example.com/article"
+              value={fields.url || ""}
+              onChange={handleChange}
+              disabled={pending || isExtracting}
+            />
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleAutoFillFromUrl}
+              disabled={pending || isExtracting || !fields.url}
+              className="shrink-0"
+            >
+              {isExtracting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Extracting...
+                </>
+              ) : (
+                <>
+                  <Sparkles className="mr-2 h-4 w-4" />
+                  Auto-Fill
+                </>
+              )}
+            </Button>
+          </div>
+          {extractError && <FieldError>{extractError}</FieldError>}
+        </Field>
+
         <Field>
           <FieldLabel htmlFor="title">Title</FieldLabel>
           <Input
@@ -150,11 +188,11 @@ export default function LibraryForm({
         </Field>
 
         <Field>
-          <FieldLabel htmlFor="collection">Collection</FieldLabel>
+          <FieldLabel htmlFor="collectionId">Collection</FieldLabel>
           <NativeSelect
             value={fields.collectionId}
             onChange={handleChange}
-            name="collection"
+            name="collectionId"
             disabled={pending}
           >
             <NativeSelectOption value="">Select collection</NativeSelectOption>
@@ -181,7 +219,7 @@ export default function LibraryForm({
           />
         </Field>
 
-        <Button type="submit" disabled={pending}>
+        <Button type="submit" disabled={pending || isExtracting}>
           {pending ? (mode === "create" ? "Creating..." : "Updating...") : mode}
         </Button>
       </FieldGroup>

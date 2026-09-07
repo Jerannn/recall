@@ -8,6 +8,6 @@ export const librarySchema = z.object({
     .min(1, "Source is required.")
     .max(50, "Source must not exceed 50 characters."),
   tags: z.array(z.string()).min(1, "Please select at least one tag."),
-  collection: z.string().min(1, "Please select a collection."),
+  collectionId: z.string().min(1, "Please select a collection."),
   url: z.url("Invalid URL format.").optional().or(z.literal("")),
 });
