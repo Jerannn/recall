@@ -132,6 +132,7 @@ model Tag {
   user            User             @relation(fields: [userId], references: [id])
   libraryItemTags LibraryItemTag[]
 
+  @@unique([userId, name])
   @@map("tag")
 }
 

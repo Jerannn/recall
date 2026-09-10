@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { librarySchema } from "./schema";
 import { LibraryFormState } from "./types";
 
+import { generateContentEnrichment } from "@/lib/ai/enrichment";
 import { extractUrlContent } from "@/lib/ingestion/extractor";
 
 export const fetchUrlContentAction = async (url: string) => {
@@ -218,5 +219,104 @@ export const deleteLibrary = async (
   updateTag(`tags-${session.user.id}`);
   if (!isControlled) {
     redirect(`/library`);
+  }
+};
+
+export const enrichLibraryItemAction = async (libraryItemId: string) => {
+  const session = await getSession();
+  if (!session) {
+    return {
+      success: false,
+      message: "Unauthorized: You must be logged in to enrich items.",
+    };
+  }
+
+  // 1. Fetch item from database
+  const item = await prisma.libraryItem.findUnique({
+    where: {
+      id: libraryItemId,
+      userId: session.user.id,
+    },
+    include: {
+      libraryItemTags: { include: { tag: true } },
+    },
+  });
+
+  if (!item) {
+    return {
+      success: false,
+      message: "Library item not found.",
+    };
+  }
+
+  try {
+    // 2. Call AI enrichment service
+    const enriched = await generateContentEnrichment(item.title, item.content);
+
+    // 3. Format the summary and key takeaways into markdown
+    const formattedSummary = [
+      enriched.summary,
+      "",
+      "### Key Takeaways",
+      ...enriched.keyTakeaways.map((point) => `- ${point}`),
+    ].join("\n");
+
+    // 4. Save summary and sync tags in a transaction
+    await prisma.$transaction(async (tx) => {
+      // Update item summary
+      await tx.libraryItem.update({
+        where: { id: libraryItemId },
+        data: { summary: formattedSummary },
+      });
+
+      // Upsert each tag and connect it to this item
+      for (const tagName of enriched.tags) {
+        // Find existing tag for this user or create a new one
+        const tag = await tx.tag.upsert({
+          where: {
+            userId_name: {
+              name: tagName,
+              userId: session.user.id,
+            },
+          },
+          update: {},
+          create: {
+            name: tagName,
+            userId: session.user.id,
+          },
+        });
+        // Link tag to library item if not already linked
+        await tx.libraryItemTag.upsert({
+          where: {
+            libraryItemId_tagId: {
+              libraryItemId,
+              tagId: tag.id,
+            },
+          },
+          update: {},
+          create: {
+            libraryItemId,
+            tagId: tag.id,
+          },
+        });
+      }
+    });
+
+    // 5. Invalidate caches so the UI refreshes instantly
+    updateTag(`library-${session.user.id}`);
+    updateTag(`library-detail-${session.user.id}-${libraryItemId}`);
+    updateTag(`tags-${session.user.id}`);
+    return {
+      success: true,
+      message: "Item enriched successfully with AI summary and tags!",
+    };
+  } catch (error: unknown) {
+    console.error("AI Enrichment Error:", error);
+    return {
+      success: false,
+      message:
+        (error as { message: string }).message ||
+        "Failed to generate AI enrichment.",
+    };
   }
 };
