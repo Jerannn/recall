@@ -53,7 +53,7 @@ export default function LibraryForm({
       setFields(initialState);
     }
   }, [setFields, initialState]);
-  console.log(collections);
+
   return (
     <form action={formAction}>
       {/* Hidden input elements to serialize selected tags array into FormData */}

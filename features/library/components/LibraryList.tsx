@@ -69,15 +69,17 @@ export default async function LibraryList({ searchParams }: LibraryListProps) {
         </TableBody>
       </Table>
 
-      <PaginationControls
-        totalCount={totalCount}
-        pageSize={pageSize}
-        page={page}
-        pageSizeSelectOptions={{
-          pageSizeOptions: [5, 10, 20, 50],
-        }}
-        navigationMode="router"
-      />
+      {libraryItems.length > 0 && (
+        <PaginationControls
+          totalCount={totalCount}
+          pageSize={pageSize}
+          page={page}
+          pageSizeSelectOptions={{
+            pageSizeOptions: [5, 10, 20, 50],
+          }}
+          navigationMode="router"
+        />
+      )}
     </div>
   );
 }

@@ -92,13 +92,19 @@ model LibraryItem {
 
   embedding Unsupported("vector(1536)")?
 
+  nextReviewAt    DateTime  @default(now())
+  lastReviewedAt  DateTime?
+  reviewInterval  Int       @default(1) // Days until next review
+  repetitionCount Int       @default(0) // How many times reviewed
+  easeFactor      Float     @default(2.5) // Learning difficulty multiplier (SM-2 standard)
+
   userId          String
   user            User             @relation(fields: [userId], references: [id])
   libraryItemTags LibraryItemTag[]
   collectionId    String
   collection      Collection?      @relation(fields: [collectionId], references: [id])
 
-  @@index([userId])
+  @@index([userId, nextReviewAt])
   @@map("library_item")
 }
 
