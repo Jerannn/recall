@@ -1,4 +1,4 @@
-import { openai } from "@ai-sdk/openai";
+import { google } from "@ai-sdk/google";
 import { generateText, Output } from "ai";
 import { EnrichmentData, enrichmentSchema } from "./schema";
 
@@ -10,7 +10,7 @@ export async function generateContentEnrichment(
   const truncatedContent = content.slice(0, 12000);
 
   const { output } = await generateText({
-    model: openai("gpt-4o-mini"), // Fast, reliable, and cost-effective
+    model: google("gemini-3.6-flash"), // Fast, reliable, and cost-effective
     output: Output.object({
       schema: enrichmentSchema,
     }),

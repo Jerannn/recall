@@ -32,7 +32,7 @@ export default function EnrichAIButton({ libraryId }: EnrichAIButtonProps) {
         variant="outline"
         size="sm"
         onClick={handleEnrich}
-        disabled // ={loading}
+        disabled={loading}
         className="gap-1.5"
       >
         {loading ? (

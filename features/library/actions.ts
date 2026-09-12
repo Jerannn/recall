@@ -271,34 +271,41 @@ export const enrichLibraryItemAction = async (libraryItemId: string) => {
 
       // Upsert each tag and connect it to this item
       for (const tagName of enriched.tags) {
-        // Find existing tag for this user or create a new one
+        // 1. Find or create the tag (setting update: { name: tagName } ensures PostgreSQL always returns the row and ID)
         const tag = await tx.tag.upsert({
           where: {
             userId_name: {
-              name: tagName,
               userId: session.user.id,
+              name: tagName,
             },
           },
-          update: {},
+          update: {
+            name: tagName, // <-- Fix: Guarantees tag.id is always returned even if tag exists
+          },
           create: {
             name: tagName,
             userId: session.user.id,
           },
         });
-        // Link tag to library item if not already linked
-        await tx.libraryItemTag.upsert({
-          where: {
-            libraryItemId_tagId: {
-              libraryItemId,
-              tagId: tag.id,
+        // 2. Link tag to library item if tag.id exists
+        if (tag?.id) {
+          const existingLink = await tx.libraryItemTag.findUnique({
+            where: {
+              libraryItemId_tagId: {
+                libraryItemId,
+                tagId: tag.id,
+              },
             },
-          },
-          update: {},
-          create: {
-            libraryItemId,
-            tagId: tag.id,
-          },
-        });
+          });
+          if (!existingLink) {
+            await tx.libraryItemTag.create({
+              data: {
+                libraryItemId,
+                tagId: tag.id,
+              },
+            });
+          }
+        }
       }
     });
 
