@@ -90,4 +90,5 @@ export const deleteTag = async (tagId: string) => {
 
   updateTag(`tags-${session.user.id}`);
   updateTag(`library-form-options-${session.user.id}`);
+  updateTag(`library-filter-${session.user.id}`);
 };

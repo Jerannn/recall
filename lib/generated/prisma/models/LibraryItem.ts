@@ -20,8 +20,22 @@ export type LibraryItemModel = runtime.Types.Result.DefaultSelection<Prisma.$Lib
 
 export type AggregateLibraryItem = {
   _count: LibraryItemCountAggregateOutputType | null
+  _avg: LibraryItemAvgAggregateOutputType | null
+  _sum: LibraryItemSumAggregateOutputType | null
   _min: LibraryItemMinAggregateOutputType | null
   _max: LibraryItemMaxAggregateOutputType | null
+}
+
+export type LibraryItemAvgAggregateOutputType = {
+  reviewInterval: number | null
+  repetitionCount: number | null
+  easeFactor: number | null
+}
+
+export type LibraryItemSumAggregateOutputType = {
+  reviewInterval: number | null
+  repetitionCount: number | null
+  easeFactor: number | null
 }
 
 export type LibraryItemMinAggregateOutputType = {
@@ -34,6 +48,11 @@ export type LibraryItemMinAggregateOutputType = {
   summary: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  nextReviewAt: Date | null
+  lastReviewedAt: Date | null
+  reviewInterval: number | null
+  repetitionCount: number | null
+  easeFactor: number | null
   userId: string | null
   collectionId: string | null
 }
@@ -48,6 +67,11 @@ export type LibraryItemMaxAggregateOutputType = {
   summary: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  nextReviewAt: Date | null
+  lastReviewedAt: Date | null
+  reviewInterval: number | null
+  repetitionCount: number | null
+  easeFactor: number | null
   userId: string | null
   collectionId: string | null
 }
@@ -62,11 +86,28 @@ export type LibraryItemCountAggregateOutputType = {
   summary: number
   createdAt: number
   updatedAt: number
+  nextReviewAt: number
+  lastReviewedAt: number
+  reviewInterval: number
+  repetitionCount: number
+  easeFactor: number
   userId: number
   collectionId: number
   _all: number
 }
 
+
+export type LibraryItemAvgAggregateInputType = {
+  reviewInterval?: true
+  repetitionCount?: true
+  easeFactor?: true
+}
+
+export type LibraryItemSumAggregateInputType = {
+  reviewInterval?: true
+  repetitionCount?: true
+  easeFactor?: true
+}
 
 export type LibraryItemMinAggregateInputType = {
   id?: true
@@ -78,6 +119,11 @@ export type LibraryItemMinAggregateInputType = {
   summary?: true
   createdAt?: true
   updatedAt?: true
+  nextReviewAt?: true
+  lastReviewedAt?: true
+  reviewInterval?: true
+  repetitionCount?: true
+  easeFactor?: true
   userId?: true
   collectionId?: true
 }
@@ -92,6 +138,11 @@ export type LibraryItemMaxAggregateInputType = {
   summary?: true
   createdAt?: true
   updatedAt?: true
+  nextReviewAt?: true
+  lastReviewedAt?: true
+  reviewInterval?: true
+  repetitionCount?: true
+  easeFactor?: true
   userId?: true
   collectionId?: true
 }
@@ -106,6 +157,11 @@ export type LibraryItemCountAggregateInputType = {
   summary?: true
   createdAt?: true
   updatedAt?: true
+  nextReviewAt?: true
+  lastReviewedAt?: true
+  reviewInterval?: true
+  repetitionCount?: true
+  easeFactor?: true
   userId?: true
   collectionId?: true
   _all?: true
@@ -149,6 +205,18 @@ export type LibraryItemAggregateArgs<ExtArgs extends runtime.Types.Extensions.In
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: LibraryItemAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: LibraryItemSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: LibraryItemMinAggregateInputType
@@ -179,6 +247,8 @@ export type LibraryItemGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   _count?: LibraryItemCountAggregateInputType | true
+  _avg?: LibraryItemAvgAggregateInputType
+  _sum?: LibraryItemSumAggregateInputType
   _min?: LibraryItemMinAggregateInputType
   _max?: LibraryItemMaxAggregateInputType
 }
@@ -193,9 +263,16 @@ export type LibraryItemGroupByOutputType = {
   summary: string | null
   createdAt: Date
   updatedAt: Date
+  nextReviewAt: Date
+  lastReviewedAt: Date | null
+  reviewInterval: number
+  repetitionCount: number
+  easeFactor: number
   userId: string
   collectionId: string
   _count: LibraryItemCountAggregateOutputType | null
+  _avg: LibraryItemAvgAggregateOutputType | null
+  _sum: LibraryItemSumAggregateOutputType | null
   _min: LibraryItemMinAggregateOutputType | null
   _max: LibraryItemMaxAggregateOutputType | null
 }
@@ -228,6 +305,11 @@ export type LibraryItemWhereInput = {
   summary?: Prisma.StringNullableFilter<"LibraryItem"> | string | null
   createdAt?: Prisma.DateTimeFilter<"LibraryItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LibraryItem"> | Date | string
+  nextReviewAt?: Prisma.DateTimeFilter<"LibraryItem"> | Date | string
+  lastReviewedAt?: Prisma.DateTimeNullableFilter<"LibraryItem"> | Date | string | null
+  reviewInterval?: Prisma.IntFilter<"LibraryItem"> | number
+  repetitionCount?: Prisma.IntFilter<"LibraryItem"> | number
+  easeFactor?: Prisma.FloatFilter<"LibraryItem"> | number
   userId?: Prisma.StringFilter<"LibraryItem"> | string
   collectionId?: Prisma.StringFilter<"LibraryItem"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -245,6 +327,11 @@ export type LibraryItemOrderByWithRelationInput = {
   summary?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  nextReviewAt?: Prisma.SortOrder
+  lastReviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewInterval?: Prisma.SortOrder
+  repetitionCount?: Prisma.SortOrder
+  easeFactor?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   collectionId?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -265,6 +352,11 @@ export type LibraryItemWhereUniqueInput = Prisma.AtLeast<{
   summary?: Prisma.StringNullableFilter<"LibraryItem"> | string | null
   createdAt?: Prisma.DateTimeFilter<"LibraryItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LibraryItem"> | Date | string
+  nextReviewAt?: Prisma.DateTimeFilter<"LibraryItem"> | Date | string
+  lastReviewedAt?: Prisma.DateTimeNullableFilter<"LibraryItem"> | Date | string | null
+  reviewInterval?: Prisma.IntFilter<"LibraryItem"> | number
+  repetitionCount?: Prisma.IntFilter<"LibraryItem"> | number
+  easeFactor?: Prisma.FloatFilter<"LibraryItem"> | number
   userId?: Prisma.StringFilter<"LibraryItem"> | string
   collectionId?: Prisma.StringFilter<"LibraryItem"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -282,11 +374,18 @@ export type LibraryItemOrderByWithAggregationInput = {
   summary?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  nextReviewAt?: Prisma.SortOrder
+  lastReviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewInterval?: Prisma.SortOrder
+  repetitionCount?: Prisma.SortOrder
+  easeFactor?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   collectionId?: Prisma.SortOrder
   _count?: Prisma.LibraryItemCountOrderByAggregateInput
+  _avg?: Prisma.LibraryItemAvgOrderByAggregateInput
   _max?: Prisma.LibraryItemMaxOrderByAggregateInput
   _min?: Prisma.LibraryItemMinOrderByAggregateInput
+  _sum?: Prisma.LibraryItemSumOrderByAggregateInput
 }
 
 export type LibraryItemScalarWhereWithAggregatesInput = {
@@ -302,6 +401,11 @@ export type LibraryItemScalarWhereWithAggregatesInput = {
   summary?: Prisma.StringNullableWithAggregatesFilter<"LibraryItem"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"LibraryItem"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"LibraryItem"> | Date | string
+  nextReviewAt?: Prisma.DateTimeWithAggregatesFilter<"LibraryItem"> | Date | string
+  lastReviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"LibraryItem"> | Date | string | null
+  reviewInterval?: Prisma.IntWithAggregatesFilter<"LibraryItem"> | number
+  repetitionCount?: Prisma.IntWithAggregatesFilter<"LibraryItem"> | number
+  easeFactor?: Prisma.FloatWithAggregatesFilter<"LibraryItem"> | number
   userId?: Prisma.StringWithAggregatesFilter<"LibraryItem"> | string
   collectionId?: Prisma.StringWithAggregatesFilter<"LibraryItem"> | string
 }
@@ -316,6 +420,11 @@ export type LibraryItemCreateInput = {
   summary?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  nextReviewAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  reviewInterval?: number
+  repetitionCount?: number
+  easeFactor?: number
   user: Prisma.UserCreateNestedOneWithoutLibraryItemsInput
   libraryItemTags?: Prisma.LibraryItemTagCreateNestedManyWithoutLibraryItemInput
   collection?: Prisma.CollectionCreateNestedOneWithoutLibraryItemsInput
@@ -331,6 +440,11 @@ export type LibraryItemUncheckedCreateInput = {
   summary?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  nextReviewAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  reviewInterval?: number
+  repetitionCount?: number
+  easeFactor?: number
   userId: string
   collectionId: string
   libraryItemTags?: Prisma.LibraryItemTagUncheckedCreateNestedManyWithoutLibraryItemInput
@@ -346,6 +460,11 @@ export type LibraryItemUpdateInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nextReviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  repetitionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  easeFactor?: Prisma.FloatFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutLibraryItemsNestedInput
   libraryItemTags?: Prisma.LibraryItemTagUpdateManyWithoutLibraryItemNestedInput
   collection?: Prisma.CollectionUpdateOneWithoutLibraryItemsNestedInput
@@ -361,6 +480,11 @@ export type LibraryItemUncheckedUpdateInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nextReviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  repetitionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  easeFactor?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   collectionId?: Prisma.StringFieldUpdateOperationsInput | string
   libraryItemTags?: Prisma.LibraryItemTagUncheckedUpdateManyWithoutLibraryItemNestedInput
@@ -376,6 +500,11 @@ export type LibraryItemCreateManyInput = {
   summary?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  nextReviewAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  reviewInterval?: number
+  repetitionCount?: number
+  easeFactor?: number
   userId: string
   collectionId: string
 }
@@ -390,6 +519,11 @@ export type LibraryItemUpdateManyMutationInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nextReviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  repetitionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  easeFactor?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type LibraryItemUncheckedUpdateManyInput = {
@@ -402,6 +536,11 @@ export type LibraryItemUncheckedUpdateManyInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nextReviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  repetitionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  easeFactor?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   collectionId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -426,8 +565,19 @@ export type LibraryItemCountOrderByAggregateInput = {
   summary?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  nextReviewAt?: Prisma.SortOrder
+  lastReviewedAt?: Prisma.SortOrder
+  reviewInterval?: Prisma.SortOrder
+  repetitionCount?: Prisma.SortOrder
+  easeFactor?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   collectionId?: Prisma.SortOrder
+}
+
+export type LibraryItemAvgOrderByAggregateInput = {
+  reviewInterval?: Prisma.SortOrder
+  repetitionCount?: Prisma.SortOrder
+  easeFactor?: Prisma.SortOrder
 }
 
 export type LibraryItemMaxOrderByAggregateInput = {
@@ -440,6 +590,11 @@ export type LibraryItemMaxOrderByAggregateInput = {
   summary?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  nextReviewAt?: Prisma.SortOrder
+  lastReviewedAt?: Prisma.SortOrder
+  reviewInterval?: Prisma.SortOrder
+  repetitionCount?: Prisma.SortOrder
+  easeFactor?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   collectionId?: Prisma.SortOrder
 }
@@ -454,8 +609,19 @@ export type LibraryItemMinOrderByAggregateInput = {
   summary?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  nextReviewAt?: Prisma.SortOrder
+  lastReviewedAt?: Prisma.SortOrder
+  reviewInterval?: Prisma.SortOrder
+  repetitionCount?: Prisma.SortOrder
+  easeFactor?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   collectionId?: Prisma.SortOrder
+}
+
+export type LibraryItemSumOrderByAggregateInput = {
+  reviewInterval?: Prisma.SortOrder
+  repetitionCount?: Prisma.SortOrder
+  easeFactor?: Prisma.SortOrder
 }
 
 export type LibraryItemScalarRelationFilter = {
@@ -503,6 +669,22 @@ export type LibraryItemUncheckedUpdateManyWithoutUserNestedInput = {
   update?: Prisma.LibraryItemUpdateWithWhereUniqueWithoutUserInput | Prisma.LibraryItemUpdateWithWhereUniqueWithoutUserInput[]
   updateMany?: Prisma.LibraryItemUpdateManyWithWhereWithoutUserInput | Prisma.LibraryItemUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.LibraryItemScalarWhereInput | Prisma.LibraryItemScalarWhereInput[]
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type FloatFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type LibraryItemCreateNestedOneWithoutLibraryItemTagsInput = {
@@ -571,6 +753,11 @@ export type LibraryItemCreateWithoutUserInput = {
   summary?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  nextReviewAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  reviewInterval?: number
+  repetitionCount?: number
+  easeFactor?: number
   libraryItemTags?: Prisma.LibraryItemTagCreateNestedManyWithoutLibraryItemInput
   collection?: Prisma.CollectionCreateNestedOneWithoutLibraryItemsInput
 }
@@ -585,6 +772,11 @@ export type LibraryItemUncheckedCreateWithoutUserInput = {
   summary?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  nextReviewAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  reviewInterval?: number
+  repetitionCount?: number
+  easeFactor?: number
   collectionId: string
   libraryItemTags?: Prisma.LibraryItemTagUncheckedCreateNestedManyWithoutLibraryItemInput
 }
@@ -628,6 +820,11 @@ export type LibraryItemScalarWhereInput = {
   summary?: Prisma.StringNullableFilter<"LibraryItem"> | string | null
   createdAt?: Prisma.DateTimeFilter<"LibraryItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"LibraryItem"> | Date | string
+  nextReviewAt?: Prisma.DateTimeFilter<"LibraryItem"> | Date | string
+  lastReviewedAt?: Prisma.DateTimeNullableFilter<"LibraryItem"> | Date | string | null
+  reviewInterval?: Prisma.IntFilter<"LibraryItem"> | number
+  repetitionCount?: Prisma.IntFilter<"LibraryItem"> | number
+  easeFactor?: Prisma.FloatFilter<"LibraryItem"> | number
   userId?: Prisma.StringFilter<"LibraryItem"> | string
   collectionId?: Prisma.StringFilter<"LibraryItem"> | string
 }
@@ -642,6 +839,11 @@ export type LibraryItemCreateWithoutLibraryItemTagsInput = {
   summary?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  nextReviewAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  reviewInterval?: number
+  repetitionCount?: number
+  easeFactor?: number
   user: Prisma.UserCreateNestedOneWithoutLibraryItemsInput
   collection?: Prisma.CollectionCreateNestedOneWithoutLibraryItemsInput
 }
@@ -656,6 +858,11 @@ export type LibraryItemUncheckedCreateWithoutLibraryItemTagsInput = {
   summary?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  nextReviewAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  reviewInterval?: number
+  repetitionCount?: number
+  easeFactor?: number
   userId: string
   collectionId: string
 }
@@ -686,6 +893,11 @@ export type LibraryItemUpdateWithoutLibraryItemTagsInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nextReviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  repetitionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  easeFactor?: Prisma.FloatFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutLibraryItemsNestedInput
   collection?: Prisma.CollectionUpdateOneWithoutLibraryItemsNestedInput
 }
@@ -700,6 +912,11 @@ export type LibraryItemUncheckedUpdateWithoutLibraryItemTagsInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nextReviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  repetitionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  easeFactor?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   collectionId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -714,6 +931,11 @@ export type LibraryItemCreateWithoutCollectionInput = {
   summary?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  nextReviewAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  reviewInterval?: number
+  repetitionCount?: number
+  easeFactor?: number
   user: Prisma.UserCreateNestedOneWithoutLibraryItemsInput
   libraryItemTags?: Prisma.LibraryItemTagCreateNestedManyWithoutLibraryItemInput
 }
@@ -728,6 +950,11 @@ export type LibraryItemUncheckedCreateWithoutCollectionInput = {
   summary?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  nextReviewAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  reviewInterval?: number
+  repetitionCount?: number
+  easeFactor?: number
   userId: string
   libraryItemTags?: Prisma.LibraryItemTagUncheckedCreateNestedManyWithoutLibraryItemInput
 }
@@ -768,6 +995,11 @@ export type LibraryItemCreateManyUserInput = {
   summary?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  nextReviewAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  reviewInterval?: number
+  repetitionCount?: number
+  easeFactor?: number
   collectionId: string
 }
 
@@ -781,6 +1013,11 @@ export type LibraryItemUpdateWithoutUserInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nextReviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  repetitionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  easeFactor?: Prisma.FloatFieldUpdateOperationsInput | number
   libraryItemTags?: Prisma.LibraryItemTagUpdateManyWithoutLibraryItemNestedInput
   collection?: Prisma.CollectionUpdateOneWithoutLibraryItemsNestedInput
 }
@@ -795,6 +1032,11 @@ export type LibraryItemUncheckedUpdateWithoutUserInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nextReviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  repetitionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  easeFactor?: Prisma.FloatFieldUpdateOperationsInput | number
   collectionId?: Prisma.StringFieldUpdateOperationsInput | string
   libraryItemTags?: Prisma.LibraryItemTagUncheckedUpdateManyWithoutLibraryItemNestedInput
 }
@@ -809,6 +1051,11 @@ export type LibraryItemUncheckedUpdateManyWithoutUserInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nextReviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  repetitionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  easeFactor?: Prisma.FloatFieldUpdateOperationsInput | number
   collectionId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -822,6 +1069,11 @@ export type LibraryItemCreateManyCollectionInput = {
   summary?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  nextReviewAt?: Date | string
+  lastReviewedAt?: Date | string | null
+  reviewInterval?: number
+  repetitionCount?: number
+  easeFactor?: number
   userId: string
 }
 
@@ -835,6 +1087,11 @@ export type LibraryItemUpdateWithoutCollectionInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nextReviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  repetitionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  easeFactor?: Prisma.FloatFieldUpdateOperationsInput | number
   user?: Prisma.UserUpdateOneRequiredWithoutLibraryItemsNestedInput
   libraryItemTags?: Prisma.LibraryItemTagUpdateManyWithoutLibraryItemNestedInput
 }
@@ -849,6 +1106,11 @@ export type LibraryItemUncheckedUpdateWithoutCollectionInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nextReviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  repetitionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  easeFactor?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   libraryItemTags?: Prisma.LibraryItemTagUncheckedUpdateManyWithoutLibraryItemNestedInput
 }
@@ -863,6 +1125,11 @@ export type LibraryItemUncheckedUpdateManyWithoutCollectionInput = {
   summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  nextReviewAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewInterval?: Prisma.IntFieldUpdateOperationsInput | number
+  repetitionCount?: Prisma.IntFieldUpdateOperationsInput | number
+  easeFactor?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -907,6 +1174,11 @@ export type LibraryItemSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   summary?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  nextReviewAt?: boolean
+  lastReviewedAt?: boolean
+  reviewInterval?: boolean
+  repetitionCount?: boolean
+  easeFactor?: boolean
   userId?: boolean
   collectionId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -925,6 +1197,11 @@ export type LibraryItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   summary?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  nextReviewAt?: boolean
+  lastReviewedAt?: boolean
+  reviewInterval?: boolean
+  repetitionCount?: boolean
+  easeFactor?: boolean
   userId?: boolean
   collectionId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -941,6 +1218,11 @@ export type LibraryItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   summary?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  nextReviewAt?: boolean
+  lastReviewedAt?: boolean
+  reviewInterval?: boolean
+  repetitionCount?: boolean
+  easeFactor?: boolean
   userId?: boolean
   collectionId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -957,11 +1239,16 @@ export type LibraryItemSelectScalar = {
   summary?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  nextReviewAt?: boolean
+  lastReviewedAt?: boolean
+  reviewInterval?: boolean
+  repetitionCount?: boolean
+  easeFactor?: boolean
   userId?: boolean
   collectionId?: boolean
 }
 
-export type LibraryItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "source" | "sourceId" | "url" | "summary" | "createdAt" | "updatedAt" | "userId" | "collectionId", ExtArgs["result"]["libraryItem"]>
+export type LibraryItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "content" | "source" | "sourceId" | "url" | "summary" | "createdAt" | "updatedAt" | "nextReviewAt" | "lastReviewedAt" | "reviewInterval" | "repetitionCount" | "easeFactor" | "userId" | "collectionId", ExtArgs["result"]["libraryItem"]>
 export type LibraryItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   libraryItemTags?: boolean | Prisma.LibraryItem$libraryItemTagsArgs<ExtArgs>
@@ -994,6 +1281,11 @@ export type $LibraryItemPayload<ExtArgs extends runtime.Types.Extensions.Interna
     summary: string | null
     createdAt: Date
     updatedAt: Date
+    nextReviewAt: Date
+    lastReviewedAt: Date | null
+    reviewInterval: number
+    repetitionCount: number
+    easeFactor: number
     userId: string
     collectionId: string
   }, ExtArgs["result"]["libraryItem"]>
@@ -1431,6 +1723,11 @@ export interface LibraryItemFieldRefs {
   readonly summary: Prisma.FieldRef<"LibraryItem", 'String'>
   readonly createdAt: Prisma.FieldRef<"LibraryItem", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"LibraryItem", 'DateTime'>
+  readonly nextReviewAt: Prisma.FieldRef<"LibraryItem", 'DateTime'>
+  readonly lastReviewedAt: Prisma.FieldRef<"LibraryItem", 'DateTime'>
+  readonly reviewInterval: Prisma.FieldRef<"LibraryItem", 'Int'>
+  readonly repetitionCount: Prisma.FieldRef<"LibraryItem", 'Int'>
+  readonly easeFactor: Prisma.FieldRef<"LibraryItem", 'Float'>
   readonly userId: Prisma.FieldRef<"LibraryItem", 'String'>
   readonly collectionId: Prisma.FieldRef<"LibraryItem", 'String'>
 }

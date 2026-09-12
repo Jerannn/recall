@@ -1124,6 +1124,11 @@ export const LibraryItemScalarFieldEnum = {
   summary: 'summary',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  nextReviewAt: 'nextReviewAt',
+  lastReviewedAt: 'lastReviewedAt',
+  reviewInterval: 'reviewInterval',
+  repetitionCount: 'repetitionCount',
+  easeFactor: 'easeFactor',
   userId: 'userId',
   collectionId: 'collectionId'
 } as const
@@ -1235,6 +1240,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**

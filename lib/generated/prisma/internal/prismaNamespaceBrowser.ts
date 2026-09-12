@@ -146,6 +146,11 @@ export const LibraryItemScalarFieldEnum = {
   summary: 'summary',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  nextReviewAt: 'nextReviewAt',
+  lastReviewedAt: 'lastReviewedAt',
+  reviewInterval: 'reviewInterval',
+  repetitionCount: 'repetitionCount',
+  easeFactor: 'easeFactor',
   userId: 'userId',
   collectionId: 'collectionId'
 } as const
