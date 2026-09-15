@@ -100,8 +100,8 @@ export async function extractUrlContent(
     };
 
     return { success: true, data: result };
-  } catch (error: any) {
-    if (error.name === "TimeoutError") {
+  } catch (error: unknown) {
+    if (error instanceof Error && error.name === "TimeoutError") {
       return {
         success: false,
         error: "The webpage took too long to respond (timeout).",
@@ -110,7 +110,9 @@ export async function extractUrlContent(
     return {
       success: false,
       error:
-        error.message || "An unexpected error occurred while parsing the URL.",
+        error instanceof Error
+          ? error.message
+          : "An unexpected error occurred while parsing the URL.",
     };
   }
 }

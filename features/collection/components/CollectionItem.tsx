@@ -61,11 +61,13 @@ export default function CollectionItem({ collection }: CollectionItemProps) {
       <ItemMedia
         variant="icon"
         className="size-4 rounded-xs"
-        style={{ backgroundColor: `${collection.color}33` }}
+        style={{
+          backgroundColor: collection.color ? `${collection.color}33` : undefined,
+        }}
       >
         <div
           className="size-2 rounded-full"
-          style={{ backgroundColor: collection.color }}
+          style={{ backgroundColor: collection.color ?? undefined }}
         ></div>
       </ItemMedia>
       <ItemContent>
