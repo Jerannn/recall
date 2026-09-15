@@ -3,7 +3,7 @@ import { prisma } from "@/lib/db";
 export async function getDashboardData(userId: string) {
   const now = new Date();
 
-  const [dueItems, totalItems, masteredCount, reviewedTodayCount] =
+  const [dueItems, totalDueCount, totalItems, masteredCount, reviewedTodayCount] =
     await Promise.all([
       // 1. Items due for recall review today (max 5 per session)
       prisma.libraryItem.findMany({
@@ -18,10 +18,18 @@ export async function getDashboardData(userId: string) {
         take: 5,
       }),
 
-      // 2. Total items in library
+      // 2. Total count of items due for review
+      prisma.libraryItem.count({
+        where: {
+          userId,
+          nextReviewAt: { lte: now },
+        },
+      }),
+
+      // 3. Total items in library
       prisma.libraryItem.count({ where: { userId } }),
 
-      // 3. Mastered items (reviewed 4+ times with interval >= 21 days)
+      // 4. Mastered items (reviewed 4+ times with interval >= 21 days)
       prisma.libraryItem.count({
         where: {
           userId,
@@ -30,7 +38,7 @@ export async function getDashboardData(userId: string) {
         },
       }),
 
-      // 4. Reviewed today
+      // 5. Reviewed today
       prisma.libraryItem.count({
         where: {
           userId,
@@ -44,7 +52,7 @@ export async function getDashboardData(userId: string) {
   return {
     dueItems,
     stats: {
-      dueCount: dueItems.length,
+      dueCount: totalDueCount,
       totalItems,
       masteredCount,
       reviewedTodayCount,

@@ -56,6 +56,7 @@ export const getLibraryItems = async (
           select: {
             tag: true,
           },
+          take: 3,
         },
       },
       orderBy: { createdAt: "desc" },

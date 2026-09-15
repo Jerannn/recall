@@ -83,11 +83,44 @@ export const getSearchFromLibrary = async (userId: string, search: string) => {
       scoreMap.set(item.id, existing);
     });
 
-    // 4. Map and rank final merged results
-    const results: SearchResultItem[] = ftsResults.map((item) => {
+    // 4. Fetch details for items found only via semantic search
+    const ftsItemMap = new Map(ftsResults.map((item) => [item.id, item]));
+    const vectorOnlyIds = vectorResults
+      .map((v) => v.id)
+      .filter((id) => !ftsItemMap.has(id));
+
+    let vectorOnlyItems: Array<{
+      id: string;
+      title: string;
+      source: string;
+      url: string | null;
+      summary: string | null;
+      content: string;
+      createdAt: Date;
+    }> = [];
+
+    if (vectorOnlyIds.length > 0) {
+      vectorOnlyItems = await prisma.libraryItem.findMany({
+        where: { id: { in: vectorOnlyIds }, userId },
+        select: {
+          id: true,
+          title: true,
+          source: true,
+          url: true,
+          summary: true,
+          content: true,
+          createdAt: true,
+        },
+      });
+    }
+
+    // 5. Map and rank final merged results
+    const results: SearchResultItem[] = [];
+
+    ftsResults.forEach((item) => {
       const scores = scoreMap.get(item.id);
       const isHybrid = Boolean(scores?.ftsRank && scores?.semanticScore);
-      return {
+      results.push({
         id: item.id,
         title: item.title,
         source: item.source,
@@ -96,8 +129,24 @@ export const getSearchFromLibrary = async (userId: string, search: string) => {
         score: (scores?.ftsRank || 0) + (scores?.semanticScore || 0),
         matchType: isHybrid ? "hybrid" : "keyword",
         createdAt: item.createdAt,
-      };
+      });
     });
+
+    vectorOnlyItems.forEach((item) => {
+      const scores = scoreMap.get(item.id);
+      const snippet = item.summary || item.content.slice(0, 160) + "...";
+      results.push({
+        id: item.id,
+        title: item.title,
+        source: item.source,
+        url: item.url,
+        snippet,
+        score: scores?.semanticScore || 0,
+        matchType: "semantic",
+        createdAt: item.createdAt,
+      });
+    });
+
     return results.sort((a, b) => b.score - a.score);
   } catch (error) {
     console.error("Search failed:", error);
