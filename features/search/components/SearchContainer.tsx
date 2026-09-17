@@ -14,12 +14,16 @@ export default async function SearchContainer({
   const suspenseKey = query.search || "empty";
 
   return (
-    <div>
+    <div className="space-y-6">
       <SearchForm />
 
       <Suspense
         key={suspenseKey}
-        fallback={<p>Searching inside of your library...</p>}
+        fallback={
+          <div className="py-12 text-center text-xs text-muted-foreground animate-pulse">
+            Searching inside of your library...
+          </div>
+        }
       >
         <SearchList searchParams={searchParams} />
       </Suspense>

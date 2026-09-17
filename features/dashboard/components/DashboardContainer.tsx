@@ -1,98 +1,102 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { getSession } from "@/lib/get-session";
 import { BookOpen, CheckCircle2, Flame, Trophy } from "lucide-react";
 import { getDashboardData } from "../queries";
-import RecallCard from "./RecallCard";
+import DashboardQueue from "./DashboardQueue";
 
 export default async function DashboardContainer() {
   const session = await getSession();
   const { dueItems, stats } = await getDashboardData(
     session?.user.id as string,
   );
+
   return (
-    <>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xs font-medium text-muted-foreground">
-              Due For Recall Today
-            </CardTitle>
-            <Flame className="h-4 w-4 text-orange-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.dueCount}</div>
-            <p className="text-xs text-muted-foreground">
-              Items waiting for review
-            </p>
+    <div className="space-y-8 p-6 max-w-6xl mx-auto">
+      {/* 4-Metric Clean Ribbon */}
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+        {/* Due For Recall */}
+        <Card className="border-border/60 shadow-xs">
+          <CardContent className="p-4 sm:p-5 flex items-center justify-between">
+            <div className="space-y-1">
+              <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                Due Today
+              </p>
+              <p className="text-2xl font-bold tracking-tight text-foreground">
+                {stats.dueCount}
+              </p>
+              <p className="text-[11px] text-muted-foreground">
+                Waiting for review
+              </p>
+            </div>
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-orange-500/10 text-orange-500">
+              <Flame className="h-5 w-5" />
+            </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xs font-medium text-muted-foreground">
-              Reviewed Today
-            </CardTitle>
-            <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.reviewedTodayCount}</div>
-            <p className="text-xs text-muted-foreground">Reviews completed</p>
+
+        {/* Reviewed Today */}
+        <Card className="border-border/60 shadow-xs">
+          <CardContent className="p-4 sm:p-5 flex items-center justify-between">
+            <div className="space-y-1">
+              <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                Reviewed Today
+              </p>
+              <p className="text-2xl font-bold tracking-tight text-foreground">
+                {stats.reviewedTodayCount}
+              </p>
+              <p className="text-[11px] text-muted-foreground">
+                Completed today
+              </p>
+            </div>
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500">
+              <CheckCircle2 className="h-5 w-5" />
+            </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xs font-medium text-muted-foreground">
-              Mastered Knowledge
-            </CardTitle>
-            <Trophy className="h-4 w-4 text-yellow-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.masteredCount}</div>
-            <p className="text-xs text-muted-foreground">Retained long-term</p>
+
+        {/* Mastered Knowledge */}
+        <Card className="border-border/60 shadow-xs">
+          <CardContent className="p-4 sm:p-5 flex items-center justify-between">
+            <div className="space-y-1">
+              <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                Mastered
+              </p>
+              <p className="text-2xl font-bold tracking-tight text-foreground">
+                {stats.masteredCount}
+              </p>
+              <p className="text-[11px] text-muted-foreground">
+                Retained long-term
+              </p>
+            </div>
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-500/10 text-amber-500">
+              <Trophy className="h-5 w-5" />
+            </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-xs font-medium text-muted-foreground">
-              Total Library Size
-            </CardTitle>
-            <BookOpen className="h-4 w-4 text-blue-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{stats.totalItems}</div>
-            <p className="text-xs text-muted-foreground">
-              Saved articles & notes
-            </p>
+
+        {/* Total Library */}
+        <Card className="border-border/60 shadow-xs">
+          <CardContent className="p-4 sm:p-5 flex items-center justify-between">
+            <div className="space-y-1">
+              <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                Total Library
+              </p>
+              <p className="text-2xl font-bold tracking-tight text-foreground">
+                {stats.totalItems}
+              </p>
+              <p className="text-[11px] text-muted-foreground">
+                Saved items
+              </p>
+            </div>
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500/10 text-blue-500">
+              <BookOpen className="h-5 w-5" />
+            </div>
           </CardContent>
         </Card>
       </div>
 
-      <div className="space-y-4">
-        <div>
-          <h2 className="text-lg font-semibold tracking-tight">
-            Daily Recall Queue
-          </h2>
-          <p className="text-xs text-muted-foreground">
-            Review these items to prevent forgetting what you learned.
-          </p>
-        </div>
-        {dueItems.length === 0 ? (
-          <Card className="border-dashed bg-muted/20 p-8 text-center">
-            <CheckCircle2 className="mx-auto mb-2 h-8 w-8 text-emerald-500" />
-            <p className="text-sm font-semibold">
-              You are all caught up for today!
-            </p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Check back tomorrow for your next batch of recall reviews.
-            </p>
-          </Card>
-        ) : (
-          <div className="space-y-4">
-            {dueItems.map((item) => (
-              <RecallCard key={item.id} item={item} />
-            ))}
-          </div>
-        )}
-      </div>
-    </>
+      {/* Spaced Repetition Queue */}
+      <DashboardQueue dueItems={dueItems} />
+    </div>
   );
 }

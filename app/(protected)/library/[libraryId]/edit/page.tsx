@@ -8,20 +8,49 @@ interface EditLibraryPageProps {
   params: Promise<{ libraryId: string }>;
 }
 
-export default function EditLibraryPage({ params }: EditLibraryPageProps) {
+async function EditLibraryContent({
+  params,
+}: {
+  params: Promise<{ libraryId: string }>;
+}) {
+  const { libraryId } = await params;
+
   return (
-    <div>
+    <div className="flex flex-col">
       <Header
-        title="Edit library"
+        title="Edit Knowledge Item"
+        description="Update article content, takeaways, or metadata"
+        breadcrumbs={[
+          { label: "Library", href: "/library" },
+          { label: "Item", href: `/library/${libraryId}` },
+          { label: "Edit" },
+        ]}
         actions={
-          <Button variant="outline">
-            <Link href="/library">Cancel</Link>
-          </Button>
+          <Link href={`/library/${libraryId}`}>
+            <Button variant="outline" size="sm" className="text-xs">
+              Cancel
+            </Button>
+          </Link>
         }
       />
-      <Suspense fallback={<p>Loading...</p>}>
+
+      <div className="max-w-2xl mx-auto w-full p-6">
         <LibraryEditForm params={params} />
-      </Suspense>
+      </div>
     </div>
+  );
+}
+
+export default function EditLibraryPage({ params }: EditLibraryPageProps) {
+  return (
+    <Suspense
+      fallback={
+        <div className="p-8 text-center text-xs text-muted-foreground animate-pulse">
+          Loading editor...
+        </div>
+      }
+    >
+      <EditLibraryContent params={params} />
+    </Suspense>
   );
 }

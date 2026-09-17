@@ -1,12 +1,7 @@
-import Sidebar from "@/components/layout/Sidebar";
+import ProtectedLayoutShell from "@/components/layout/ProtectedLayoutShell";
 
 export default function Layout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <div className="grid h-screen grid-cols-[240px_1fr]">
-      <Sidebar />
-      {children}
-    </div>
-  );
+  return <ProtectedLayoutShell>{children}</ProtectedLayoutShell>;
 }

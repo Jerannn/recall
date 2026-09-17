@@ -6,6 +6,7 @@ import {
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import useDebounce from "@/hooks/use-debounce";
+import { Search } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 
@@ -49,7 +50,6 @@ export default function LibraryFilter({
 
   const handleFilter = (e: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
-
     const params = new URLSearchParams(searchParams);
 
     if (value === "all") {
@@ -63,40 +63,47 @@ export default function LibraryFilter({
   };
 
   return (
-    <div className="flex items-center gap-3">
-      <Input
-        type="text"
-        placeholder="Find what you're looking for with keyword title"
-        value={querySearch}
-        onChange={(e) => setQuerySearch(e.target.value)}
-      />
+    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+      <div className="relative flex-1">
+        <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+        <Input
+          type="text"
+          placeholder="Filter by title..."
+          value={querySearch}
+          onChange={(e) => setQuerySearch(e.target.value)}
+          className="pl-8 h-9 text-xs"
+        />
+      </div>
 
-      {/* TODO: the source need to have its own table and once the user is creating a library item it check if it is already exist, if not create if yes then skip */}
-      <NativeSelect
-        value={querySource || "all"}
-        onChange={handleFilter}
-        name="source"
-      >
-        <NativeSelectOption value="all">All Sources</NativeSelectOption>
-        {sourceList?.map((item) => (
-          <NativeSelectOption key={item.source} value={item.source}>
-            {item.source}
-          </NativeSelectOption>
-        ))}
-      </NativeSelect>
+      <div className="flex items-center gap-2">
+        <NativeSelect
+          value={querySource || "all"}
+          onChange={handleFilter}
+          name="source"
+          className="h-9 text-xs min-w-[130px]"
+        >
+          <NativeSelectOption value="all">All Sources</NativeSelectOption>
+          {sourceList?.map((item) => (
+            <NativeSelectOption key={item.source} value={item.source}>
+              {item.source}
+            </NativeSelectOption>
+          ))}
+        </NativeSelect>
 
-      <NativeSelect
-        value={queryTag || "all"}
-        onChange={handleFilter}
-        name="tag"
-      >
-        <NativeSelectOption value="all">All Tags</NativeSelectOption>
-        {tagList?.map((item) => (
-          <NativeSelectOption key={item.name} value={item.name}>
-            {item.name}
-          </NativeSelectOption>
-        ))}
-      </NativeSelect>
+        <NativeSelect
+          value={queryTag || "all"}
+          onChange={handleFilter}
+          name="tag"
+          className="h-9 text-xs min-w-[120px]"
+        >
+          <NativeSelectOption value="all">All Tags</NativeSelectOption>
+          {tagList?.map((item) => (
+            <NativeSelectOption key={item.name} value={item.name}>
+              {item.name}
+            </NativeSelectOption>
+          ))}
+        </NativeSelect>
+      </div>
     </div>
   );
 }

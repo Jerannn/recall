@@ -1,6 +1,6 @@
 import { PaginationControls } from "@/components/PaginationControls";
 import { Badge } from "@/components/ui/badge";
-
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -10,6 +10,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { getSession } from "@/lib/get-session";
+import { BookOpen, Plus } from "lucide-react";
+import Link from "next/link";
 import { getLibraryItems } from "../queries";
 import { LibraryQueryParams } from "../types";
 import LibraryItemActions from "./LibraryItemActions";
@@ -23,7 +25,11 @@ export default async function LibraryList({ searchParams }: LibraryListProps) {
 
   const session = await getSession();
   if (!session?.user?.id) {
-    return <p>Please sign in to view your library.</p>;
+    return (
+      <div className="p-8 text-center text-xs text-muted-foreground">
+        Please sign in to view your library.
+      </div>
+    );
   }
 
   const { libraryItems, totalCount, page, pageSize } = await getLibraryItems(
@@ -31,54 +37,109 @@ export default async function LibraryList({ searchParams }: LibraryListProps) {
     queryParams,
   );
 
-  return (
-    <div>
-      <Table className="overflow-auto">
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-100">Title</TableHead>
-            <TableHead className="w-50">Source</TableHead>
-            <TableHead className="w-50">Tags</TableHead>
-            <TableHead className="w-50">Updated</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {!libraryItems.length && (
-            <TableRow>
-              <TableCell>No data found</TableCell>
-            </TableRow>
-          )}
-          {libraryItems.map((item) => {
-            return (
-              <TableRow key={item.id}>
-                <TableCell>{item.title}</TableCell>
-                <TableCell>{item.source}</TableCell>
-                <TableCell className="flex items-center gap-1">
-                  {item.libraryItemTags.map(({ tag }) => (
-                    <Badge key={tag.id}>{tag.name}</Badge>
-                  ))}
-                </TableCell>
-                <TableCell>{item.updatedAt}</TableCell>
-                <TableCell className="text-right">
-                  <LibraryItemActions id={item.id} />
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+  if (!libraryItems.length) {
+    return (
+      <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border/70 bg-muted/10 p-12 text-center">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary mb-3">
+          <BookOpen className="h-6 w-6" />
+        </div>
+        <h3 className="text-sm font-semibold text-foreground">
+          No library items found
+        </h3>
+        <p className="mt-1 text-xs text-muted-foreground max-w-sm">
+          Save web articles, documentation, or your own notes to build your personal knowledge base.
+        </p>
+        <Link href="/library/new" className="mt-4">
+          <Button size="sm" className="gap-1.5 text-xs">
+            <Plus className="h-3.5 w-3.5" />
+            Add First Item
+          </Button>
+        </Link>
+      </div>
+    );
+  }
 
-      {libraryItems.length > 0 && (
-        <PaginationControls
-          totalCount={totalCount}
-          pageSize={pageSize}
-          page={page}
-          pageSizeSelectOptions={{
-            pageSizeOptions: [5, 10, 20, 50],
-          }}
-          navigationMode="router"
-        />
+  return (
+    <div className="space-y-4">
+      <div className="rounded-xl border border-border/60 bg-card overflow-hidden shadow-xs">
+        <Table>
+          <TableHeader className="bg-muted/40">
+            <TableRow className="hover:bg-transparent">
+              <TableHead className="w-[45%] text-xs font-semibold">Title</TableHead>
+              <TableHead className="w-[18%] text-xs font-semibold">Source</TableHead>
+              <TableHead className="w-[20%] text-xs font-semibold">Tags</TableHead>
+              <TableHead className="w-[12%] text-xs font-semibold">Date</TableHead>
+              <TableHead className="w-[5%] text-right text-xs font-semibold">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {libraryItems.map((item) => {
+              const formattedDate = new Date(item.updatedAt).toLocaleDateString(
+                "en-US",
+                {
+                  month: "short",
+                  day: "numeric",
+                },
+              );
+
+              return (
+                <TableRow key={item.id} className="group hover:bg-muted/30 transition-colors">
+                  <TableCell className="font-medium">
+                    <Link
+                      href={`/library/${item.id}`}
+                      className="text-xs font-semibold text-foreground hover:underline line-clamp-1"
+                    >
+                      {item.title}
+                    </Link>
+                  </TableCell>
+                  <TableCell className="text-xs text-muted-foreground">
+                    <span className="truncate block max-w-[150px]">
+                      {item.source}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex flex-wrap items-center gap-1">
+                      {item.libraryItemTags.slice(0, 3).map(({ tag }) => (
+                        <Badge
+                          key={tag.id}
+                          variant="secondary"
+                          className="text-[10px] px-1.5 py-0"
+                        >
+                          {tag.name}
+                        </Badge>
+                      ))}
+                      {item.libraryItemTags.length > 3 && (
+                        <span className="text-[10px] text-muted-foreground">
+                          +{item.libraryItemTags.length - 3}
+                        </span>
+                      )}
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-xs text-muted-foreground whitespace-nowrap">
+                    {formattedDate}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <LibraryItemActions id={item.id} />
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </div>
+
+      {totalCount > pageSize && (
+        <div className="flex justify-end pt-2">
+          <PaginationControls
+            totalCount={totalCount}
+            pageSize={pageSize}
+            page={page}
+            pageSizeSelectOptions={{
+              pageSizeOptions: [5, 10, 20, 50],
+            }}
+            navigationMode="router"
+          />
+        </div>
       )}
     </div>
   );
