@@ -6,18 +6,34 @@ import { Suspense } from "react";
 
 export default async function NewLibraryPage() {
   return (
-    <div>
+    <div className="flex flex-col">
       <Header
-        title="Create new library"
+        title="Add Knowledge Item"
+        description="Ingest web articles or create manual notes"
+        breadcrumbs={[
+          { label: "Library", href: "/library" },
+          { label: "New Item" },
+        ]}
         actions={
-          <Button variant="outline">
-            <Link href="/library">Cancel</Link>
-          </Button>
+          <Link href="/library">
+            <Button variant="outline" size="sm" className="text-xs">
+              Cancel
+            </Button>
+          </Link>
         }
       />
-      <Suspense fallback={<p>Loading...</p>}>
-        <LibraryCreateFrom />
-      </Suspense>
+
+      <div className="max-w-2xl mx-auto w-full p-6">
+        <Suspense
+          fallback={
+            <div className="p-8 text-center text-xs text-muted-foreground">
+              Loading form...
+            </div>
+          }
+        >
+          <LibraryCreateFrom />
+        </Suspense>
+      </div>
     </div>
   );
 }

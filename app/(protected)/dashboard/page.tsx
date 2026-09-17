@@ -4,10 +4,19 @@ import { Suspense } from "react";
 
 export default async function DashboardPage() {
   return (
-    <div className="space-y-6">
-      <Header title="Dashboard" />
+    <div className="flex flex-col">
+      <Header
+        title="Dashboard"
+        description="Spaced repetition & recall overview"
+      />
 
-      <Suspense fallback={<div>Loading dashboard...</div>}>
+      <Suspense
+        fallback={
+          <div className="p-6 text-xs text-muted-foreground">
+            Loading dashboard...
+          </div>
+        }
+      >
         <DashboardContainer />
       </Suspense>
     </div>

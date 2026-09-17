@@ -5,13 +5,24 @@ import { Suspense } from "react";
 
 export default function CollectionsPage() {
   return (
-    <div>
-      <Header title="Collections" actions={<CollectionForm />} />
+    <div className="flex flex-col">
+      <Header
+        title="Collections"
+        description="Organize your knowledge into distinct projects or domains"
+        actions={<CollectionForm />}
+      />
 
-      {/* TODO: add a loading or spinner UI */}
-      <Suspense fallback={<p>Loading...</p>}>
-        <CollectionList />
-      </Suspense>
+      <div className="max-w-6xl mx-auto w-full p-6">
+        <Suspense
+          fallback={
+            <div className="py-12 text-center text-xs text-muted-foreground animate-pulse">
+              Loading collections...
+            </div>
+          }
+        >
+          <CollectionList />
+        </Suspense>
+      </div>
     </div>
   );
 }

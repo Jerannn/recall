@@ -1,35 +1,57 @@
 "use client";
 
-import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 
-type HeaderProps = {
+interface HeaderProps {
   title: string;
+  description?: string;
   actions?: ReactNode;
-};
+  breadcrumbs?: Array<{ label: string; href?: string }>;
+}
 
-export default function Header({ title, actions }: HeaderProps) {
-  const router = useRouter();
-  const handleSignOut = async () => {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.push("/signin");
-        },
-      },
-    });
-  };
-
+export default function Header({
+  title,
+  description,
+  actions,
+  breadcrumbs,
+}: HeaderProps) {
   return (
-    <div className="flex w-full items-center justify-between border-b p-4">
-      <h1 className="capitalize">{title}</h1>
-      <div className="flex items-center space-x-3">
-        {actions}
-        <button onClick={handleSignOut} className="cursor-pointer">
-          Sign out
-        </button>
+    <header className="sticky top-0 z-10 flex min-h-14 items-center justify-between border-b border-border/60 bg-background/80 px-6 py-3 backdrop-blur-md">
+      <div className="flex flex-col gap-0.5">
+        {breadcrumbs && breadcrumbs.length > 0 && (
+          <nav className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+            {breadcrumbs.map((crumb, idx) => (
+              <span key={idx} className="flex items-center gap-1.5">
+                {idx > 0 && <span>/</span>}
+                {crumb.href ? (
+                  <a
+                    href={crumb.href}
+                    className="transition-colors hover:text-foreground"
+                  >
+                    {crumb.label}
+                  </a>
+                ) : (
+                  <span className="font-medium text-foreground">
+                    {crumb.label}
+                  </span>
+                )}
+              </span>
+            ))}
+          </nav>
+        )}
+        <div className="flex flex-col">
+          <h1 className="text-base font-semibold tracking-tight text-foreground capitalize">
+            {title}
+          </h1>
+          {description && (
+            <span className="hidden text-xs text-muted-foreground sm:inline-block">
+              {description}
+            </span>
+          )}
+        </div>
       </div>
-    </div>
+
+      {actions && <div className="flex items-center gap-2">{actions}</div>}
+    </header>
   );
 }

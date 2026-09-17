@@ -9,12 +9,23 @@ interface SearchPageProps {
 
 export default function SearchPage({ searchParams }: SearchPageProps) {
   return (
-    <div>
-      <Header title="Search" />
+    <div className="flex flex-col">
+      <Header
+        title="Hybrid Search"
+        description="Search via full-text keywords or semantic meaning"
+      />
 
-      <Suspense fallback={<p>Loading...</p>}>
-        <SearchContainer searchParams={searchParams} />
-      </Suspense>
+      <div className="max-w-4xl mx-auto w-full p-6 space-y-6">
+        <Suspense
+          fallback={
+            <div className="p-8 text-center text-xs text-muted-foreground">
+              Loading search...
+            </div>
+          }
+        >
+          <SearchContainer searchParams={searchParams} />
+        </Suspense>
+      </div>
     </div>
   );
 }

@@ -5,15 +5,25 @@ import { Suspense } from "react";
 
 export default function TagsPage() {
   return (
-    <div>
-      <Header title="Tags" />
+    <div className="flex flex-col">
+      <Header
+        title="Tags"
+        description="Categorize and cross-reference topics across your entire library"
+      />
 
-      <TagForm />
+      <div className="max-w-6xl mx-auto w-full p-6 space-y-6">
+        <TagForm />
 
-      {/* TODO: add a loading or spinner UI */}
-      <Suspense fallback={<p>Loading...</p>}>
-        <TagList />
-      </Suspense>
+        <Suspense
+          fallback={
+            <div className="py-12 text-center text-xs text-muted-foreground animate-pulse">
+              Loading tags...
+            </div>
+          }
+        >
+          <TagList />
+        </Suspense>
+      </div>
     </div>
   );
 }
