@@ -20,8 +20,8 @@ export default async function SearchContainer({
       <Suspense
         key={suspenseKey}
         fallback={
-          <div className="py-12 text-center text-xs text-muted-foreground animate-pulse">
-            Searching inside of your library...
+          <div className="animate-pulse py-12 text-center text-xs text-muted-foreground">
+            Searching your library...
           </div>
         }
       >

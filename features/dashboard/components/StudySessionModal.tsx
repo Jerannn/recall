@@ -77,7 +77,10 @@ export default function StudySessionModal({
     if (!isOpen || isFinished) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement
+      ) {
         return;
       }
 
@@ -106,8 +109,8 @@ export default function StudySessionModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 backdrop-blur-md p-4 animate-in fade-in-0 duration-200">
-      <div className="relative flex w-full max-w-2xl flex-col rounded-2xl border border-border/80 bg-card shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex animate-in items-center justify-center bg-background/90 p-4 backdrop-blur-md duration-200 fade-in-0">
+      <div className="relative flex w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-border/80 bg-card shadow-2xl">
         {/* Top Navigation & Progress */}
         <div className="flex items-center justify-between border-b border-border/60 px-6 py-4">
           <div className="flex items-center gap-3">
@@ -120,13 +123,13 @@ export default function StudySessionModal({
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-1.5 text-[11px] text-muted-foreground">
+            <div className="hidden items-center gap-1.5 text-[11px] text-muted-foreground sm:flex">
               <Keyboard className="h-3.5 w-3.5" />
               <span>Space: Reveal · 1/2/3: Grade · Esc: Exit</span>
             </div>
             <button
               onClick={onClose}
-              className="rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+              className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               <X className="h-4 w-4" />
             </button>
@@ -143,7 +146,7 @@ export default function StudySessionModal({
 
         {/* Content Body */}
         {isFinished ? (
-          <div className="flex flex-col items-center justify-center py-12 px-6 text-center space-y-4">
+          <div className="flex flex-col items-center justify-center space-y-4 px-6 py-12 text-center">
             <div className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500">
               <Trophy className="h-7 w-7" />
             </div>
@@ -151,10 +154,9 @@ export default function StudySessionModal({
               <h2 className="text-xl font-semibold tracking-tight text-foreground">
                 Recall Session Complete!
               </h2>
-              <p className="text-xs text-muted-foreground max-w-sm">
-                You successfully reviewed {reviewedCount} knowledge{" "}
-                {reviewedCount === 1 ? "item" : "items"}. Your memory intervals
-                have been updated.
+              <p className="max-w-sm text-xs text-muted-foreground">
+                Nice work! You reviewed {reviewedCount}{" "}
+                {reviewedCount === 1 ? "item" : "items"} today.
               </p>
             </div>
             <Button onClick={onClose} className="mt-4 gap-2 text-xs">
@@ -163,7 +165,7 @@ export default function StudySessionModal({
             </Button>
           </div>
         ) : (
-          <div className="flex flex-col p-6 sm:p-8 space-y-6">
+          <div className="flex flex-col space-y-6 p-6 sm:p-8">
             {/* Metadata & Tag row */}
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2">
@@ -171,7 +173,7 @@ export default function StudySessionModal({
                   {currentItem?.source}
                 </span>
                 <span className="text-xs text-muted-foreground/50">·</span>
-                <Badge variant="outline" className="text-[10px] font-mono">
+                <Badge variant="outline" className="font-mono text-[10px]">
                   Recall #{currentItem?.repetitionCount + 1}
                 </Badge>
               </div>
@@ -191,10 +193,10 @@ export default function StudySessionModal({
 
             {/* Prompt & Title */}
             <div className="space-y-2">
-              <span className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                Knowledge Prompt
+              <span className="text-[11px] font-medium tracking-wider text-muted-foreground uppercase">
+                Note
               </span>
-              <h3 className="text-xl font-semibold leading-snug tracking-tight text-foreground sm:text-2xl">
+              <h3 className="text-xl leading-snug font-semibold tracking-tight text-foreground sm:text-2xl">
                 {currentItem?.title}
               </h3>
             </div>
@@ -227,12 +229,13 @@ export default function StudySessionModal({
               {showTakeaways ? (
                 <div className="prose prose-sm max-w-none border-t border-border/50 pt-3 text-xs leading-relaxed text-foreground dark:prose-invert">
                   <ReactMarkdown>
-                    {currentItem?.summary || "No summary available for this item."}
+                    {currentItem?.summary ||
+                      "No summary available for this item."}
                   </ReactMarkdown>
                 </div>
               ) : (
                 <p className="text-xs text-muted-foreground italic">
-                  Attempt to recall what you learned before revealing the summary...
+                  Try to recall the main idea before revealing takeaways.
                 </p>
               )}
             </div>
@@ -241,7 +244,7 @@ export default function StudySessionModal({
             <div className="space-y-2 border-t border-border/60 pt-4">
               <div className="flex items-center justify-between text-xs text-muted-foreground">
                 <span>Rate your recall quality:</span>
-                <span className="hidden sm:inline text-[11px]">
+                <span className="hidden text-[11px] sm:inline">
                   Select response or press [1, 2, 3]
                 </span>
               </div>
@@ -251,13 +254,13 @@ export default function StudySessionModal({
                   variant="outline"
                   disabled={isSubmitting}
                   onClick={() => handleRate("forgot")}
-                  className="flex flex-col items-center justify-center h-14 border-red-200/80 hover:bg-red-500/10 hover:border-red-500/50 dark:border-red-950"
+                  className="flex h-14 flex-col items-center justify-center border-red-200/80 hover:border-red-500/50 hover:bg-red-500/10 dark:border-red-950"
                 >
                   <div className="flex items-center gap-1.5 text-xs font-medium text-red-600 dark:text-red-400">
                     <RotateCcw className="h-3.5 w-3.5" />
                     <span>Forgot</span>
                   </div>
-                  <span className="text-[10px] text-muted-foreground font-mono">
+                  <span className="font-mono text-[10px] text-muted-foreground">
                     Key [1] · Reset 1d
                   </span>
                 </Button>
@@ -266,13 +269,13 @@ export default function StudySessionModal({
                   variant="outline"
                   disabled={isSubmitting}
                   onClick={() => handleRate("good")}
-                  className="flex flex-col items-center justify-center h-14 border-amber-200/80 hover:bg-amber-500/10 hover:border-amber-500/50 dark:border-amber-950"
+                  className="flex h-14 flex-col items-center justify-center border-amber-200/80 hover:border-amber-500/50 hover:bg-amber-500/10 dark:border-amber-950"
                 >
                   <div className="flex items-center gap-1.5 text-xs font-medium text-amber-600 dark:text-amber-400">
                     <span>Good</span>
                   </div>
-                  <span className="text-[10px] text-muted-foreground font-mono">
-                    Key [2] · +Interval
+                  <span className="font-mono text-[10px] text-muted-foreground">
+                    Key [2] · In 6 days
                   </span>
                 </Button>
 
@@ -280,13 +283,13 @@ export default function StudySessionModal({
                   variant="outline"
                   disabled={isSubmitting}
                   onClick={() => handleRate("easy")}
-                  className="flex flex-col items-center justify-center h-14 border-emerald-200/80 hover:bg-emerald-500/10 hover:border-emerald-500/50 dark:border-emerald-950"
+                  className="flex h-14 flex-col items-center justify-center border-emerald-200/80 hover:border-emerald-500/50 hover:bg-emerald-500/10 dark:border-emerald-950"
                 >
                   <div className="flex items-center gap-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">
                     <CheckCircle2 className="h-3.5 w-3.5" />
                     <span>Easy</span>
                   </div>
-                  <span className="text-[10px] text-muted-foreground font-mono">
+                  <span className="font-mono text-[10px] text-muted-foreground">
                     Key [3] · Mastered
                   </span>
                 </Button>

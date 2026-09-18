@@ -1,4 +1,5 @@
 import Header from "@/components/layout/Header";
+import LoadingText from "@/components/LoadingText";
 import { Button } from "@/components/ui/button";
 import LibraryFilterContainer from "@/features/library/components/LibraryFilterContainer";
 import LibraryListContainer from "@/features/library/components/LibraryListContainer";
@@ -27,22 +28,16 @@ export default async function LibraryPage({ searchParams }: LibraryPageProps) {
         }
       />
 
-      <div className="space-y-6 p-6 max-w-6xl mx-auto w-full">
+      <div className="mx-auto w-full max-w-6xl space-y-6 p-6">
         <Suspense
           fallback={
-            <div className="h-9 w-full bg-muted/20 animate-pulse rounded-md" />
+            <div className="h-9 w-full animate-pulse rounded-md bg-muted/20" />
           }
         >
           <LibraryFilterContainer />
         </Suspense>
 
-        <Suspense
-          fallback={
-            <div className="py-12 text-center text-xs text-muted-foreground">
-              Loading library items...
-            </div>
-          }
-        >
+        <Suspense fallback={<LoadingText resource="library items" />}>
           <LibraryListContainer searchParams={searchParams} />
         </Suspense>
       </div>

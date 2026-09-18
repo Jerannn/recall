@@ -40,14 +40,15 @@ export default async function LibraryList({ searchParams }: LibraryListProps) {
   if (!libraryItems.length) {
     return (
       <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border/70 bg-muted/10 p-12 text-center">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary mb-3">
+        <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
           <BookOpen className="h-6 w-6" />
         </div>
         <h3 className="text-sm font-semibold text-foreground">
           No library items found
         </h3>
-        <p className="mt-1 text-xs text-muted-foreground max-w-sm">
-          Save web articles, documentation, or your own notes to build your personal knowledge base.
+        <p className="mt-1 max-w-sm text-xs text-muted-foreground">
+          Save web articles, documentation, or your own notes to build your
+          personal knowledge base.
         </p>
         <Link href="/library/new" className="mt-4">
           <Button size="sm" className="gap-1.5 text-xs">
@@ -61,15 +62,25 @@ export default async function LibraryList({ searchParams }: LibraryListProps) {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-xl border border-border/60 bg-card overflow-hidden shadow-xs">
+      <div className="overflow-hidden rounded-xl border border-border/60 bg-card shadow-xs">
         <Table>
           <TableHeader className="bg-muted/40">
             <TableRow className="hover:bg-transparent">
-              <TableHead className="w-[45%] text-xs font-semibold">Title</TableHead>
-              <TableHead className="w-[18%] text-xs font-semibold">Source</TableHead>
-              <TableHead className="w-[20%] text-xs font-semibold">Tags</TableHead>
-              <TableHead className="w-[12%] text-xs font-semibold">Date</TableHead>
-              <TableHead className="w-[5%] text-right text-xs font-semibold">Actions</TableHead>
+              <TableHead className="w-[45%] text-xs font-semibold">
+                Title
+              </TableHead>
+              <TableHead className="w-[18%] text-xs font-semibold">
+                Source
+              </TableHead>
+              <TableHead className="w-[20%] text-xs font-semibold">
+                Tags
+              </TableHead>
+              <TableHead className="w-[12%] text-xs font-semibold">
+                Date
+              </TableHead>
+              <TableHead className="w-[5%] text-right text-xs font-semibold">
+                Actions
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -83,17 +94,20 @@ export default async function LibraryList({ searchParams }: LibraryListProps) {
               );
 
               return (
-                <TableRow key={item.id} className="group hover:bg-muted/30 transition-colors">
+                <TableRow
+                  key={item.id}
+                  className="group transition-colors hover:bg-muted/30"
+                >
                   <TableCell className="font-medium">
                     <Link
                       href={`/library/${item.id}`}
-                      className="text-xs font-semibold text-foreground hover:underline line-clamp-1"
+                      className="line-clamp-1 text-xs font-semibold text-foreground hover:underline"
                     >
                       {item.title}
                     </Link>
                   </TableCell>
                   <TableCell className="text-xs text-muted-foreground">
-                    <span className="truncate block max-w-[150px]">
+                    <span className="block max-w-37.5 truncate">
                       {item.source}
                     </span>
                   </TableCell>
@@ -103,7 +117,7 @@ export default async function LibraryList({ searchParams }: LibraryListProps) {
                         <Badge
                           key={tag.id}
                           variant="secondary"
-                          className="text-[10px] px-1.5 py-0"
+                          className="px-1.5 py-0 text-[10px]"
                         >
                           {tag.name}
                         </Badge>
@@ -115,7 +129,7 @@ export default async function LibraryList({ searchParams }: LibraryListProps) {
                       )}
                     </div>
                   </TableCell>
-                  <TableCell className="text-xs text-muted-foreground whitespace-nowrap">
+                  <TableCell className="text-xs whitespace-nowrap text-muted-foreground">
                     {formattedDate}
                   </TableCell>
                   <TableCell className="text-right">

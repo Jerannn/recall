@@ -1,4 +1,5 @@
 import Header from "@/components/layout/Header";
+import LoadingText from "@/components/LoadingText";
 import { Button } from "@/components/ui/button";
 import LibraryEditForm from "@/features/library/components/LibraryEditForm";
 import Link from "next/link";
@@ -34,7 +35,7 @@ async function EditLibraryContent({
         }
       />
 
-      <div className="max-w-2xl mx-auto w-full p-6">
+      <div className="mx-auto w-full max-w-2xl p-6">
         <LibraryEditForm params={params} />
       </div>
     </div>
@@ -43,13 +44,7 @@ async function EditLibraryContent({
 
 export default function EditLibraryPage({ params }: EditLibraryPageProps) {
   return (
-    <Suspense
-      fallback={
-        <div className="p-8 text-center text-xs text-muted-foreground animate-pulse">
-          Loading editor...
-        </div>
-      }
-    >
+    <Suspense fallback={<LoadingText resource="editor" />}>
       <EditLibraryContent params={params} />
     </Suspense>
   );

@@ -17,7 +17,9 @@ interface LibraryDetailsProps {
   libraryId: string;
 }
 
-export default async function LibraryDetails({ libraryId }: LibraryDetailsProps) {
+export default async function LibraryDetails({
+  libraryId,
+}: LibraryDetailsProps) {
   const session = await getSession();
 
   const item = await prisma.libraryItem.findFirst({
@@ -33,16 +35,16 @@ export default async function LibraryDetails({ libraryId }: LibraryDetailsProps)
 
   if (!item) {
     return (
-      <div className="mx-auto max-w-3xl py-16 px-6 text-center space-y-4">
+      <div className="mx-auto max-w-3xl space-y-4 px-6 py-16 text-center">
         <h2 className="text-xl font-semibold text-foreground">
-          Knowledge Item Not Found
+          Note Not Found
         </h2>
         <p className="text-xs text-muted-foreground">
           This item may have been moved or deleted.
         </p>
         <Link
           href="/library"
-          className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline font-medium"
+          className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
           <span>Return to Library</span>
@@ -56,12 +58,12 @@ export default async function LibraryDetails({ libraryId }: LibraryDetailsProps)
   const readingTimeMin = Math.max(1, Math.ceil(wordCount / 200));
 
   return (
-    <article className="mx-auto max-w-3xl px-6 py-8 space-y-8">
+    <article className="mx-auto max-w-3xl space-y-8 px-6 py-8">
       {/* Back Link & Breadcrumb Header */}
       <div className="flex items-center justify-between">
         <Link
           href="/library"
-          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors group"
+          className="group inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
         >
           <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" />
           <span>Back to Library</span>
@@ -77,18 +79,18 @@ export default async function LibraryDetails({ libraryId }: LibraryDetailsProps)
 
       {/* Main Title & Metadata Block */}
       <div className="space-y-4 border-b border-border/60 pb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground leading-snug">
+        <h1 className="text-2xl leading-snug font-bold tracking-tight text-foreground sm:text-3xl">
           {item.title}
         </h1>
 
-        <div className="flex flex-wrap items-center gap-y-2 gap-x-4 text-xs text-muted-foreground">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
           {/* Source Link */}
           {item.url ? (
             <a
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-primary hover:underline font-medium"
+              className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
             >
               <span>{item.source}</span>
               <ExternalLink className="h-3 w-3" />
@@ -124,7 +126,9 @@ export default async function LibraryDetails({ libraryId }: LibraryDetailsProps)
           {/* Recall Status */}
           <span className="inline-flex items-center gap-1 font-mono text-[11px]">
             <RotateCcw className="h-3 w-3" />
-            <span>{item.repetitionCount} reviews ({item.reviewInterval}d interval)</span>
+            <span>
+              {item.repetitionCount} reviews ({item.reviewInterval}d interval)
+            </span>
           </span>
         </div>
 
@@ -154,7 +158,7 @@ export default async function LibraryDetails({ libraryId }: LibraryDetailsProps)
       )}
 
       {/* Article Content / Notes in Clean Markdown Typography */}
-      <div className="prose prose-zinc dark:prose-invert max-w-none text-sm sm:text-base leading-relaxed break-words">
+      <div className="prose max-w-none text-sm leading-relaxed wrap-break-word prose-zinc sm:text-base dark:prose-invert">
         <ReactMarkdown>{item.content}</ReactMarkdown>
       </div>
     </article>

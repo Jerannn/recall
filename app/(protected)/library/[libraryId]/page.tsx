@@ -1,4 +1,5 @@
 import Header from "@/components/layout/Header";
+import LoadingText from "@/components/LoadingText";
 import LibraryDetailActions from "@/features/library/components/LibraryDetailActions";
 import LibraryDetails from "@/features/library/components/LibraryDetails";
 import { Suspense } from "react";
@@ -30,17 +31,9 @@ async function LibraryDetailContent({
   );
 }
 
-export default function LibraryDetailPage({
-  params,
-}: LibraryDetailPageProps) {
+export default function LibraryDetailPage({ params }: LibraryDetailPageProps) {
   return (
-    <Suspense
-      fallback={
-        <div className="mx-auto max-w-3xl py-12 px-6 text-xs text-muted-foreground animate-pulse">
-          Loading reader content...
-        </div>
-      }
-    >
+    <Suspense fallback={<LoadingText resource="reader content" />}>
       <LibraryDetailContent params={params} />
     </Suspense>
   );

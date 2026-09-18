@@ -17,14 +17,14 @@ export default async function SearchList({ searchParams }: SearchListProps) {
   if (!search?.trim()) {
     return (
       <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border/70 bg-muted/10 p-12 text-center">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary mb-3">
+        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
           <Sparkles className="h-5 w-5" />
         </div>
         <h3 className="text-sm font-semibold text-foreground">
           Ready to Search
         </h3>
-        <p className="mt-1 text-xs text-muted-foreground max-w-sm">
-          Recall uses PostgreSQL Full-Text Search combined with pgvector embeddings to find exact terms or conceptual matches.
+        <p className="mt-1 max-w-sm text-xs text-muted-foreground">
+          Search by exact keywords or the general idea of what you remember.
         </p>
       </div>
     );
@@ -38,14 +38,15 @@ export default async function SearchList({ searchParams }: SearchListProps) {
   if (results.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border/70 bg-muted/10 p-12 text-center">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-muted-foreground mb-3">
+        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-muted text-muted-foreground">
           <FileText className="h-5 w-5" />
         </div>
         <h3 className="text-sm font-semibold text-foreground">
           No matches found
         </h3>
-        <p className="mt-1 text-xs text-muted-foreground max-w-sm">
-          No knowledge items matched &ldquo;{search}&rdquo;. Try another keyword or question.
+        <p className="mt-1 max-w-sm text-xs text-muted-foreground">
+          No knowledge items matched &ldquo;{search}&rdquo;. Try another keyword
+          or question.
         </p>
       </div>
     );
@@ -53,25 +54,28 @@ export default async function SearchList({ searchParams }: SearchListProps) {
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center justify-between text-xs text-muted-foreground px-1">
-        <span>Found {results.length} relevant {results.length === 1 ? "match" : "matches"}</span>
+      <div className="flex items-center justify-between px-1 text-xs text-muted-foreground">
+        <span>
+          Found {results.length} relevant{" "}
+          {results.length === 1 ? "match" : "matches"}
+        </span>
       </div>
 
       <div className="space-y-3">
         {results.map((item) => (
           <Card
             key={item.id}
-            className="border-border/60 transition-all hover:border-border hover:shadow-xs group"
+            className="group border-border/60 transition-all hover:border-border hover:shadow-xs"
           >
-            <CardContent className="p-5 space-y-3">
+            <CardContent className="space-y-3 p-5">
               <div className="flex items-start justify-between gap-3">
                 <div className="space-y-1">
                   <Link
                     href={`/library/${item.id}`}
-                    className="text-sm font-semibold text-foreground hover:underline flex items-center gap-1"
+                    className="flex items-center gap-1 text-sm font-semibold text-foreground hover:underline"
                   >
                     <span>{item.title}</span>
-                    <ChevronRight className="h-3.5 w-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-muted-foreground" />
+                    <ChevronRight className="h-3.5 w-3.5 -translate-x-1 text-muted-foreground opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
                   </Link>
                   <p className="text-[11px] text-muted-foreground">
                     {item.source}
@@ -80,7 +84,7 @@ export default async function SearchList({ searchParams }: SearchListProps) {
 
                 <Badge
                   variant={item.matchType === "hybrid" ? "default" : "outline"}
-                  className="text-[10px] uppercase font-mono tracking-wider shrink-0"
+                  className="shrink-0 font-mono text-[10px] tracking-wider uppercase"
                 >
                   {item.matchType === "hybrid"
                     ? "Hybrid Match"
@@ -92,7 +96,7 @@ export default async function SearchList({ searchParams }: SearchListProps) {
 
               {/* Render highlighted snippet */}
               <div
-                className="text-xs leading-relaxed text-muted-foreground rounded-lg bg-muted/30 p-3 border border-border/40 [&_mark]:rounded [&_mark]:bg-amber-200 [&_mark]:px-1 [&_mark]:font-medium [&_mark]:text-foreground [&_mark]:dark:bg-amber-900/60"
+                className="rounded-lg border border-border/40 bg-muted/30 p-3 text-xs leading-relaxed text-muted-foreground [&_mark]:rounded [&_mark]:bg-amber-200 [&_mark]:px-1 [&_mark]:font-medium [&_mark]:text-foreground [&_mark]:dark:bg-amber-900/60"
                 dangerouslySetInnerHTML={{ __html: item.snippet }}
               />
             </CardContent>

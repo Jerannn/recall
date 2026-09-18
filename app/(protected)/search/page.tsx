@@ -1,4 +1,5 @@
 import Header from "@/components/layout/Header";
+import LoadingText from "@/components/LoadingText";
 import SearchContainer from "@/features/search/components/SearchContainer";
 import { SearchQueryParams } from "@/features/search/types";
 import { Suspense } from "react";
@@ -15,14 +16,8 @@ export default function SearchPage({ searchParams }: SearchPageProps) {
         description="Search via full-text keywords or semantic meaning"
       />
 
-      <div className="max-w-4xl mx-auto w-full p-6 space-y-6">
-        <Suspense
-          fallback={
-            <div className="p-8 text-center text-xs text-muted-foreground">
-              Loading search...
-            </div>
-          }
-        >
+      <div className="mx-auto w-full max-w-4xl space-y-6 p-6">
+        <Suspense fallback={<LoadingText resource="search" />}>
           <SearchContainer searchParams={searchParams} />
         </Suspense>
       </div>
