@@ -34,7 +34,7 @@ function SidebarNavLinks({ onNavigate }: { onNavigate?: () => void }) {
               onClick={onNavigate}
               className={`flex items-center gap-2.5 rounded-md px-2.5 py-2 text-xs font-medium transition-colors ${
                 isActive
-                  ? "bg-secondary text-foreground font-semibold shadow-xs"
+                  ? "bg-secondary font-semibold text-foreground shadow-xs"
                   : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
               }`}
             >
@@ -65,7 +65,7 @@ export default function AppSidebar({ user, onNavigate }: AppSidebarProps) {
             <span className="text-sm font-semibold tracking-tight text-foreground">
               Recall
             </span>
-            <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-mono">
+            <span className="font-mono text-[10px] tracking-wider text-muted-foreground uppercase">
               Second Brain
             </span>
           </div>
@@ -82,7 +82,7 @@ export default function AppSidebar({ user, onNavigate }: AppSidebarProps) {
                 {SIDEBAR_LINKS.map((l) => (
                   <li
                     key={l.href}
-                    className="h-8 rounded-md bg-muted/20 animate-pulse"
+                    className="h-8 animate-pulse rounded-md bg-muted/20"
                   />
                 ))}
               </ul>
@@ -95,7 +95,11 @@ export default function AppSidebar({ user, onNavigate }: AppSidebarProps) {
 
       {/* User Section */}
       <div className="border-t border-border/60 pt-3">
-        <Suspense fallback={<div className="h-10 bg-muted/20 rounded-md animate-pulse" />}>
+        <Suspense
+          fallback={
+            <div className="h-10 animate-pulse rounded-md bg-muted/20" />
+          }
+        >
           <UserDropdown user={user} />
         </Suspense>
       </div>

@@ -1,4 +1,5 @@
 import Header from "@/components/layout/Header";
+import LoadingText from "@/components/LoadingText";
 import DashboardContainer from "@/features/dashboard/components/DashboardContainer";
 import { Suspense } from "react";
 
@@ -10,13 +11,7 @@ export default async function DashboardPage() {
         description="Spaced repetition & recall overview"
       />
 
-      <Suspense
-        fallback={
-          <div className="p-6 text-xs text-muted-foreground">
-            Loading dashboard...
-          </div>
-        }
-      >
+      <Suspense fallback={<LoadingText resource="dashboard" />}>
         <DashboardContainer />
       </Suspense>
     </div>

@@ -1,4 +1,5 @@
 import Header from "@/components/layout/Header";
+import LoadingText from "@/components/LoadingText";
 import TagForm from "@/features/tag/components/TagForm";
 import TagList from "@/features/tag/components/TagList";
 import { Suspense } from "react";
@@ -11,16 +12,10 @@ export default function TagsPage() {
         description="Categorize and cross-reference topics across your entire library"
       />
 
-      <div className="max-w-6xl mx-auto w-full p-6 space-y-6">
+      <div className="mx-auto w-full max-w-6xl space-y-6 p-6">
         <TagForm />
 
-        <Suspense
-          fallback={
-            <div className="py-12 text-center text-xs text-muted-foreground animate-pulse">
-              Loading tags...
-            </div>
-          }
-        >
+        <Suspense fallback={<LoadingText resource="tags" />}>
           <TagList />
         </Suspense>
       </div>

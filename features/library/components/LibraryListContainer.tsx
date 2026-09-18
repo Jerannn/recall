@@ -1,3 +1,4 @@
+import LoadingText from "@/components/LoadingText";
 import { Suspense } from "react";
 import { LibraryQueryParams } from "../types";
 import LibraryList from "./LibraryList";
@@ -14,7 +15,7 @@ export default async function LibraryListContainer({
 
   // TODO: add a loading or spinner UI
   return (
-    <Suspense fallback={<p>Loading...</p>} key={key}>
+    <Suspense fallback={<LoadingText resource="library" />} key={key}>
       <LibraryList searchParams={searchParams} />
     </Suspense>
   );
