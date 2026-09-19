@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { authClient } from "@/lib/auth-client";
 import { LogOut, User as UserIcon } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -54,12 +55,15 @@ export default function UserDropdown({ user: propUser }: UserDropdownProps) {
       <DropdownMenuTrigger className="flex w-full items-center gap-3 rounded-lg p-2 text-left text-sm transition-colors hover:bg-muted/80 focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none">
         <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
           {user?.image ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={user.image}
-              alt={name}
-              className="h-full w-full rounded-full object-cover"
-            />
+            <div className="relative mx-auto h-8 w-8">
+              <Image
+                src={user.image}
+                alt={name}
+                fill
+                sizes="100%"
+                className="rounded-full object-cover grayscale-30"
+              />
+            </div>
           ) : initials ? (
             <span>{initials}</span>
           ) : (
